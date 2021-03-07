@@ -5,27 +5,18 @@ using UnityEngine.UI;
 
 public class ElementoInteractivo : MonoBehaviour
 {
-    [SerializeField] RawImage imagenIndicador = null; // Asignado en Unity
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    [SerializeField] RawImage imagenIndicadorInteraccion = null; // Asignado en Unity
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Jugador"))
         {
-            imagenIndicador.enabled = true;
+            imagenIndicadorInteraccion.enabled = true;
             Vector3 posicionAColocar = gameObject.transform.position;
-            //imagenIndicador.transform.position = posicionAColocar;
-            imagenIndicador.rectTransform.anchoredPosition = posicionAColocar;
-            imagenIndicador.rectTransform.sizeDelta = new Vector2(100f, 100f);
+            imagenIndicadorInteraccion.
+                rectTransform.anchoredPosition = posicionAColocar;
+            imagenIndicadorInteraccion.rectTransform.sizeDelta = 
+                new Vector2(100f, 100f);
         }      
     }
 
@@ -33,7 +24,7 @@ public class ElementoInteractivo : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Jugador"))
         {
-            imagenIndicador.enabled = false;
+            imagenIndicadorInteraccion.enabled = false;
         }
     }
 }

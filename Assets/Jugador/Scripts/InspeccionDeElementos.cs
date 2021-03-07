@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class InspeccionDeElementos : MonoBehaviour
 {
-    [SerializeField] TMP_Text mensajeDeInteraccion; // Asignado en Unity
     private AudioSource audioSource;
+
+    // Mensajes
+    [SerializeField] TMP_Text mensajeDeInteraccion; // Asignado en Unity
+    [SerializeField] GameObject fondoOscuroTraslucidoMensajes; // Asignado en Unity
+    private bool mensajeActivo = false;
 
     void Start()
     {
@@ -15,15 +19,18 @@ public class InspeccionDeElementos : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Jugador") && 
-            Input.GetButtonDown("Interactuar"))
+        if (Input.GetButtonDown("Interactuar") &&
+            other.gameObject.CompareTag("Jugador") && !mensajeActivo)
         {
+            fondoOscuroTraslucidoMensajes.SetActive(true);
+            mensajeActivo = true;
+
             if (gameObject.CompareTag("InspeccionPuertaPrincipal"))
             {
                 mensajeDeInteraccion.text =
                     "La puerta principal está bloqueada. " +
                     "Debo buscar otra forma de salir.";
-                audioSource.Play();
+                ReproducirSonidoElemento();
             }
 
             else if (gameObject.CompareTag("InspeccionAscensor"))
@@ -39,6 +46,14 @@ public class InspeccionDeElementos : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+        mensajeActivo = false;
+        fondoOscuroTraslucidoMensajes.SetActive(false);
         mensajeDeInteraccion.text = "";
+    }
+
+    private void ReproducirSonidoElemento()
+    {
+        if (audioSource != null)
+            audioSource.Play();
     }
 }
