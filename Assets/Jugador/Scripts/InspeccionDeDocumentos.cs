@@ -11,6 +11,8 @@ public class InspeccionDeDocumentos : MonoBehaviour
 
     private AudioSource audioSource;
 
+    private bool seHaPulsadoInteractuar = false;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -18,14 +20,16 @@ public class InspeccionDeDocumentos : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (Input.GetButtonDown("Interactuar") && 
+        if (Input.GetButtonDown("Interactuar"))
+            seHaPulsadoInteractuar = true;
+
+        if (seHaPulsadoInteractuar && 
             other.gameObject.CompareTag("Jugador") && !documentoActivo)
         {
             documentoActivo = true;
             audioSource.Play();
             documentos.SetActive(true);
 
-            // Documentos
             if (gameObject.CompareTag("InspeccionDocumentoPrueba"))
             {
                 textoDelDocumento.text = "El Doctor Isaacs ha informado " +
@@ -33,6 +37,8 @@ public class InspeccionDeDocumentos : MonoBehaviour
                     "encontrado de inmediato.";
             }
         }
+
+        seHaPulsadoInteractuar = false;
     }
 
     void OnTriggerExit(Collider other)

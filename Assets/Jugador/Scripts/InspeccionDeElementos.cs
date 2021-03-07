@@ -12,6 +12,8 @@ public class InspeccionDeElementos : MonoBehaviour
     [SerializeField] GameObject fondoOscuroTraslucidoMensajes; // Asignado en Unity
     private bool mensajeActivo = false;
 
+    private bool seHaPulsadoInteractuar = false;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -19,7 +21,10 @@ public class InspeccionDeElementos : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (Input.GetButtonDown("Interactuar") &&
+        if (Input.GetButtonDown("Interactuar"))
+            seHaPulsadoInteractuar = true;
+
+        if (seHaPulsadoInteractuar &&
             other.gameObject.CompareTag("Jugador") && !mensajeActivo)
         {
             fondoOscuroTraslucidoMensajes.SetActive(true);
@@ -41,7 +46,9 @@ public class InspeccionDeElementos : MonoBehaviour
                 mensajeDeInteraccion.text =
                     "La estatua tiene tres orificios vacíos. " +
                     "Es cómo si se tuviera que insertar algo.";
-        } 
+        }
+
+        seHaPulsadoInteractuar = false;
     }
 
     void OnTriggerExit(Collider other)
