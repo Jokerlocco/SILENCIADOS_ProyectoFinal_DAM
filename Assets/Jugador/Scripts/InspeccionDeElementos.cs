@@ -19,6 +19,11 @@ public class InspeccionDeElementos : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void FixedUpdate()
+    {
+        
+    }
+
     void OnTriggerStay(Collider other)
     {
         if (Input.GetButtonDown("Interactuar"))
