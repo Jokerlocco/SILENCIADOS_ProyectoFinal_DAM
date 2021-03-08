@@ -26,14 +26,4 @@ public class Inventario : MonoBehaviour
         else
             DontDestroyOnLoad(gameObject);
     }
-
-    private void OnTriggerStay(Collider other)
-    {
-        
-    }
-
-    private void RecogerObjeto()
-    {
-
-    }
 }

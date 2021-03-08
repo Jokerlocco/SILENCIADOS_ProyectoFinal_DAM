@@ -5,46 +5,54 @@ using UnityEngine;
 
 public class InspeccionDeDocumentos : MonoBehaviour
 {
+    private bool colisionando = false;
+
     [SerializeField] GameObject documentos; // Asignado en Unity
     [SerializeField] TMP_Text textoDelDocumento; // Asignado en Unity
     private bool documentoActivo = false;
 
     private AudioSource audioSource;
 
-    private bool seHaPulsadoInteractuar = false;
-
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
-    void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (Input.GetButtonDown("Interactuar"))
-            seHaPulsadoInteractuar = true;
-
-        if (seHaPulsadoInteractuar && 
-            other.gameObject.CompareTag("Jugador") && !documentoActivo)
-        {
-            documentoActivo = true;
-            audioSource.Play();
-            documentos.SetActive(true);
-
-            if (gameObject.CompareTag("InspeccionDocumentoPrueba"))
-            {
-                textoDelDocumento.text = "El Doctor Isaacs ha informado " +
-                    "del escape del paciente 0234567L. Debe de ser " +
-                    "encontrado de inmediato.";
-            }
-        }
-
-        seHaPulsadoInteractuar = false;
+        colisionando = true;
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        documentoActivo = false;
+        colisionando = false;
+
         documentos.SetActive(false);
+        documentoActivo = false;
         textoDelDocumento.text = "";
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Interactuar") &&
+            colisionando && !documentoActivo)
+        {
+            documentos.SetActive(true);
+            documentoActivo = true;
+            audioSource.Play();
+
+            MostrarTextoDelDocumento();
+        }
+    }
+
+    private void MostrarTextoDelDocumento()
+    {
+        Debug.Log(gameObject.tag);
+        if (gameObject.CompareTag("InspeccionDocumentoPrueba"))
+        {
+            textoDelDocumento.text = "El Doctor Isaacs ha informado " +
+                "del escape del paciente 0234567L. Debe de ser " +
+                "encontrado de inmediato.";
+        }
     }
 }

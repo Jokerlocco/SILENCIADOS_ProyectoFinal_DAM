@@ -5,62 +5,64 @@ using UnityEngine;
 
 public class InspeccionDeElementos : MonoBehaviour
 {
-    private AudioSource audioSource;
+    private bool colisionando = false;
 
     // Mensajes
     [SerializeField] TMP_Text mensajeDeInteraccion; // Asignado en Unity
     [SerializeField] GameObject fondoOscuroTraslucidoMensajes; // Asignado en Unity
     private bool mensajeActivo = false;
 
-    private bool seHaPulsadoInteractuar = false;
+    private AudioSource audioSource;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void FixedUpdate()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        colisionando = true;
     }
 
-    void OnTriggerStay(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        if (Input.GetButtonDown("Interactuar"))
-            seHaPulsadoInteractuar = true;
+        colisionando = false;
 
-        if (seHaPulsadoInteractuar &&
-            other.gameObject.CompareTag("Jugador") && !mensajeActivo)
+        fondoOscuroTraslucidoMensajes.SetActive(false);
+        mensajeActivo = false;
+        mensajeDeInteraccion.text = "";
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Interactuar") &&
+            colisionando && !mensajeActivo)
         {
             fondoOscuroTraslucidoMensajes.SetActive(true);
             mensajeActivo = true;
 
-            if (gameObject.CompareTag("InspeccionPuertaPrincipal"))
-            {
-                mensajeDeInteraccion.text =
-                    "La puerta principal está bloqueada. " +
-                    "Debo buscar otra forma de salir.";
-                ReproducirSonidoElemento();
-            }
-
-            else if (gameObject.CompareTag("InspeccionAscensor"))
-                mensajeDeInteraccion.text = 
-                    "El ascensor está destrozado. No se puede utilizar.";
-
-            else if (gameObject.CompareTag("InspeccionEstatua"))
-                mensajeDeInteraccion.text =
-                    "La estatua tiene tres orificios vacíos. " +
-                    "Es cómo si se tuviera que insertar algo.";
+            DarMensajeDelElemento();
         }
-
-        seHaPulsadoInteractuar = false;
     }
 
-    void OnTriggerExit(Collider other)
+    private void DarMensajeDelElemento()
     {
-        mensajeActivo = false;
-        fondoOscuroTraslucidoMensajes.SetActive(false);
-        mensajeDeInteraccion.text = "";
+        if (gameObject.CompareTag("InspeccionPuertaPrincipal"))
+        {
+            mensajeDeInteraccion.text =
+                "La puerta principal está bloqueada. " +
+                "Debo buscar otra forma de salir.";
+            ReproducirSonidoElemento();
+        }
+
+        else if (gameObject.CompareTag("InspeccionAscensor"))
+            mensajeDeInteraccion.text =
+                "El ascensor está destrozado. No se puede utilizar.";
+
+        else if (gameObject.CompareTag("InspeccionEstatua"))
+            mensajeDeInteraccion.text =
+                "La estatua tiene tres orificios vacíos. " +
+                "Es cómo si se tuviera que insertar algo.";
     }
 
     private void ReproducirSonidoElemento()
