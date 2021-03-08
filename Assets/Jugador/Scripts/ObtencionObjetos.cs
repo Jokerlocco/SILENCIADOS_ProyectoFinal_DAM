@@ -28,7 +28,8 @@ public class ObtencionObjetos : MonoBehaviour
     {
         if (gameObject.CompareTag("GlifoDeBronce"))
         {
-            FindObjectOfType<Inventario>().GlifoBronceEnElInventario = true;
+            FindObjectOfType<InventarioJugador>().
+                GlifoBronceEnElInventario = true;
             gameObject.SetActive(false);
             Debug.Log("Glifo de bronce recogido");
         }

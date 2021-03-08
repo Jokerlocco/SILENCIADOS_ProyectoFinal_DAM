@@ -47,7 +47,6 @@ public class InspeccionDeDocumentos : MonoBehaviour
 
     private void MostrarTextoDelDocumento()
     {
-        Debug.Log(gameObject.tag);
         if (gameObject.CompareTag("InspeccionDocumentoPrueba"))
         {
             textoDelDocumento.text = "El Doctor Isaacs ha informado " +
