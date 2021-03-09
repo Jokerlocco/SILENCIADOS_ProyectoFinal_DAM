@@ -27,9 +27,9 @@ public class InspeccionDeElementos : MonoBehaviour
 
     private void QuitarInterfazMensaje()
     {
-        fondoOscuroTraslucidoMensajes.SetActive(false);
         mensajeActivo = false;
         mensajeDeInteraccion.text = "";
+        fondoOscuroTraslucidoMensajes.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)

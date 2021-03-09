@@ -51,6 +51,12 @@ public class ObtencionObjetos : MonoBehaviour
                 GlifoBronceEnElInventario = true;
             textoDelMensaje = "Glifo de bronce recogido";
         }
+        else if (gameObject.CompareTag("GlifoDeMarmol"))
+        {
+            FindObjectOfType<InventarioJugador>().
+                GlifoMarmolEnElInventario = true;
+            textoDelMensaje = "Glifo de mármol recogido";
+        }
 
         audioSource.Play();
         OcultarObjetoDelEscenario();
