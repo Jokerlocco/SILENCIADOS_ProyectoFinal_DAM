@@ -19,18 +19,40 @@ public class InspeccionDeElementos : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void ActivarInterfazMensaje()
+    {
+        fondoOscuroTraslucidoMensajes.SetActive(true);
+        mensajeActivo = true;
+    }
+
+    private void QuitarInterfazMensaje()
+    {
+        fondoOscuroTraslucidoMensajes.SetActive(false);
+        mensajeActivo = false;
+        mensajeDeInteraccion.text = "";
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        colisionando = true;
+        if (other.gameObject.CompareTag("Jugador"))
+        {
+            colisionando = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        colisionando = false;
+        if (other.gameObject.CompareTag("Jugador"))
+        {
+            colisionando = false;
+            QuitarInterfazMensaje();
+        }
+    }
 
-        fondoOscuroTraslucidoMensajes.SetActive(false);
-        mensajeActivo = false;
-        mensajeDeInteraccion.text = "";
+    private void ReproducirSonidoElemento()
+    {
+        if (audioSource != null)
+            audioSource.Play();
     }
 
     private void Update()
@@ -38,9 +60,7 @@ public class InspeccionDeElementos : MonoBehaviour
         if (Input.GetButtonDown("Interactuar") &&
             colisionando && !mensajeActivo)
         {
-            fondoOscuroTraslucidoMensajes.SetActive(true);
-            mensajeActivo = true;
-
+            ActivarInterfazMensaje();
             DarMensajeDelElemento();
         }
     }
@@ -63,11 +83,5 @@ public class InspeccionDeElementos : MonoBehaviour
             mensajeDeInteraccion.text =
                 "La estatua tiene tres orificios vacíos. " +
                 "Es cómo si se tuviera que insertar algo.";
-    }
-
-    private void ReproducirSonidoElemento()
-    {
-        if (audioSource != null)
-            audioSource.Play();
     }
 }

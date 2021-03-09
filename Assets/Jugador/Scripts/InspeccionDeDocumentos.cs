@@ -20,16 +20,22 @@ public class InspeccionDeDocumentos : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        colisionando = true;
+        if (other.gameObject.CompareTag("Jugador"))
+        {
+            colisionando = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        colisionando = false;
+        if (other.gameObject.CompareTag("Jugador"))
+        {
+            colisionando = false;
 
-        documentos.SetActive(false);
-        documentoActivo = false;
-        textoDelDocumento.text = "";
+            documentos.SetActive(false);
+            documentoActivo = false;
+            textoDelDocumento.text = "";
+        }
     }
 
     private void Update()

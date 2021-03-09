@@ -1,19 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ObtencionObjetos : MonoBehaviour
 {
-    public bool colisionando = false;
+    private bool colisionando = false;
+
+    [SerializeField] TMP_Text mensajeObtencionDeObjeto; // Asignado en Unity
+    [SerializeField] GameObject fondoOscuroTraslucidoMensajes; // Asignado en Unity
+
+    private string textoDelMensaje = "";
+
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        colisionando = true;
+        if (other.gameObject.CompareTag("Jugador"))
+        {
+            colisionando = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        colisionando = false;
+        if (other.gameObject.CompareTag("Jugador"))
+        {
+            colisionando = false;
+        }
     }
 
     private void Update()
@@ -30,8 +49,40 @@ public class ObtencionObjetos : MonoBehaviour
         {
             FindObjectOfType<InventarioJugador>().
                 GlifoBronceEnElInventario = true;
-            gameObject.SetActive(false);
-            Debug.Log("Glifo de bronce recogido");
+            textoDelMensaje = "Glifo de bronce recogido";
         }
+
+        audioSource.Play();
+        OcultarObjetoDelEscenario();
+        StartCoroutine(InformarSobreObjetoRecogido());
+    }
+
+    private void OcultarObjetoDelEscenario()
+    {
+        Renderer renderDelObjeto = gameObject.GetComponent<Renderer>();
+        renderDelObjeto.enabled = false;
+        MeshCollider meshColliderDelObjeto = 
+            gameObject.GetComponent<MeshCollider>();
+        meshColliderDelObjeto.enabled = false;
+        gameObject.tag = "Recogido";
+    }
+
+    private void ActivarInterfazMensaje()
+    {
+        fondoOscuroTraslucidoMensajes.SetActive(true);
+    }
+
+    private void QuitarInterfazMensaje()
+    {
+        mensajeObtencionDeObjeto.text = "";
+        fondoOscuroTraslucidoMensajes.SetActive(false);
+    }
+
+    private IEnumerator InformarSobreObjetoRecogido()
+    {
+        ActivarInterfazMensaje();
+        mensajeObtencionDeObjeto.text = textoDelMensaje;
+        yield return new WaitForSecondsRealtime(3);
+        QuitarInterfazMensaje();
     }
 }
