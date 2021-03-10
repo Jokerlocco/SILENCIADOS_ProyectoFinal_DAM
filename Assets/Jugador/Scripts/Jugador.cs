@@ -35,7 +35,7 @@ public class Jugador : MonoBehaviour
 
     private void Correr()
     {
-        if (Input.GetKey(KeyCode.LeftShift)) // Si se pulsa el botón de correr...
+        if (Input.GetButton("Esprintar"))// Si se pulsa el botón de correr...
         {
             if (y >= 1) // y si también está avanzando (y no retrocediendo), puede correr
             {

@@ -6,8 +6,14 @@ using UnityEngine;
 public class InventarioJugador : MonoBehaviour
 {
     [SerializeField] TMP_Text contenidoInventario; // Asignado en Unity
-    [SerializeField] GameObject fondoOscuroTraslucidoInventario; // Asignado en Unity
 
+    // Animación inventario
+    [SerializeField] GameObject interfazInventario; // Asignado en Unity
+    [SerializeField] GameObject fondoOscuroTraslucidoInventario; // Asignado en Unity
+    private Animator animacionDeLaInterfaz;
+    private bool inventarioAbierto = false;
+
+    // Objetos
     private string nombreGlifoBronce = "Glifo de bronce";
     public bool GlifoBronceEnElInventario { get; set; }
     private string nombreGlifoMarmol = "Glifo de mármol";
@@ -31,6 +37,8 @@ public class InventarioJugador : MonoBehaviour
 
     private void Start()
     {
+        animacionDeLaInterfaz = interfazInventario.GetComponent<Animator>();
+
         contenidoInventario.text = "";
         GlifoBronceEnElInventario = false;
         GlifoMarmolEnElInventario = false;
@@ -39,6 +47,24 @@ public class InventarioJugador : MonoBehaviour
     private void Update()
     {
         MostrarObjetosDelInventario();
+        AbrirOCerrarInventario();
+    }
+
+    private void AbrirOCerrarInventario()
+    {
+        if (Input.GetButtonDown("BotonInventario"))
+        {
+            inventarioAbierto = !inventarioAbierto;
+        }
+
+        if (inventarioAbierto)
+        {
+            animacionDeLaInterfaz.SetBool("abierto", true);
+        }
+        else
+        {
+            animacionDeLaInterfaz.SetBool("abierto", false);
+        }
     }
 
     private void MostrarObjetosDelInventario()
