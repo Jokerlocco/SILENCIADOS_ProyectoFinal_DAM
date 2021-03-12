@@ -45,17 +45,23 @@ public class ObtencionObjetos : MonoBehaviour
 
     private void RecogerObjeto()
     {
-        if (gameObject.CompareTag("GlifoDeBronce"))
+        if (gameObject.CompareTag("GrifoDeBronce"))
         {
             FindObjectOfType<InventarioJugador>().
-                GlifoBronceEnElInventario = true;
-            textoDelMensaje = "Glifo de bronce recogido";
+                GrifoBronceEnElInventario = true;
+            textoDelMensaje = "Grifo de bronce recogido";
         }
-        else if (gameObject.CompareTag("GlifoDeMarmol"))
+        else if (gameObject.CompareTag("GrifoDeMarmol"))
         {
             FindObjectOfType<InventarioJugador>().
-                GlifoMarmolEnElInventario = true;
-            textoDelMensaje = "Glifo de mármol recogido";
+                GrifoMarmolEnElInventario = true;
+            textoDelMensaje = "Grifo de mármol recogido";
+        }
+        else if (gameObject.CompareTag("GrifoDeMadera"))
+        {
+            FindObjectOfType<InventarioJugador>().
+                GrifoMaderaEnElInventario = true;
+            textoDelMensaje = "Grifo de madera recogido";
         }
 
         audioSource.Play();

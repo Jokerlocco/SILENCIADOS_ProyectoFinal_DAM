@@ -14,10 +14,12 @@ public class InventarioJugador : MonoBehaviour
     private bool inventarioAbierto = false;
 
     // Objetos
-    private string nombreGlifoBronce = "Glifo de bronce";
-    public bool GlifoBronceEnElInventario { get; set; }
-    private string nombreGlifoMarmol = "Glifo de mármol";
-    public bool GlifoMarmolEnElInventario { get; set; }
+    private string nombreGrifoBronce = "Grifo de bronce";
+    public bool GrifoBronceEnElInventario { get; set; }
+    private string nombreGrifoMarmol = "Grifo de mármol";
+    public bool GrifoMarmolEnElInventario { get; set; }
+    private string nombreGrifoMadera = "Grifo de madera";
+    public bool GrifoMaderaEnElInventario { get; set; }
 
     private void ImplementarPatronSingleton()
     {
@@ -40,8 +42,8 @@ public class InventarioJugador : MonoBehaviour
         animacionDeLaInterfaz = interfazInventario.GetComponent<Animator>();
 
         contenidoInventario.text = "";
-        GlifoBronceEnElInventario = false;
-        GlifoMarmolEnElInventario = false;
+        GrifoBronceEnElInventario = false;
+        GrifoMarmolEnElInventario = false;
     }
 
     private void Update()
@@ -69,13 +71,17 @@ public class InventarioJugador : MonoBehaviour
 
     private void MostrarObjetosDelInventario()
     {
-        if (GlifoBronceEnElInventario && 
-            !contenidoInventario.text.Contains(nombreGlifoBronce))
-            contenidoInventario.text += nombreGlifoBronce + "\n";
+        if (GrifoBronceEnElInventario && 
+            !contenidoInventario.text.Contains(nombreGrifoBronce))
+            contenidoInventario.text += nombreGrifoBronce + "\n";
 
-        if (GlifoMarmolEnElInventario &&
-            !contenidoInventario.text.Contains(nombreGlifoMarmol))
-            contenidoInventario.text += nombreGlifoMarmol + "\n";
+        if (GrifoMarmolEnElInventario &&
+            !contenidoInventario.text.Contains(nombreGrifoMarmol))
+            contenidoInventario.text += nombreGrifoMarmol + "\n";
+
+        if (GrifoMaderaEnElInventario &&
+            !contenidoInventario.text.Contains(nombreGrifoMadera))
+            contenidoInventario.text += nombreGrifoMadera + "\n";
 
     }
 }
