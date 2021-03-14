@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class ObtencionObjetos : MonoBehaviour
 {
     private bool colisionando = false;
+    private bool objetoRecogido = false;
 
     [SerializeField] TMP_Text mensajeObtencionDeObjeto; // Asignado en Unity
     [SerializeField] GameObject fondoOscuroTraslucidoMensajes; // Asignado en Unity
@@ -37,38 +39,56 @@ public class ObtencionObjetos : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Interactuar") && colisionando)
+        if (objetoRecogido) // Si el objeto ha sido recogido, dejamos de comprobar la obtención de dicho objeto
         {
-            RecogerObjeto();
+            DesactivarFuncionUpdate();
+        }
+        else
+        {
+            if (Input.GetButtonDown("Interactuar") && colisionando)
+            {
+                RecogerObjeto();
+            }
         }
     }
 
     private void RecogerObjeto()
     {
-        if (gameObject.CompareTag("GrifoDeBronce"))
+        if (gameObject.CompareTag("GrifoDeMadera"))
         {
             FindObjectOfType<InventarioJugador>().
-                GrifoBronceEnElInventario = true;
-            textoDelMensaje = "Grifo de bronce recogido";
+                GrifoMaderaEnElInventario = true;
+            textoDelMensaje = "Grifo de madera recogido";
         }
+
         else if (gameObject.CompareTag("GrifoDeMarmol"))
         {
             FindObjectOfType<InventarioJugador>().
                 GrifoMarmolEnElInventario = true;
             textoDelMensaje = "Grifo de mármol recogido";
         }
-        else if (gameObject.CompareTag("GrifoDeMadera"))
+
+        else if (gameObject.CompareTag("GrifoDeBronce"))
         {
             FindObjectOfType<InventarioJugador>().
-                GrifoMaderaEnElInventario = true;
-            textoDelMensaje = "Grifo de madera recogido";
+                GrifoBronceEnElInventario = true;
+            textoDelMensaje = "Grifo de bronce recogido";
         }
+
+        else if (gameObject.CompareTag("LlavePeon"))
+        {
+            FindObjectOfType<InventarioJugador>().
+                LlavePeonEnElInventario = true;
+            textoDelMensaje = "Llave peón recogida";
+        }
+
         else if (gameObject.CompareTag("LlaveTorre"))
         {
             FindObjectOfType<InventarioJugador>().
                 LlaveTorreEnElInventario = true;
             textoDelMensaje = "Llave torre recogida";
         }
+
         else if (gameObject.CompareTag("Bombilla"))
         {
             FindObjectOfType<InventarioJugador>().
@@ -76,6 +96,7 @@ public class ObtencionObjetos : MonoBehaviour
             textoDelMensaje = "Bombilla funcional recogida";
         }
 
+        objetoRecogido = true;
         audioSource.Play();
         OcultarObjetoDelEscenario();
         StartCoroutine(InformarSobreObjetoRecogido());
@@ -83,11 +104,27 @@ public class ObtencionObjetos : MonoBehaviour
 
     private void OcultarObjetoDelEscenario()
     {
-        Renderer renderDelObjeto = gameObject.GetComponent<Renderer>();
-        renderDelObjeto.enabled = false;
+        if (gameObject.CompareTag("LlavePeon") || 
+            gameObject.CompareTag("LlaveTorre") ||
+            gameObject.CompareTag("LlaveCaballo") ||
+            gameObject.CompareTag("LlaveAlfil") ||
+            gameObject.CompareTag("LlaveRey"))
+        {
+            /* Las llaves tienen dos partes: "La cabeza" y el "cifrado". 
+             * Pues con esto, eliminamos el cifrado que 
+             * es la parte hija de la llave. */
+            GameObject cifradoLlave = 
+                gameObject.transform.GetChild(0).gameObject;
+            Renderer renderer = cifradoLlave.GetComponent<Renderer>();
+            renderer.enabled = false;
+        }
+
+        Renderer rendererDelObjeto = gameObject.GetComponent<Renderer>();
+        rendererDelObjeto.enabled = false;
         MeshCollider meshColliderDelObjeto = 
             gameObject.GetComponent<MeshCollider>();
         meshColliderDelObjeto.enabled = false;
+        
         gameObject.tag = "Recogido";
     }
 
@@ -108,5 +145,10 @@ public class ObtencionObjetos : MonoBehaviour
         mensajeObtencionDeObjeto.text = textoDelMensaje;
         yield return new WaitForSecondsRealtime(3);
         QuitarInterfazMensaje();
+    }
+
+    private void DesactivarFuncionUpdate()
+    {
+        enabled = false;
     }
 }

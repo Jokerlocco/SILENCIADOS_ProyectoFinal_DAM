@@ -59,7 +59,6 @@ public class InspeccionDeDocumentos : MonoBehaviour
         textoDelDocumento.text = "";
     }
 
-
     private void MostrarTextoDelDocumento()
     {
         if (gameObject.CompareTag("InspeccionDocumentoPrueba"))

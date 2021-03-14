@@ -11,11 +11,16 @@ public class ElementoInteractivo : MonoBehaviour
 
     private void Update()
     {
-        if (colisionando)
-            MostrarIndicadorDeInteraccion();
-
         if (gameObject.CompareTag("Recogido"))
+        {
             OcultarIndicadorDeInteraccion();
+            DesactivarFuncionUpdate();
+        }
+        else
+        {
+            if (colisionando)
+                MostrarIndicadorDeInteraccion();
+        }     
     }
 
     void OnTriggerEnter(Collider other)
@@ -48,5 +53,13 @@ public class ElementoInteractivo : MonoBehaviour
     private void OcultarIndicadorDeInteraccion()
     {
         imagenIndicadorInteraccion.enabled = false;
+    }
+
+    private void DesactivarFuncionUpdate()
+    {
+        /* Cómo al coger un objeto, el gameobject siempre está en "RECOGIDO", 
+         * desactivamos la función UPDATE de este objeto para evitar que
+         * oculte el icono de interacción (para el resto de elementos). */
+        enabled = false;
     }
 }

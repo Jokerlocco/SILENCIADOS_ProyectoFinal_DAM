@@ -14,12 +14,14 @@ public class InventarioJugador : MonoBehaviour
     private bool inventarioAbierto = false;
 
     // Objetos
-    private string nombreGrifoBronce = "Grifo de bronce";
-    public bool GrifoBronceEnElInventario { get; set; }
-    private string nombreGrifoMarmol = "Grifo de mármol";
-    public bool GrifoMarmolEnElInventario { get; set; }
     private string nombreGrifoMadera = "Grifo de madera";
     public bool GrifoMaderaEnElInventario { get; set; }
+    private string nombreGrifoMarmol = "Grifo de mármol";
+    public bool GrifoMarmolEnElInventario { get; set; }
+    private string nombreGrifoBronce = "Grifo de bronce";
+    public bool GrifoBronceEnElInventario { get; set; }
+    private string nombreLlavePeon = "Llave peón";
+    public bool LlavePeonEnElInventario { get; set; }
     private string nombreLlaveTorre = "Llave torre";
     public bool LlaveTorreEnElInventario { get; set; }
     private string nombreBombilla = "Bombilla funcional";
@@ -46,8 +48,11 @@ public class InventarioJugador : MonoBehaviour
         animacionDeLaInterfaz = interfazInventario.GetComponent<Animator>();
 
         contenidoInventario.text = "";
-        GrifoBronceEnElInventario = false;
+
+        GrifoMaderaEnElInventario = false;
         GrifoMarmolEnElInventario = false;
+        GrifoBronceEnElInventario = false;
+        LlavePeonEnElInventario = false;
         LlaveTorreEnElInventario = false;
         BombillaEnElInventario = false;
     }
@@ -77,17 +82,21 @@ public class InventarioJugador : MonoBehaviour
 
     private void MostrarObjetosDelInventario()
     {
-        if (GrifoBronceEnElInventario && 
-            !contenidoInventario.text.Contains(nombreGrifoBronce))
-            contenidoInventario.text += nombreGrifoBronce + "\n";
+        if (GrifoMaderaEnElInventario &&
+            !contenidoInventario.text.Contains(nombreGrifoMadera))
+            contenidoInventario.text += nombreGrifoMadera + "\n";
 
         if (GrifoMarmolEnElInventario &&
             !contenidoInventario.text.Contains(nombreGrifoMarmol))
             contenidoInventario.text += nombreGrifoMarmol + "\n";
 
-        if (GrifoMaderaEnElInventario &&
-            !contenidoInventario.text.Contains(nombreGrifoMadera))
-            contenidoInventario.text += nombreGrifoMadera + "\n";
+        if (GrifoBronceEnElInventario && 
+            !contenidoInventario.text.Contains(nombreGrifoBronce))
+            contenidoInventario.text += nombreGrifoBronce + "\n";
+
+        if (LlavePeonEnElInventario && 
+            !contenidoInventario.text.Contains(nombreLlavePeon))
+            contenidoInventario.text += nombreLlavePeon + "\n";
 
         if (LlaveTorreEnElInventario &&
             !contenidoInventario.text.Contains(nombreLlaveTorre))
@@ -96,6 +105,5 @@ public class InventarioJugador : MonoBehaviour
         if (BombillaEnElInventario &&
             !contenidoInventario.text.Contains(nombreBombilla))
             contenidoInventario.text += nombreBombilla + "\n";
-
     }
 }
