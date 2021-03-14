@@ -63,6 +63,18 @@ public class ObtencionObjetos : MonoBehaviour
                 GrifoMaderaEnElInventario = true;
             textoDelMensaje = "Grifo de madera recogido";
         }
+        else if (gameObject.CompareTag("LlaveTorre"))
+        {
+            FindObjectOfType<InventarioJugador>().
+                LlaveTorreEnElInventario = true;
+            textoDelMensaje = "Llave torre recogida";
+        }
+        else if (gameObject.CompareTag("Bombilla"))
+        {
+            FindObjectOfType<InventarioJugador>().
+                BombillaEnElInventario = true;
+            textoDelMensaje = "Bombilla funcional recogida";
+        }
 
         audioSource.Play();
         OcultarObjetoDelEscenario();

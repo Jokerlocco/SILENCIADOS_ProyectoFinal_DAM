@@ -20,6 +20,10 @@ public class InventarioJugador : MonoBehaviour
     public bool GrifoMarmolEnElInventario { get; set; }
     private string nombreGrifoMadera = "Grifo de madera";
     public bool GrifoMaderaEnElInventario { get; set; }
+    private string nombreLlaveTorre = "Llave torre";
+    public bool LlaveTorreEnElInventario { get; set; }
+    private string nombreBombilla = "Bombilla funcional";
+    public bool BombillaEnElInventario { get; set; }
 
     private void ImplementarPatronSingleton()
     {
@@ -44,6 +48,8 @@ public class InventarioJugador : MonoBehaviour
         contenidoInventario.text = "";
         GrifoBronceEnElInventario = false;
         GrifoMarmolEnElInventario = false;
+        LlaveTorreEnElInventario = false;
+        BombillaEnElInventario = false;
     }
 
     private void Update()
@@ -82,6 +88,14 @@ public class InventarioJugador : MonoBehaviour
         if (GrifoMaderaEnElInventario &&
             !contenidoInventario.text.Contains(nombreGrifoMadera))
             contenidoInventario.text += nombreGrifoMadera + "\n";
+
+        if (LlaveTorreEnElInventario &&
+            !contenidoInventario.text.Contains(nombreLlaveTorre))
+            contenidoInventario.text += nombreLlaveTorre + "\n";
+
+        if (BombillaEnElInventario &&
+            !contenidoInventario.text.Contains(nombreBombilla))
+            contenidoInventario.text += nombreBombilla + "\n";
 
     }
 }
