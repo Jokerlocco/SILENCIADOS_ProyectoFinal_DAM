@@ -31,10 +31,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
         if (other.gameObject.CompareTag("Jugador"))
         {
             colisionando = false;
-
-            documentos.SetActive(false);
-            documentoActivo = false;
-            textoDelDocumento.text = "";
+            QuitarDocumento();
         }
     }
 
@@ -43,13 +40,25 @@ public class InspeccionDeDocumentos : MonoBehaviour
         if (Input.GetButtonDown("Interactuar") &&
             colisionando && !documentoActivo)
         {
-            documentos.SetActive(true);
-            documentoActivo = true;
-            audioSource.Play();
-
+            MostrarDocumento();
             MostrarTextoDelDocumento();
         }
     }
+
+    private void MostrarDocumento()
+    {
+        documentos.SetActive(true);
+        documentoActivo = true;
+        audioSource.Play();
+    }
+
+    private void QuitarDocumento()
+    {
+        documentos.SetActive(false);
+        documentoActivo = false;
+        textoDelDocumento.text = "";
+    }
+
 
     private void MostrarTextoDelDocumento()
     {
