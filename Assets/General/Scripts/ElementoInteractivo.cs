@@ -11,10 +11,11 @@ public class ElementoInteractivo : MonoBehaviour
 
     private void Update()
     {
-        if (gameObject.CompareTag("Recogido"))
+        if (gameObject.CompareTag("Recogido") || 
+            gameObject.CompareTag("Utilizado"))
         {
             OcultarIndicadorDeInteraccion();
-            DesactivarFuncionUpdate();
+            DesactivarScript();
         }
         else
         {
@@ -55,7 +56,7 @@ public class ElementoInteractivo : MonoBehaviour
         imagenIndicadorInteraccion.enabled = false;
     }
 
-    private void DesactivarFuncionUpdate()
+    private void DesactivarScript()
     {
         /* Cómo al coger un objeto, el gameobject siempre está en "RECOGIDO", 
          * desactivamos la función UPDATE de este objeto para evitar que

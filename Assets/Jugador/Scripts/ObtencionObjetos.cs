@@ -41,7 +41,7 @@ public class ObtencionObjetos : MonoBehaviour
     {
         if (objetoRecogido) // Si el objeto ha sido recogido, dejamos de comprobar la obtención de dicho objeto
         {
-            DesactivarFuncionUpdate();
+            DesactivarScript();
         }
         else
         {
@@ -54,7 +54,21 @@ public class ObtencionObjetos : MonoBehaviour
 
     private void RecogerObjeto()
     {
-        if (gameObject.CompareTag("GrifoDeMadera"))
+        if (gameObject.CompareTag("Bombilla"))
+        {
+            FindObjectOfType<InventarioJugador>().
+                BombillaEnElInventario = true;
+            textoDelMensaje = "Bombilla funcional recogida";
+        }
+
+        else if (gameObject.CompareTag("GrifoDeBronce"))
+        {
+            FindObjectOfType<InventarioJugador>().
+                GrifoBronceEnElInventario = true;
+            textoDelMensaje = "Grifo de bronce recogido";
+        }
+
+        else if (gameObject.CompareTag("GrifoDeMadera"))
         {
             FindObjectOfType<InventarioJugador>().
                 GrifoMaderaEnElInventario = true;
@@ -66,13 +80,6 @@ public class ObtencionObjetos : MonoBehaviour
             FindObjectOfType<InventarioJugador>().
                 GrifoMarmolEnElInventario = true;
             textoDelMensaje = "Grifo de mármol recogido";
-        }
-
-        else if (gameObject.CompareTag("GrifoDeBronce"))
-        {
-            FindObjectOfType<InventarioJugador>().
-                GrifoBronceEnElInventario = true;
-            textoDelMensaje = "Grifo de bronce recogido";
         }
 
         else if (gameObject.CompareTag("LlavePeon"))
@@ -87,13 +94,6 @@ public class ObtencionObjetos : MonoBehaviour
             FindObjectOfType<InventarioJugador>().
                 LlaveTorreEnElInventario = true;
             textoDelMensaje = "Llave torre recogida";
-        }
-
-        else if (gameObject.CompareTag("Bombilla"))
-        {
-            FindObjectOfType<InventarioJugador>().
-                BombillaEnElInventario = true;
-            textoDelMensaje = "Bombilla funcional recogida";
         }
 
         objetoRecogido = true;
@@ -147,7 +147,7 @@ public class ObtencionObjetos : MonoBehaviour
         QuitarInterfazMensaje();
     }
 
-    private void DesactivarFuncionUpdate()
+    private void DesactivarScript()
     {
         enabled = false;
     }

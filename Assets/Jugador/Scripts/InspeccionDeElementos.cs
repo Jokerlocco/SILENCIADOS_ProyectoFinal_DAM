@@ -60,13 +60,14 @@ public class InspeccionDeElementos : MonoBehaviour
         if (Input.GetButtonDown("Interactuar") &&
             colisionando && !mensajeActivo)
         {
-            ActivarInterfazMensaje();
-            DarMensajeDelElemento();
+            Informar();
         }
     }
 
-    private void DarMensajeDelElemento()
+    private void Informar()
     {
+        bool mostrarMensaje = true;
+
         if (gameObject.CompareTag("InspeccionPuertaPrincipal"))
         {
             mensajeDeInteraccion.text =
@@ -83,5 +84,26 @@ public class InspeccionDeElementos : MonoBehaviour
             mensajeDeInteraccion.text =
                 "La estatua tiene tres orificios vacíos. " +
                 "Es cómo si se tuviera que insertar algo.";
+
+        else if (gameObject.CompareTag("Proyector") && 
+            !FindObjectOfType<InventarioJugador>().BombillaEnElInventario)
+        {
+            mensajeDeInteraccion.text = "El proyector parece funcionar, " +
+                "pero le falta la bombilla.";
+        }
+
+        else
+        {
+            mostrarMensaje = false;
+            DesactivarScript();
+        }
+
+        if (mostrarMensaje)
+            ActivarInterfazMensaje();
+    }
+
+    private void DesactivarScript()
+    {
+        enabled = false;
     }
 }
