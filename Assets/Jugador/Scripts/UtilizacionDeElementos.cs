@@ -29,15 +29,21 @@ public class UtilizacionDeElementos : MonoBehaviour
         }
     }
 
+    private void DesactivarScript()
+    {
+        enabled = false;
+    }
+
     private void Update()
     {
         if (Input.GetButtonDown("Interactuar") && colisionando)
         {
             if (gameObject.CompareTag("Proyector") &&
-            FindObjectOfType<InventarioJugador>().BombillaEnElInventario)
+                FindObjectOfType<InventarioJugador>().BombillaEnElInventario)
             {
                 FindObjectOfType<InventarioJugador>().
                     BombillaEnElInventario = false;
+                EncenderProyectorSalaDeReuniones();
                 EstablecerComoUtilizado();
             }    
         }
@@ -50,8 +56,12 @@ public class UtilizacionDeElementos : MonoBehaviour
         DesactivarScript();
     }
 
-    private void DesactivarScript()
+    private void EncenderProyectorSalaDeReuniones()
     {
-        enabled = false;
+        Light luzDelProyector = gameObject.GetComponentInChildren<Light>();
+        luzDelProyector.enabled = true;
+        GameObject imagenDelProyector = 
+            GameObject.FindGameObjectWithTag("ImagenDeProyeccion");
+        imagenDelProyector.GetComponent<MeshRenderer>().enabled = true;
     }
 }
