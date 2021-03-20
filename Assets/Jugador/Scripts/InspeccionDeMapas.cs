@@ -22,40 +22,38 @@ public class InspeccionDeMapas : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Jugador"))
-        {
             colisionando = true;
-        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Jugador"))
-        {
             colisionando = false;
-
-            QuitarMapa();
-        }
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Interactuar") &&
-            colisionando && !mapaActivo)
+        if (Input.GetButtonDown("Interactuar") && colisionando && !mapaActivo)
         {
             MostrarMapa();
             MostrarImagenDelMapa();
         }
+
+        if (Input.GetButtonDown("Cerrar"))
+            QuitarMapa();
     }
 
     private void MostrarMapa()
     {
         mapaActivo = true;
+        FindObjectOfType<Jugador>().PuedeMoverse = false;
         audioSource.Play();
     }
 
     private void QuitarMapa()
     {
         mapaActivo = false;
+        FindObjectOfType<Jugador>().PuedeMoverse = true;
         imagenMapaPlanta1.enabled = false;
         imagenMapaPlanta2.enabled = false;
     }
@@ -63,12 +61,8 @@ public class InspeccionDeMapas : MonoBehaviour
     private void MostrarImagenDelMapa()
     {
         if (gameObject.CompareTag("MapaPlanta1"))
-        {
             imagenMapaPlanta1.enabled = true;
-        }
         else if (gameObject.CompareTag("MapaPlanta2"))
-        {
             imagenMapaPlanta2.enabled = true;
-        }
     }
 }

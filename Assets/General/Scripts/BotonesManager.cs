@@ -11,10 +11,15 @@ public class BotonesManager : MonoBehaviour
     private int posicionPrimerBoton;
     private int posicionUltimoBoton;
 
+    private AudioSource audioSource;
+    [SerializeField] AudioClip sonidoSeleccion; // Asignado en Unity
+
     private void Start()
     {
         posicionPrimerBoton = 0;
         posicionUltimoBoton = botones.Length - 1;
+
+        audioSource = GetComponent<AudioSource>();
 
         // Primera selección (primer botón)
         posicion = posicionPrimerBoton;
@@ -61,5 +66,13 @@ public class BotonesManager : MonoBehaviour
             posicion = posicionPrimerBoton;
 
         botones[posicion].Seleccionado = true; // Seleccionamos el que está seleccionado
+
+        ReproducirSonido();
+    }
+
+    private void ReproducirSonido()
+    {
+        audioSource.clip = sonidoSeleccion;
+        audioSource.PlayOneShot(audioSource.clip);
     }
 }

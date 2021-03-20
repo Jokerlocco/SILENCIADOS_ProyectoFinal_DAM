@@ -21,28 +21,26 @@ public class InspeccionDeDocumentos : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Jugador"))
-        {
             colisionando = true;
-        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Jugador"))
-        {
             colisionando = false;
-            QuitarDocumento();
-        }
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Interactuar") &&
-            colisionando && !documentoActivo)
+        if (Input.GetButtonDown("Interactuar") && colisionando 
+            && !documentoActivo)
         {
             MostrarDocumento();
             MostrarTextoDelDocumento();
         }
+
+        if (Input.GetButtonDown("Cerrar"))
+            QuitarDocumento();
     }
 
     private void MostrarDocumento()
@@ -50,6 +48,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
         documentos.SetActive(true);
         documentoActivo = true;
         audioSource.Play();
+        FindObjectOfType<Jugador>().PuedeMoverse = false;
     }
 
     private void QuitarDocumento()
@@ -57,6 +56,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
         documentos.SetActive(false);
         documentoActivo = false;
         textoDelDocumento.text = "";
+        FindObjectOfType<Jugador>().PuedeMoverse = true;
     }
 
     private void MostrarTextoDelDocumento()

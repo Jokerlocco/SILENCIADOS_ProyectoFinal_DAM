@@ -24,31 +24,23 @@ public class ObtencionObjetos : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Jugador"))
-        {
             colisionando = true;
-        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Jugador"))
-        {
             colisionando = false;
-        }
     }
 
     private void Update()
     {
         if (objetoRecogido) // Si el objeto ha sido recogido, dejamos de comprobar la obtención de dicho objeto
-        {
             DesactivarScript();
-        }
         else
         {
             if (Input.GetButtonDown("Interactuar") && colisionando)
-            {
                 RecogerObjeto();
-            }
         }
     }
 

@@ -61,8 +61,11 @@ public class InventarioJugador : MonoBehaviour
 
     private void Update()
     {
-        AbrirOCerrarAnimacionDelInventario();
-        MostrarObjetosQueEstanEnElInventario();
+        if (FindObjectOfType<Jugador>().PuedeMoverse)
+        {
+            AbrirOCerrarAnimacionDelInventario();
+            MostrarObjetosQueEstanEnElInventario();
+        }  
     }
 
     private void AbrirOCerrarAnimacionDelInventario()
