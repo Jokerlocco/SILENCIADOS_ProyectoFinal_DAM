@@ -16,13 +16,13 @@ public class Jugador : MonoBehaviour
 
     private ReproductorSonidoPiesJugador reproductorSonidoPies;
 
-    private bool puedeMoverse;
+    public bool PuedeMoverse { get; set; }
 
     void Start()
     {
         animacion = GetComponent<Animator>();
         velocidadCaminar = velocidadMovimiento;
-        puedeMoverse = true;
+        PuedeMoverse = true;
         reproductorSonidoPies = 
             GetComponentInChildren<ReproductorSonidoPiesJugador>();
     }
@@ -57,7 +57,7 @@ public class Jugador : MonoBehaviour
 
     private void MoverPersonaje()
     {
-        if(puedeMoverse)
+        if(PuedeMoverse)
         {
             x = Input.GetAxis("Horizontal");
             y = Input.GetAxis("Vertical");

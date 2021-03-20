@@ -61,35 +61,35 @@ public class ObtencionObjetos : MonoBehaviour
             textoDelMensaje = "Bombilla funcional recogida";
         }
 
-        else if (gameObject.CompareTag("GrifoDeBronce"))
+        if (gameObject.CompareTag("GrifoDeBronce"))
         {
             FindObjectOfType<InventarioJugador>().
                 GrifoBronceEnElInventario = true;
             textoDelMensaje = "Grifo de bronce recogido";
         }
 
-        else if (gameObject.CompareTag("GrifoDeMadera"))
+        if (gameObject.CompareTag("GrifoDeMadera"))
         {
             FindObjectOfType<InventarioJugador>().
                 GrifoMaderaEnElInventario = true;
             textoDelMensaje = "Grifo de madera recogido";
         }
 
-        else if (gameObject.CompareTag("GrifoDeMarmol"))
+        if (gameObject.CompareTag("GrifoDeMarmol"))
         {
             FindObjectOfType<InventarioJugador>().
                 GrifoMarmolEnElInventario = true;
             textoDelMensaje = "Grifo de mármol recogido";
         }
 
-        else if (gameObject.CompareTag("LlavePeon"))
+        if (gameObject.CompareTag("LlavePeon"))
         {
             FindObjectOfType<InventarioJugador>().
                 LlavePeonEnElInventario = true;
             textoDelMensaje = "Llave peón recogida";
         }
 
-        else if (gameObject.CompareTag("LlaveTorre"))
+        if (gameObject.CompareTag("LlaveTorre"))
         {
             FindObjectOfType<InventarioJugador>().
                 LlaveTorreEnElInventario = true;
