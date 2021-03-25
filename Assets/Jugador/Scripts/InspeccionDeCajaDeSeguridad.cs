@@ -6,12 +6,11 @@ public class InspeccionDeCajaDeSeguridad : MonoBehaviour
 {
     private bool colisionando = false;
 
-    [SerializeField] GameObject panelNumerico; // Asignado en Unity
-
     private void Update()
     {
-        if (Input.GetButtonDown("Interactuar") && colisionando)
-            MostrarPanelNumerico();
+        if (Input.GetButtonDown("Interactuar") && colisionando && 
+            !FindObjectOfType<CajaDeSeguridad>().CajaAbierta)
+            MostrarPanelNumericoDeLaCajaDeSeguridad();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,8 +25,9 @@ public class InspeccionDeCajaDeSeguridad : MonoBehaviour
             colisionando = false;
     }
 
-    private void MostrarPanelNumerico()
+    private void MostrarPanelNumericoDeLaCajaDeSeguridad()
     {
-        panelNumerico.SetActive(true);
+        FindObjectOfType<CajaDeSeguridad>().
+                        SendMessage("AbrirPanelNumerico");
     }
 }

@@ -47,40 +47,40 @@ public class Boton : MonoBehaviour
             if (transform.parent.CompareTag("BotonesPanelNumerico"))
             {
                 if (accionDelBoton == "Numero1")
-                    FindObjectOfType<PanelNumerico>().
+                    FindObjectOfType<CajaDeSeguridad>().
                         SendMessage("SeHaPulsadoUnBoton", "1");
                 if (accionDelBoton == "Numero2")
-                    FindObjectOfType<PanelNumerico>().
+                    FindObjectOfType<CajaDeSeguridad>().
                         SendMessage("SeHaPulsadoUnBoton", "2");
                 if (accionDelBoton == "Numero3")
-                    FindObjectOfType<PanelNumerico>().
+                    FindObjectOfType<CajaDeSeguridad>().
                         SendMessage("SeHaPulsadoUnBoton", "3");
                 if (accionDelBoton == "btnOk")
-                    FindObjectOfType<PanelNumerico>().
+                    FindObjectOfType<CajaDeSeguridad>().
                         SendMessage("SeHaPulsadoUnBoton", "btnOk");
                 if (accionDelBoton == "Numero4")
-                    FindObjectOfType<PanelNumerico>().
+                    FindObjectOfType<CajaDeSeguridad>().
                         SendMessage("SeHaPulsadoUnBoton", "4");
                 if (accionDelBoton == "Numero5")
-                    FindObjectOfType<PanelNumerico>().
+                    FindObjectOfType<CajaDeSeguridad>().
                         SendMessage("SeHaPulsadoUnBoton", "5");
                 if (accionDelBoton == "Numero6")
-                    FindObjectOfType<PanelNumerico>().
+                    FindObjectOfType<CajaDeSeguridad>().
                         SendMessage("SeHaPulsadoUnBoton", "6");
                 if (accionDelBoton == "Numero0")
-                    FindObjectOfType<PanelNumerico>().
+                    FindObjectOfType<CajaDeSeguridad>().
                         SendMessage("SeHaPulsadoUnBoton", "0");
                 if (accionDelBoton == "Numero7")
-                    FindObjectOfType<PanelNumerico>().
+                    FindObjectOfType<CajaDeSeguridad>().
                         SendMessage("SeHaPulsadoUnBoton", "7");
                 if (accionDelBoton == "Numero8")
-                    FindObjectOfType<PanelNumerico>().
+                    FindObjectOfType<CajaDeSeguridad>().
                         SendMessage("SeHaPulsadoUnBoton", "8");
                 if (accionDelBoton == "Numero9")
-                    FindObjectOfType<PanelNumerico>().
+                    FindObjectOfType<CajaDeSeguridad>().
                         SendMessage("SeHaPulsadoUnBoton", "9");
                 if (accionDelBoton == "btnBorrar")
-                    FindObjectOfType<PanelNumerico>().
+                    FindObjectOfType<CajaDeSeguridad>().
                         SendMessage("SeHaPulsadoUnBoton", "btnBorrar");
             }
         }

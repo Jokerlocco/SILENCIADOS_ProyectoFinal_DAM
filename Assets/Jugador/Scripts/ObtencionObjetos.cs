@@ -48,6 +48,7 @@ public class ObtencionObjetos : MonoBehaviour
     {
         if (gameObject.CompareTag("Bombilla"))
         {
+            objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
                 BombillaEnElInventario = true;
             textoDelMensaje = "Bombilla funcional recogida";
@@ -55,6 +56,7 @@ public class ObtencionObjetos : MonoBehaviour
 
         if (gameObject.CompareTag("GrifoDeBronce"))
         {
+            objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
                 GrifoBronceEnElInventario = true;
             textoDelMensaje = "Grifo de bronce recogido";
@@ -62,6 +64,7 @@ public class ObtencionObjetos : MonoBehaviour
 
         if (gameObject.CompareTag("GrifoDeMadera"))
         {
+            objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
                 GrifoMaderaEnElInventario = true;
             textoDelMensaje = "Grifo de madera recogido";
@@ -69,13 +72,16 @@ public class ObtencionObjetos : MonoBehaviour
 
         if (gameObject.CompareTag("GrifoDeMarmol"))
         {
+            objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
                 GrifoMarmolEnElInventario = true;
             textoDelMensaje = "Grifo de mármol recogido";
         }
 
-        if (gameObject.CompareTag("LlavePeon"))
+        if (gameObject.CompareTag("LlavePeon") && 
+            FindObjectOfType<CajaDeSeguridad>().CajaAbierta)
         {
+            objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
                 LlavePeonEnElInventario = true;
             textoDelMensaje = "Llave peón recogida";
@@ -83,15 +89,19 @@ public class ObtencionObjetos : MonoBehaviour
 
         if (gameObject.CompareTag("LlaveTorre"))
         {
+            objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
                 LlaveTorreEnElInventario = true;
             textoDelMensaje = "Llave torre recogida";
         }
 
-        objetoRecogido = true;
-        audioSource.Play();
-        OcultarObjetoDelEscenario();
-        StartCoroutine(InformarSobreObjetoRecogido());
+
+        if (objetoRecogido)
+        {
+            audioSource.Play();
+            OcultarObjetoDelEscenario();
+            StartCoroutine(InformarSobreObjetoRecogido());
+        }
     }
 
     private void OcultarObjetoDelEscenario()

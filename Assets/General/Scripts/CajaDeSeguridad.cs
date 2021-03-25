@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PanelNumerico : MonoBehaviour
+public class CajaDeSeguridad : MonoBehaviour
 {
+    [SerializeField] GameObject panelNumerico; // Asignado en Unity
     [SerializeField] GameObject codigoPanel; // Asignado en Unity
     private TMP_Text textoCodigoPanel;
     private Animator animacionCodigo;
+
+    private Animator animacionTapaderaDeLaCaja;
 
     private AudioSource audioSource;
     [SerializeField] AudioClip sonidoBoton; // Asignado en Unity
@@ -15,25 +18,32 @@ public class PanelNumerico : MonoBehaviour
     [SerializeField] AudioClip sonidoCodigoCajaDeSeguridadCorrecto; // Asignado en Unity
     [SerializeField] AudioClip sonidoCodigoCajaDeSeguridadIncorrecto; // Asignado en Unity
 
+    public bool CajaAbierta { get; set; }
+
     private string codigoCajaDeSeguridadSecretaria = "6427";
 
     private void Start()
     {
         textoCodigoPanel = codigoPanel.GetComponent<TMP_Text>();
-
         animacionCodigo = codigoPanel.GetComponent<Animator>();
-        animacionCodigo.SetBool("sinAnimacion", true);
+
+        animacionTapaderaDeLaCaja = GetComponent<Animator>();
 
         audioSource = GetComponent<AudioSource>();
+
+        CajaAbierta = false;
     }
 
     private void Update()
     {
-        if (gameObject.activeSelf)
-            FindObjectOfType<Jugador>().PuedeMoverse = false;
-
         if (Input.GetButtonDown("Cerrar"))
             CerrarPanelNumerico();
+    }
+
+    private void AbrirPanelNumerico() // Es llamado en la clase "InspeccionDeCajaDeSeguridad"
+    {
+        FindObjectOfType<Jugador>().PuedeMoverse = false;
+        panelNumerico.SetActive(true);
     }
 
     private void CerrarPanelNumerico()
@@ -41,7 +51,7 @@ public class PanelNumerico : MonoBehaviour
         FindObjectOfType<Jugador>().PuedeMoverse = true;
         textoCodigoPanel.text = "";
         animacionCodigo.SetBool("sinAnimacion", true);
-        gameObject.SetActive(false);
+        panelNumerico.SetActive(false);
     }
 
     private void DesactivarScript()
@@ -57,6 +67,9 @@ public class PanelNumerico : MonoBehaviour
             {
                 ReproducirSonidoCodigoCajaDeSeguridadCorrecto();
                 EstablecerAnimacionCodigoCorrecto();
+                EstablecerAnimacionAbrirCaja();
+                CajaAbierta = true;
+                gameObject.tag = "Utilizado";
                 StartCoroutine(EsperarAntesDeCerrar());
             }
             else
@@ -87,6 +100,7 @@ public class PanelNumerico : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1);
         CerrarPanelNumerico();
+        DesactivarScript();
     }
 
     private void ReproducirSonidoBoton()
@@ -125,5 +139,11 @@ public class PanelNumerico : MonoBehaviour
         animacionCodigo.SetBool("sinAnimacion", false);
         animacionCodigo.SetBool("codigoCorrecto", false);
         animacionCodigo.SetBool("seHaPulsadoOk", true);
+    }
+
+    private void EstablecerAnimacionAbrirCaja()
+    {
+        animacionTapaderaDeLaCaja.SetBool(
+            "seHaIntroducidoElCodigoCorrecto", true);
     }
 }
