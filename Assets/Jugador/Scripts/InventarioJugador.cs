@@ -13,6 +13,11 @@ public class InventarioJugador : MonoBehaviour
 
     [SerializeField] TMP_Text contenidoInventario; // Asignado en Unity
 
+    // Usos de llaves
+    public bool LlavePeonRecogida { get; set; } = false;
+    public int NumUsosLlavePeon { get; set; } = 0;
+    private int cantidadDePuertasParaLlavePeon = 1;
+
     // Objetos (ordenados alfabéticamente)
     private string nombreBombilla = "Bombilla funcional";
     public bool BombillaEnElInventario { get; set; }
@@ -64,8 +69,9 @@ public class InventarioJugador : MonoBehaviour
         if (FindObjectOfType<Jugador>().PuedeMoverse)
         {
             AbrirOCerrarAnimacionDelInventario();
+            DescartarLlavesPorUsos();
             MostrarObjetosQueEstanEnElInventario();
-        }  
+        }
     }
 
     private void AbrirOCerrarAnimacionDelInventario()
@@ -82,6 +88,14 @@ public class InventarioJugador : MonoBehaviour
         else
         {
             animacionDeLaInterfaz.SetBool("abierto", false);
+        }
+    }
+
+    private void DescartarLlavesPorUsos()
+    {
+        if (NumUsosLlavePeon == cantidadDePuertasParaLlavePeon)
+        {
+            LlavePeonEnElInventario = false;
         }
     }
 
