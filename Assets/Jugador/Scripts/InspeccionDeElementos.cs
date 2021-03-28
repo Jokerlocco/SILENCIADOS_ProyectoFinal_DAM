@@ -75,7 +75,6 @@ public class InspeccionDeElementos : MonoBehaviour
                 "Debo buscar otra forma de salir.";
             ReproducirSonidoElemento();
         }
-
         else if (gameObject.CompareTag("InspeccionAscensor"))
             mensajeDeInteraccion.text =
                 "El ascensor está destrozado. No se puede utilizar.";
@@ -87,10 +86,13 @@ public class InspeccionDeElementos : MonoBehaviour
 
         else if (gameObject.CompareTag("Proyector") && 
             !FindObjectOfType<InventarioJugador>().BombillaEnElInventario)
-        {
             mensajeDeInteraccion.text = "El proyector parece funcionar, " +
                 "pero le falta la bombilla.";
-        }
+
+        else if (gameObject.CompareTag("FuegoEnLaCocina") || 
+            gameObject.CompareTag("HumoEnSMaquinas"))
+            mensajeDeInteraccion.text = "Hay un escape... " +
+                "Será mejor no acercarse más.";
 
         else
         {
