@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InteraccionPuerta : MonoBehaviour
@@ -10,26 +9,32 @@ public class InteraccionPuerta : MonoBehaviour
 
     private Animator animacion;
 
-    [SerializeField] private bool interactuandoConLaPuerta = false;
+    private bool interactuandoConLaPuerta = false;
     private bool puertaAbierta = false;
 
-    [SerializeField] bool puertaConLlave;
-    [SerializeField] bool puertaDesbloqueada;
-    [SerializeField] bool puedeAbrirOCerrarPuerta;
+    private bool puertaConLlave;
+    private bool puertaDesbloqueada;
+    private bool puedeAbrirOCerrarPuerta;
 
-    private bool haUsadoLlave = false;
+    private string tipoDeCerradura;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         animacion = GetComponent<Animator>();
 
+        InicializarPuertasYLlaves();
+    }
+
+    private void InicializarPuertasYLlaves()
+    {
         if (gameObject.CompareTag("PuertaPeon"))
         {
             puertaConLlave = true;
             puertaDesbloqueada = false;
             puedeAbrirOCerrarPuerta = false;
             audioSource.clip = sonidoPuertaCerrada;
+            tipoDeCerradura = "peón";
         }
         else
         {
@@ -50,40 +55,7 @@ public class InteraccionPuerta : MonoBehaviour
         }
     }
 
-    private void ComprobarSiPuedeDesbloquear()
-    {
-        if (puertaConLlave && !puertaDesbloqueada)
-        {
-            string[] datos = new string[2];
-
-            if (gameObject.CompareTag("PuertaPeon") && 
-                FindObjectOfType<InventarioJugador>().LlavePeonEnElInventario)
-            {
-                DesbloquearPuerta();
-                FindObjectOfType<InventarioJugador>().NumUsosLlavePeon++;
-                datos[0] = "peón";
-                datos[1] = "PuertaDesbloqueada";
-            }
-            else
-            {
-                datos[1] = "PuertaBloqueada";
-            }
-
-            FindObjectOfType<InspeccionDeElementos>().
-                SendMessage("InformarSobreIntentoDeDesbloqueoDePuertas", datos);
-
-            ReproducirSonidoPuerta();
-        }
-    }
-
-    private void DesbloquearPuerta()
-    {
-        puertaDesbloqueada = true;
-        puedeAbrirOCerrarPuerta = true;
-        audioSource.clip = sonidoPuerta;
-    }
-
-    private void AbrirOCerrarPuertas() // abrir o cerrar puertas
+    private void AbrirOCerrarPuertas()
     {
         if (puedeAbrirOCerrarPuerta)
         {
@@ -114,6 +86,58 @@ public class InteraccionPuerta : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Jugador"))
+        {
             interactuandoConLaPuerta = false;
+            FindObjectOfType<Mensajero>().OcultarInterfazMensaje();
+        }
+    }
+
+
+    // ============= DESBLOQUEO Y DESCARTE DE PUERTAS CON LLAVE =============
+    private void ComprobarSiPuedeDesbloquear()
+    {
+        if (puertaConLlave && !puertaDesbloqueada)
+        {
+            ReproducirSonidoPuerta();
+
+            if (gameObject.CompareTag("PuertaPeon") &&
+                FindObjectOfType<InventarioJugador>().LlavePeonEnElInventario)
+            {
+                DesbloquearPuerta();
+                FindObjectOfType<InventarioJugador>().NumUsosLlavePeon++;
+            }
+
+            InformarSobreElDesbloqueoDeLaPuerta();
+        }
+    }
+
+    private void DesbloquearPuerta()
+    {
+        puertaDesbloqueada = true;
+        puedeAbrirOCerrarPuerta = true;
+        audioSource.clip = sonidoPuerta;
+    }
+
+    private void InformarSobreElDesbloqueoDeLaPuerta()
+    {
+        if (!puertaDesbloqueada)
+        {
+            FindObjectOfType<Mensajero>().Mensaje =
+                "La puerta está cerrada. En la cerradura hay grabada" +
+                " una pieza de ajedrez: ";
+            if (tipoDeCerradura != "torre")
+                FindObjectOfType<Mensajero>().Mensaje +=
+                    "Un " + tipoDeCerradura + ".";
+            else
+                FindObjectOfType<Mensajero>().Mensaje +=
+                    "Una " + tipoDeCerradura + ".";
+        }
+        else
+        {
+            FindObjectOfType<Mensajero>().Mensaje = 
+                "Has desbloqueado la puerta con la llave " + tipoDeCerradura;
+        }
+
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
     }
 }

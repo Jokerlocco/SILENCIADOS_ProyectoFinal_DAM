@@ -36,19 +36,19 @@ public class CajaDeSeguridad : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Cerrar"))
+        if (Input.GetButtonDown("Cerrar") && panelNumerico.activeSelf)
             CerrarPanelNumerico();
     }
 
     private void AbrirPanelNumerico() // Es llamado en la clase "InspeccionDeCajaDeSeguridad"
     {
-        FindObjectOfType<Jugador>().PuedeMoverse = false;
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
         panelNumerico.SetActive(true);
     }
 
     private void CerrarPanelNumerico()
     {
-        FindObjectOfType<Jugador>().PuedeMoverse = true;
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = true;
         textoCodigoPanel.text = "";
         animacionCodigo.SetBool("sinAnimacion", true);
         panelNumerico.SetActive(false);

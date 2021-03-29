@@ -84,8 +84,6 @@ public class ObtencionObjetos : MonoBehaviour
             objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
                 LlavePeonEnElInventario = true;
-            FindObjectOfType<InventarioJugador>().
-                LlavePeonRecogida = true;
             textoDelMensaje = "Llave peón recogida";
         }
 

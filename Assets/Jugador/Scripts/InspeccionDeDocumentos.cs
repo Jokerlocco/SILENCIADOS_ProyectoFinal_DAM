@@ -48,7 +48,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
         documentos.SetActive(true);
         documentoActivo = true;
         audioSource.Play();
-        FindObjectOfType<Jugador>().PuedeMoverse = false;
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
     }
 
     private void QuitarDocumento()
@@ -56,7 +56,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
         documentos.SetActive(false);
         documentoActivo = false;
         textoDelDocumento.text = "";
-        FindObjectOfType<Jugador>().PuedeMoverse = true;
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = true;
     }
 
     private void MostrarTextoDelDocumento()

@@ -13,10 +13,6 @@ public class InventarioJugador : MonoBehaviour
 
     [SerializeField] TMP_Text contenidoInventario; // Asignado en Unity
 
-    // Usos de llaves
-    public bool LlavePeonRecogida { get; set; } = false;
-    public int NumUsosLlavePeon { get; set; } = 0;
-    private int cantidadDePuertasParaLlavePeon = 1;
 
     // Objetos (ordenados alfabéticamente)
     private string nombreBombilla = "Bombilla funcional";
@@ -31,7 +27,11 @@ public class InventarioJugador : MonoBehaviour
     public bool LlavePeonEnElInventario { get; set; }
     private string nombreLlaveTorre = "Llave torre";
     public bool LlaveTorreEnElInventario { get; set; }
-    
+
+    // Usos de las llaves
+    public int NumUsosLlavePeon { get; set; } = 0;
+    private int cantidadDePuertasParaLlavePeon = 3;
+
 
     private void ImplementarPatronSingleton()
     {
@@ -66,10 +66,10 @@ public class InventarioJugador : MonoBehaviour
 
     private void Update()
     {
-        if (FindObjectOfType<Jugador>().PuedeMoverse)
+        if (FindObjectOfType<ControlDelJugador>().PuedeMoverse)
         {
             AbrirOCerrarAnimacionDelInventario();
-            DescartarLlavesPorUsos();
+            ComprobarObjetosEspecificos();
             MostrarObjetosQueEstanEnElInventario();
         }
     }
@@ -77,23 +77,23 @@ public class InventarioJugador : MonoBehaviour
     private void AbrirOCerrarAnimacionDelInventario()
     {
         if (Input.GetButtonDown("BotonInventario"))
-        {
             inventarioAbierto = !inventarioAbierto;
-        }
 
         if (inventarioAbierto)
-        {
             animacionDeLaInterfaz.SetBool("abierto", true);
-        }
         else
-        {
             animacionDeLaInterfaz.SetBool("abierto", false);
-        }
     }
 
+    private void ComprobarObjetosEspecificos()
+    {
+        DescartarLlavesPorUsos();
+    }
+    
     private void DescartarLlavesPorUsos()
     {
-        if (NumUsosLlavePeon == cantidadDePuertasParaLlavePeon)
+        if (LlavePeonEnElInventario && 
+            NumUsosLlavePeon == cantidadDePuertasParaLlavePeon)
         {
             LlavePeonEnElInventario = false;
         }

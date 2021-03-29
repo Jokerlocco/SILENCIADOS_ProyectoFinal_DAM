@@ -46,14 +46,14 @@ public class InspeccionDeMapas : MonoBehaviour
     private void MostrarMapa()
     {
         mapaActivo = true;
-        FindObjectOfType<Jugador>().PuedeMoverse = false;
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
         audioSource.Play();
     }
 
     private void QuitarMapa()
     {
         mapaActivo = false;
-        FindObjectOfType<Jugador>().PuedeMoverse = true;
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = true;
         imagenMapaPlanta1.enabled = false;
         imagenMapaPlanta2.enabled = false;
     }

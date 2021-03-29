@@ -7,29 +7,11 @@ public class InspeccionDeElementos : MonoBehaviour
 {
     private bool colisionando = false;
 
-    // Mensajes
-    [SerializeField] TMP_Text mensajeDeInteraccion; // Asignado en Unity
-    [SerializeField] GameObject fondoOscuroTraslucidoMensajes; // Asignado en Unity
-    private bool mensajeActivo = false;
-
     private AudioSource audioSource;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-    }
-
-    private void ActivarInterfazMensaje()
-    {
-        fondoOscuroTraslucidoMensajes.SetActive(true);
-        mensajeActivo = true;
-    }
-
-    private void QuitarInterfazMensaje()
-    {
-        mensajeActivo = false;
-        mensajeDeInteraccion.text = "";
-        fondoOscuroTraslucidoMensajes.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,7 +27,7 @@ public class InspeccionDeElementos : MonoBehaviour
         if (other.gameObject.CompareTag("Jugador"))
         {
             colisionando = false;
-            QuitarInterfazMensaje();
+            FindObjectOfType<Mensajero>().OcultarInterfazMensaje();
         }
     }
 
@@ -58,50 +40,56 @@ public class InspeccionDeElementos : MonoBehaviour
     private void Update()
     {
         if (Input.GetButtonDown("Interactuar") &&
-            colisionando && !mensajeActivo)
+            colisionando && 
+            !FindObjectOfType<Mensajero>().InterfazMensajeActiva)
         {
-            Informar();
+            EstablcerMensajeOTerminar();
         }
     }
 
-    private void Informar()
+    private void EstablcerMensajeOTerminar()
     {
         bool mostrarMensaje = true;
 
         if (gameObject.CompareTag("InspeccionPuertaPrincipal"))
         {
-            mensajeDeInteraccion.text =
+            FindObjectOfType<Mensajero>().Mensaje = 
                 "La puerta principal está bloqueada. " +
                 "Debo buscar otra forma de salir.";
             ReproducirSonidoElemento();
         }
         else if (gameObject.CompareTag("InspeccionAscensor"))
-            mensajeDeInteraccion.text =
+            FindObjectOfType<Mensajero>().Mensaje =
                 "El ascensor está destrozado. No se puede utilizar.";
 
         else if (gameObject.CompareTag("InspeccionEstatua"))
-            mensajeDeInteraccion.text =
+            FindObjectOfType<Mensajero>().Mensaje =
                 "La estatua tiene tres orificios vacíos. " +
                 "Es cómo si se tuviera que insertar algo.";
 
         else if (gameObject.CompareTag("Proyector") && 
             !FindObjectOfType<InventarioJugador>().BombillaEnElInventario)
-            mensajeDeInteraccion.text = "El proyector parece funcionar, " +
-                "pero le falta la bombilla.";
+            FindObjectOfType<Mensajero>().Mensaje = 
+                "El proyector parece funcionar, pero le falta la bombilla.";
 
         else if (gameObject.CompareTag("FuegoEnLaCocina") || 
             gameObject.CompareTag("HumoEnSMaquinas"))
-            mensajeDeInteraccion.text = "Hay un escape... " +
+            FindObjectOfType<Mensajero>().Mensaje = "Hay un escape... " +
                 "Será mejor no acercarse más.";
 
-        else
+        else // Si no ha entrado a ningún if, terminamos con el script.
         {
             mostrarMensaje = false;
             DesactivarScript();
         }
 
         if (mostrarMensaje)
-            ActivarInterfazMensaje();
+            MostrarMensaje();
+    }
+
+    private void MostrarMensaje()
+    {
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
     }
 
     private void DesactivarScript()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jugador : MonoBehaviour
+public class ControlDelJugador : MonoBehaviour
 {
     [SerializeField] float velocidadMovimiento; // Asignado en Unity
     [SerializeField] float velocidadRotacion; // Asignado en Unity

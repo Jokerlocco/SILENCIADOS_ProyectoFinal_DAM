@@ -7,42 +7,31 @@ public class Mensajero : MonoBehaviour
 {
     [SerializeField] TMP_Text mensajeDeInteraccion; // Asignado en Unity
     [SerializeField] GameObject fondoOscuroTraslucidoMensajes; // Asignado en Unity
-    private bool mensajeActivo = false;
+    public bool InterfazMensajeActiva { get; set; } = false;
+    public string Mensaje { get; set; }
 
-    private void ActivarInterfazMensaje()
+    public void MostrarInterfazMensaje()
     {
+        mensajeDeInteraccion.text = Mensaje;
         fondoOscuroTraslucidoMensajes.SetActive(true);
-        mensajeActivo = true;
+        InterfazMensajeActiva = true;
+
+        StartCoroutine(EsperarEnLaInterfazAntesDeCerrar());
     }
 
-    private void QuitarInterfazMensaje()
+    private IEnumerator EsperarEnLaInterfazAntesDeCerrar()
     {
-        mensajeActivo = false;
-        mensajeDeInteraccion.text = "";
-        fondoOscuroTraslucidoMensajes.SetActive(false);
+        yield return new WaitForSecondsRealtime(3);
+        OcultarInterfazMensaje();
     }
 
-    public void InformarSobreIntentoDeDesbloqueoDePuertas(string[] datos) // Es llamado desde "InteraccionPuerta"
+    public void OcultarInterfazMensaje()
     {
-        string tipoDeCerradura = datos[0];
-        string estadoDePuerta = datos[1];
-
-        if (estadoDePuerta == "PuertaBloqueada")
+        if (InterfazMensajeActiva)
         {
-            mensajeDeInteraccion.text = "La puerta está cerrada. " +
-                "En la cerradura hay grabada una pieza de ajedrez: ";
-
-            if (tipoDeCerradura != "torre")
-                mensajeDeInteraccion.text += "Un " + tipoDeCerradura + ".";
-            else
-                mensajeDeInteraccion.text += "Una " + tipoDeCerradura + ".";
+            InterfazMensajeActiva = false;
+            mensajeDeInteraccion.text = "";
+            fondoOscuroTraslucidoMensajes.SetActive(false);
         }
-        else
-        {
-            mensajeDeInteraccion.text =
-                "Has desbloqueado la puerta con la llave " + tipoDeCerradura;
-        }
-
-        ActivarInterfazMensaje();
     }
 }
