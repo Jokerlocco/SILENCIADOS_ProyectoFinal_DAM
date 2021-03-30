@@ -28,20 +28,31 @@ public class InteraccionPuerta : MonoBehaviour
 
     private void InicializarPuertasYLlaves()
     {
-        if (gameObject.CompareTag("PuertaPeon"))
-        {
-            puertaConLlave = true;
-            puertaDesbloqueada = false;
-            puedeAbrirOCerrarPuerta = false;
-            audioSource.clip = sonidoPuertaCerrada;
-            tipoDeCerradura = "peón";
-        }
+        if (gameObject.CompareTag("PuertaAlfil"))
+            InicializarPuertasConCerradura("alfil");
+        else if (gameObject.CompareTag("PuertaCaballo"))
+            InicializarPuertasConCerradura("caballo");
+        else if (gameObject.CompareTag("PuertaPeon"))
+            InicializarPuertasConCerradura("peón");
+        else if (gameObject.CompareTag("PuertaRey"))
+            InicializarPuertasConCerradura("rey");
+        else if (gameObject.CompareTag("PuertaTorre"))
+            InicializarPuertasConCerradura("torre");
         else
         {
             puertaConLlave = false;
             puedeAbrirOCerrarPuerta = true;
             audioSource.clip = sonidoPuerta;
         }
+    }
+
+    private void InicializarPuertasConCerradura(string tipoDeCerradura)
+    {
+        puertaConLlave = true;
+        puertaDesbloqueada = false;
+        puedeAbrirOCerrarPuerta = false;
+        audioSource.clip = sonidoPuertaCerrada;
+        this.tipoDeCerradura = tipoDeCerradura;
     }
 
     void Update()
@@ -100,11 +111,39 @@ public class InteraccionPuerta : MonoBehaviour
         {
             ReproducirSonidoPuerta();
 
+            if (gameObject.CompareTag("PuertaAlfil") &&
+                FindObjectOfType<InventarioJugador>().LlaveAlfilEnElInventario)
+            {
+                DesbloquearPuerta();
+                FindObjectOfType<InventarioJugador>().NumUsosLlaveAlfil++;
+            }
+
+            if (gameObject.CompareTag("PuertaCaballo") &&
+                FindObjectOfType<InventarioJugador>().LlaveCaballoEnElInventario)
+            {
+                DesbloquearPuerta();
+                FindObjectOfType<InventarioJugador>().NumUsosLlaveCaballo++;
+            }
+
             if (gameObject.CompareTag("PuertaPeon") &&
                 FindObjectOfType<InventarioJugador>().LlavePeonEnElInventario)
             {
                 DesbloquearPuerta();
                 FindObjectOfType<InventarioJugador>().NumUsosLlavePeon++;
+            }
+
+            if (gameObject.CompareTag("PuertaRey") &&
+                FindObjectOfType<InventarioJugador>().LlaveReyEnElInventario)
+            {
+                DesbloquearPuerta();
+                FindObjectOfType<InventarioJugador>().NumUsosLlaveRey++;
+            }
+
+            if (gameObject.CompareTag("PuertaTorre") &&
+                FindObjectOfType<InventarioJugador>().LlaveTorreEnElInventario)
+            {
+                DesbloquearPuerta();
+                FindObjectOfType<InventarioJugador>().NumUsosLlaveTorre++;
             }
 
             InformarSobreElDesbloqueoDeLaPuerta();

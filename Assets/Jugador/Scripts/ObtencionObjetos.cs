@@ -9,10 +9,11 @@ public class ObtencionObjetos : MonoBehaviour
     private bool colisionando = false;
     private bool objetoRecogido = false;
 
+    /*
     [SerializeField] TMP_Text mensajeObtencionDeObjeto; // Asignado en Unity
     [SerializeField] GameObject fondoOscuroTraslucidoMensajes; // Asignado en Unity
-
-    private string textoDelMensaje = "";
+    
+    private string textoDelMensaje = "";*/
 
     private AudioSource audioSource;
 
@@ -51,7 +52,8 @@ public class ObtencionObjetos : MonoBehaviour
             objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
                 BombillaEnElInventario = true;
-            textoDelMensaje = "Bombilla funcional recogida";
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Bombilla funcional recogida";
         }
 
         if (gameObject.CompareTag("GrifoDeBronce"))
@@ -59,7 +61,8 @@ public class ObtencionObjetos : MonoBehaviour
             objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
                 GrifoBronceEnElInventario = true;
-            textoDelMensaje = "Grifo de bronce recogido";
+            FindObjectOfType<Mensajero>().Mensaje = 
+                "Grifo de bronce recogido";
         }
 
         if (gameObject.CompareTag("GrifoDeMadera"))
@@ -67,7 +70,8 @@ public class ObtencionObjetos : MonoBehaviour
             objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
                 GrifoMaderaEnElInventario = true;
-            textoDelMensaje = "Grifo de madera recogido";
+            FindObjectOfType<Mensajero>().Mensaje = 
+                "Grifo de madera recogido";
         }
 
         if (gameObject.CompareTag("GrifoDeMarmol"))
@@ -75,7 +79,26 @@ public class ObtencionObjetos : MonoBehaviour
             objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
                 GrifoMarmolEnElInventario = true;
-            textoDelMensaje = "Grifo de mármol recogido";
+            FindObjectOfType<Mensajero>().Mensaje = 
+                "Grifo de mármol recogido";
+        }
+
+        if (gameObject.CompareTag("LlaveAlfil"))
+        {
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                LlaveAlfilEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje = 
+                "Llave alfil recogida";
+        }
+
+        if (gameObject.CompareTag("LlaveCaballo"))
+        {
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                LlaveCaballoEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje = 
+                "Llave caballo recogida";
         }
 
         if (gameObject.CompareTag("LlavePeon") && 
@@ -84,7 +107,17 @@ public class ObtencionObjetos : MonoBehaviour
             objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
                 LlavePeonEnElInventario = true;
-            textoDelMensaje = "Llave peón recogida";
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Llave peón recogida";
+        }
+
+        if (gameObject.CompareTag("LlaveRey"))
+        {
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                LlaveReyEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Llave rey recogida";
         }
 
         if (gameObject.CompareTag("LlaveTorre"))
@@ -92,15 +125,17 @@ public class ObtencionObjetos : MonoBehaviour
             objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
                 LlaveTorreEnElInventario = true;
-            textoDelMensaje = "Llave torre recogida";
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Llave torre recogida";
         }
 
-
+        // Si se ha recogido un objeto...
         if (objetoRecogido)
         {
             audioSource.Play();
             OcultarObjetoDelEscenario();
-            StartCoroutine(InformarSobreObjetoRecogido());
+            //StartCoroutine(InformarSobreObjetoRecogido());
+            FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
         }
     }
 
@@ -129,7 +164,7 @@ public class ObtencionObjetos : MonoBehaviour
         
         gameObject.tag = "Recogido";
     }
-
+    /*
     private void ActivarInterfazMensaje()
     {
         fondoOscuroTraslucidoMensajes.SetActive(true);
@@ -148,7 +183,7 @@ public class ObtencionObjetos : MonoBehaviour
         yield return new WaitForSecondsRealtime(3);
         QuitarInterfazMensaje();
     }
-
+    */
     private void DesactivarScript()
     {
         enabled = false;

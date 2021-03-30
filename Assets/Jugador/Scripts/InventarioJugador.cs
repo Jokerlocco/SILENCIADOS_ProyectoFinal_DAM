@@ -16,21 +16,47 @@ public class InventarioJugador : MonoBehaviour
 
     // Objetos (ordenados alfabéticamente)
     private string nombreBombilla = "Bombilla funcional";
-    public bool BombillaEnElInventario { get; set; }
+    public bool BombillaEnElInventario { get; set; } = false;
+
     private string nombreGrifoBronce = "Grifo de bronce";
-    public bool GrifoBronceEnElInventario { get; set; }
+    public bool GrifoBronceEnElInventario { get; set; } = false;
+
     private string nombreGrifoMadera = "Grifo de madera";
-    public bool GrifoMaderaEnElInventario { get; set; }
+    public bool GrifoMaderaEnElInventario { get; set; } = false;
+
     private string nombreGrifoMarmol = "Grifo de mármol";
-    public bool GrifoMarmolEnElInventario { get; set; }
+    public bool GrifoMarmolEnElInventario { get; set; } = false;
+
+    private string nombreLlaveAlfil = "Llave alfil";
+    public bool LlaveAlfilEnElInventario { get; set; } = false;
+
+    private string nombreLlaveCaballo = "Llave caballo";
+    public bool LlaveCaballoEnElInventario { get; set; } = false;
+
     private string nombreLlavePeon = "Llave peón";
-    public bool LlavePeonEnElInventario { get; set; }
+    public bool LlavePeonEnElInventario { get; set; } = false;
+
+    private string nombreLlaveRey = "Llave rey";
+    public bool LlaveReyEnElInventario { get; set; } = false;
+
     private string nombreLlaveTorre = "Llave torre";
-    public bool LlaveTorreEnElInventario { get; set; }
+    public bool LlaveTorreEnElInventario { get; set; } = false;
 
     // Usos de las llaves
+    public int NumUsosLlaveAlfil { get; set; } = 0;
+    private int cantidadDePuertasParaLlaveAlfil = 3;
+
+    public int NumUsosLlaveCaballo { get; set; } = 0;
+    private int cantidadDePuertasParaLlaveCaballo = 3;
+
     public int NumUsosLlavePeon { get; set; } = 0;
     private int cantidadDePuertasParaLlavePeon = 3;
+
+    public int NumUsosLlaveRey { get; set; } = 0;
+    private int cantidadDePuertasParaLlaveRey = 1;
+
+    public int NumUsosLlaveTorre { get; set; } = 0;
+    private int cantidadDePuertasParaLlaveTorre = 2;
 
 
     private void ImplementarPatronSingleton()
@@ -55,13 +81,6 @@ public class InventarioJugador : MonoBehaviour
         inventarioAbierto = false;
 
         contenidoInventario.text = "";
-
-        BombillaEnElInventario = false;
-        GrifoBronceEnElInventario = false;
-        GrifoMaderaEnElInventario = false;
-        GrifoMarmolEnElInventario = false;
-        LlavePeonEnElInventario = false;
-        LlaveTorreEnElInventario = false;
     }
 
     private void Update()
@@ -92,10 +111,34 @@ public class InventarioJugador : MonoBehaviour
     
     private void DescartarLlavesPorUsos()
     {
+        if (LlaveAlfilEnElInventario &&
+            NumUsosLlaveAlfil == cantidadDePuertasParaLlaveAlfil)
+        {
+            LlaveAlfilEnElInventario = false;
+        }
+
+        if (LlaveCaballoEnElInventario &&
+            NumUsosLlaveCaballo == cantidadDePuertasParaLlaveCaballo)
+        {
+            LlaveCaballoEnElInventario = false;
+        }
+
         if (LlavePeonEnElInventario && 
             NumUsosLlavePeon == cantidadDePuertasParaLlavePeon)
         {
             LlavePeonEnElInventario = false;
+        }
+
+        if (LlaveReyEnElInventario &&
+            NumUsosLlaveRey == cantidadDePuertasParaLlaveRey)
+        {
+            LlaveReyEnElInventario = false;
+        }
+
+        if (LlaveTorreEnElInventario &&
+            NumUsosLlaveTorre == cantidadDePuertasParaLlaveTorre)
+        {
+            LlaveTorreEnElInventario = false;
         }
     }
 
@@ -119,9 +162,21 @@ public class InventarioJugador : MonoBehaviour
             !contenidoInventario.text.Contains(nombreGrifoMarmol))
             contenidoInventario.text += nombreGrifoMarmol + "\n";
 
+        if (LlaveAlfilEnElInventario &&
+            !contenidoInventario.text.Contains(nombreLlaveAlfil))
+            contenidoInventario.text += nombreLlaveAlfil + "\n";
+
+        if (LlaveCaballoEnElInventario &&
+            !contenidoInventario.text.Contains(nombreLlaveCaballo))
+            contenidoInventario.text += nombreLlaveCaballo + "\n";
+
         if (LlavePeonEnElInventario && 
             !contenidoInventario.text.Contains(nombreLlavePeon))
             contenidoInventario.text += nombreLlavePeon + "\n";
+
+        if (LlaveReyEnElInventario &&
+            !contenidoInventario.text.Contains(nombreLlaveRey))
+            contenidoInventario.text += nombreLlaveRey + "\n";
 
         if (LlaveTorreEnElInventario &&
             !contenidoInventario.text.Contains(nombreLlaveTorre))
