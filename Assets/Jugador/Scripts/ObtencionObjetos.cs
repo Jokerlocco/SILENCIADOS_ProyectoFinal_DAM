@@ -9,12 +9,6 @@ public class ObtencionObjetos : MonoBehaviour
     private bool colisionando = false;
     private bool objetoRecogido = false;
 
-    /*
-    [SerializeField] TMP_Text mensajeObtencionDeObjeto; // Asignado en Unity
-    [SerializeField] GameObject fondoOscuroTraslucidoMensajes; // Asignado en Unity
-    
-    private string textoDelMensaje = "";*/
-
     private AudioSource audioSource;
 
     private void Start()
@@ -164,26 +158,7 @@ public class ObtencionObjetos : MonoBehaviour
         
         gameObject.tag = "Recogido";
     }
-    /*
-    private void ActivarInterfazMensaje()
-    {
-        fondoOscuroTraslucidoMensajes.SetActive(true);
-    }
 
-    private void QuitarInterfazMensaje()
-    {
-        mensajeObtencionDeObjeto.text = "";
-        fondoOscuroTraslucidoMensajes.SetActive(false);
-    }
-
-    private IEnumerator InformarSobreObjetoRecogido()
-    {
-        ActivarInterfazMensaje();
-        mensajeObtencionDeObjeto.text = textoDelMensaje;
-        yield return new WaitForSecondsRealtime(3);
-        QuitarInterfazMensaje();
-    }
-    */
     private void DesactivarScript()
     {
         enabled = false;

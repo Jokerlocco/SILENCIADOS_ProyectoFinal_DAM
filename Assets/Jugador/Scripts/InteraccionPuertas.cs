@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class InteraccionPuerta : MonoBehaviour
+public class InteraccionPuertas : MonoBehaviour
 {
     private AudioSource audioSource;
     [SerializeField] AudioClip sonidoPuerta; // Asignado en Unity o null
     [SerializeField] AudioClip sonidoPuertaCerrada; // Asignado en Unity o null
 
     private Animator animacion;
+    private Animator animacionPuertaDobleIzquierda;
+    private Animator animacionPuertaDobleDerecha;
 
     private bool interactuandoConLaPuerta = false;
     private bool puertaAbierta = false;
@@ -21,9 +23,30 @@ public class InteraccionPuerta : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        animacion = GetComponent<Animator>();
+
+        InicializarAnimaciones();
 
         InicializarPuertasYLlaves();
+    }
+
+    private void InicializarAnimaciones()
+    {
+        if (GetComponent<Animator>()) // Si es una puerta normal...
+            animacion = GetComponent<Animator>();
+        else // Sino, es una puerta doble y hay que acceder a las dos puertas (hijas)
+        {
+            GameObject puertas =
+                gameObject.transform.GetChild(0).gameObject;
+            GameObject puertaIzquierda = 
+                puertas.transform.GetChild(0).gameObject;
+            GameObject puertaDerecha =
+                puertas.transform.GetChild(1).gameObject;
+
+            animacionPuertaDobleIzquierda = 
+                puertaIzquierda.GetComponent<Animator>();
+            animacionPuertaDobleDerecha = 
+                puertaDerecha.GetComponent<Animator>();
+        }
     }
 
     private void InicializarPuertasYLlaves()
@@ -48,6 +71,7 @@ public class InteraccionPuerta : MonoBehaviour
 
     private void InicializarPuertasConCerradura(string tipoDeCerradura)
     {
+        Debug.Log(gameObject.tag);
         puertaConLlave = true;
         puertaDesbloqueada = false;
         puedeAbrirOCerrarPuerta = false;
@@ -75,9 +99,25 @@ public class InteraccionPuerta : MonoBehaviour
         }
 
         if(puertaAbierta)
-            animacion.SetBool("abierta", true);
+        {
+            if (animacion) // Si es una puerta normal...
+                animacion.SetBool("abierta", true);
+            else // Sino, es una puerta doble y hay que acceder a las dos puertas (hijas)
+            {
+                animacionPuertaDobleIzquierda.SetBool("abierta", true);
+                animacionPuertaDobleDerecha.SetBool("abierta", true);
+            }
+        }
         else
-            animacion.SetBool("abierta", false);
+        {
+            if (animacion)
+                animacion.SetBool("abierta", false);
+            else
+            {
+                animacionPuertaDobleIzquierda.SetBool("abierta", false);
+                animacionPuertaDobleDerecha.SetBool("abierta", false);
+            }
+        }
 
         ReproducirSonidoPuerta();
     }
