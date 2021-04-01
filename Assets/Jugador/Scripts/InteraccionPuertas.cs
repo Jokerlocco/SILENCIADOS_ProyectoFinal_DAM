@@ -71,7 +71,6 @@ public class InteraccionPuertas : MonoBehaviour
 
     private void InicializarPuertasConCerradura(string tipoDeCerradura)
     {
-        Debug.Log(gameObject.tag);
         puertaConLlave = true;
         puertaDesbloqueada = false;
         puedeAbrirOCerrarPuerta = false;

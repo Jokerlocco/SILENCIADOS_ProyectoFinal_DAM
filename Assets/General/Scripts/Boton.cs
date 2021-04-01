@@ -38,8 +38,8 @@ public class Boton : MonoBehaviour
         {
             if (transform.parent.CompareTag("BotonesMenuPrincipal"))
             {
-                if (accionDelBoton == "Asylum")
-                    SceneManager.LoadScene(accionDelBoton);
+                if (accionDelBoton == "CargarEscenaAsilo")
+                    SceneManager.LoadScene("Asilo");
                 else if (accionDelBoton == "SalirDelJuego")
                     Application.Quit();
             }
