@@ -44,11 +44,6 @@ public class ElementoInteractivo : MonoBehaviour
     private void MostrarIndicadorDeInteraccion()
     {
         imagenIndicadorInteraccion.enabled = true;
-        Vector3 posicionAColocar = gameObject.transform.position;
-        imagenIndicadorInteraccion.
-            rectTransform.anchoredPosition = posicionAColocar;
-        imagenIndicadorInteraccion.rectTransform.sizeDelta =
-            new Vector2(100f, 100f);
     }
 
     private void OcultarIndicadorDeInteraccion()
