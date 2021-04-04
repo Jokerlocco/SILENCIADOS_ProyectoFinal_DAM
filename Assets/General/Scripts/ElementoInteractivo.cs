@@ -12,11 +12,14 @@ public class ElementoInteractivo : MonoBehaviour
     private void Update()
     {
         if (gameObject.CompareTag("Recogido") || 
-            gameObject.CompareTag("Utilizado") ||
-            gameObject.CompareTag("InterfazAbierta"))
+            gameObject.CompareTag("Utilizado"))
         {
             OcultarIndicadorDeInteraccion();
             DesactivarScript();
+        }
+        else if (gameObject.CompareTag("InterfazAbierta"))
+        {
+            OcultarIndicadorDeInteraccion();
         }
         else
         {

@@ -57,7 +57,6 @@ public class InspeccionDeDocumentos : MonoBehaviour
     private void AbrirInterfaz()
     {
         FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
-        audioSource.Play();
 
         documentos.SetActive(true);
         documentoActivo = true;
@@ -104,6 +103,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
 
     private void MostrarPagina(int numPaginaActual)
     {
+        audioSource.Play();
         textoDelDocumento.text = paginasDelDocumento[numPaginaActual];
     }
 
@@ -198,7 +198,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "no la toque, que la dejé ahí por si el doctor o Wilkes la " +
                 "necesitan en caso de emergencia. Me pregunto que " +
                 "contendrá...\n" +
-                "21, Junio \n" +
+                "21, Junio \n\n" +
                 "La gente teme al cementerio... " +
                 "Teme que se les aparezca algún fantasma... Oh, no, no, no... " +
                 "El cementerio es un lugar seguro. Ahí no hay fantasmas. " +
@@ -211,12 +211,12 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "No soporto más este lugar. Pensaba que serían fantasmas, " +
                 "pero no, es algo más... No sabría explicar qué carajos es " +
                 "lo que estoy viendo últimamente. Voy a informar a mis " +
-                "responsables de que hoy es mi último día acá.\n" +
+                "responsables de que hoy es mi último día acá.\n\n" +
                 "¡Chingada madre! Legalmente no puedo largarme tan rápido. " +
                 "Oh Dios mío, quiero irme a casa...\n");
 
             paginasDelDocumento.Add("(Justo debajo hay un texto escrito a " +
-                "prisas, sin fecha):\n ¡La Luz! ¡Esa luz intermitente viene " +
+                "prisas, sin fecha):\n¡La Luz! ¡Esa luz intermitente viene " +
                 "a por mí! ¡Huí de ella mientras se alimentaba de la Sra. " +
                 "Morgan! Me he encerrado en la oficina. Voy a morir, voy a " +
                 "morir acá... Si alguien encuentra esto, debe saber que " +
