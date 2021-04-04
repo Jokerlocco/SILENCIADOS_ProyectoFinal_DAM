@@ -12,7 +12,8 @@ public class ElementoInteractivo : MonoBehaviour
     private void Update()
     {
         if (gameObject.CompareTag("Recogido") || 
-            gameObject.CompareTag("Utilizado"))
+            gameObject.CompareTag("Utilizado") ||
+            gameObject.CompareTag("InterfazAbierta"))
         {
             OcultarIndicadorDeInteraccion();
             DesactivarScript();

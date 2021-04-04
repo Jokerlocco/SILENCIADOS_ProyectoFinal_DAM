@@ -1,21 +1,130 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InspeccionDeDocumentos : MonoBehaviour
 {
+    private AudioSource audioSource;
+    private string tagOriginal;
+
     private bool colisionando = false;
 
     [SerializeField] GameObject documentos; // Asignado en Unity
     [SerializeField] TMP_Text textoDelDocumento; // Asignado en Unity
+    [SerializeField] RawImage flechaDerecha; // Asignado en Unity
+    [SerializeField] RawImage flechaIzquierda; // Asignado en Unity
+    [SerializeField] TMP_Text indicadorNumPagina; // Asignado en Unity
     private bool documentoActivo = false;
 
-    private AudioSource audioSource;
+    private List<string> paginasDelDocumento = new List<string>();
+    private int numPaginaActual;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        tagOriginal = gameObject.tag;
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Interactuar") && colisionando
+            && !documentoActivo)
+        {
+            AbrirInterfaz();
+        }
+
+        if (documentoActivo)
+        {
+            MostrarIndicadoresDePaginas();
+            MostrarIndicadorNumPagina();
+
+            if (Input.GetButtonDown("Cerrar"))
+            {
+                CerrarInterfaz();
+            }
+            else if (Input.GetButtonDown("FlechaDerecha"))
+            {
+                AvanzarPagina();
+            }
+            else if (Input.GetButtonDown("FlechaIzquierda"))
+            {
+                RetrocederPagina();
+            }
+        }
+    }
+
+    private void AbrirInterfaz()
+    {
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
+        audioSource.Play();
+
+        documentos.SetActive(true);
+        documentoActivo = true;
+
+        AsignarTextoDelDocumento();
+        numPaginaActual = 0; // Mostramos la primera página cuando se abre
+        MostrarPagina(numPaginaActual);
+
+        gameObject.tag = "InterfazAbierta"; // Para quitar el icono de interacción en la vista de documentos
+    }
+
+    private void MostrarIndicadoresDePaginas()
+    {
+        if (paginasDelDocumento.Count > 1 && 
+            numPaginaActual < (paginasDelDocumento.Count - 1))
+            flechaDerecha.enabled = true;
+        else
+            flechaDerecha.enabled = false;
+
+        if (paginasDelDocumento.Count > 1 &&
+            numPaginaActual < paginasDelDocumento.Count &&
+            numPaginaActual > 0)
+            flechaIzquierda.enabled = true;
+        else
+            flechaIzquierda.enabled = false;
+
+    }
+
+    private void MostrarIndicadorNumPagina()
+    {
+        indicadorNumPagina.text = 
+            "Página " + (numPaginaActual + 1) + " de " + 
+            paginasDelDocumento.Count;
+    }
+
+    private void CerrarInterfaz()
+    {
+        textoDelDocumento.text = "";
+        documentos.SetActive(false);
+        documentoActivo = false;
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = true;
+        gameObject.tag = tagOriginal;
+    }
+
+    private void MostrarPagina(int numPaginaActual)
+    {
+        textoDelDocumento.text = paginasDelDocumento[numPaginaActual];
+    }
+
+    private void AvanzarPagina()
+    {
+        if (paginasDelDocumento.Count > 1 && 
+            numPaginaActual < (paginasDelDocumento.Count - 1) )
+        {
+            numPaginaActual++;
+            MostrarPagina(numPaginaActual);
+        }
+    }
+
+    private void RetrocederPagina()
+    {
+        if (paginasDelDocumento.Count > 1 &&
+            (numPaginaActual - 1) >= 0)
+        {
+            numPaginaActual--;
+            MostrarPagina(numPaginaActual);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,42 +139,88 @@ public class InspeccionDeDocumentos : MonoBehaviour
             colisionando = false;
     }
 
-    private void Update()
+    private void AsignarTextoDelDocumento()
     {
-        if (Input.GetButtonDown("Interactuar") && colisionando 
-            && !documentoActivo)
+        paginasDelDocumento.Clear();
+
+        if (gameObject.CompareTag("D_DiarioDelSecretario"))
         {
-            MostrarDocumento();
-            MostrarTextoDelDocumento();
-        }
+            paginasDelDocumento.Add(
+                "02, Junio \n" +
+                "Bueno, como me aburro en este antro, voy a escribir " +
+                "mi propio diario. Pensaba que eso era cosas de chicas " +
+                "adolescentes, pero al menos, me puedo entretener. " +
+                "Vamos a ello: \n\n" +
+                "Zesimov Inc, me contrató para trabajar como " +
+                "secretario/conserje del asilo Karlheinz, cuyo apellido " +
+                "pertenece al médico jefe del recinto (aunque creo que el " +
+                "fundador fue su padre). Es un tipo estirado, viejo, y con " +
+                "cara de pocos amigos. Lo realmente importante es que es un " +
+                "gilipollas. Tranqui, él no va a leer esto porque guardo este " +
+                "documento bajo llave.\n");
 
-        if (Input.GetButtonDown("Cerrar"))
-            QuitarDocumento();
-    }
+            paginasDelDocumento.Add("Desde que llegué hace unos meses, me " +
+                "tratan como a una farola. Mi única función es atender a la " +
+                "gente que entra por esa puerta de enfrente. Es decir: nadie " +
+                "(sin contar a mis compañeros enfermeros y enfermeras, claro)." +
+                " Y los desconocidos que entran, trabajan para Zesimov, " +
+                "teniendo un cargo mayor que el mío, ni si quiera me miran. " +
+                "Su identificación es suficientemente importante para que ni " +
+                "les pueda preguntar a dónde se dirigen o que van a hacer en " +
+                "el asilo... \n" +
+                "Si hasta tienen una llave especial para el " +
+                "ascensor que yo no tengo. Creo que van a una planta inferior," +
+                " una que está por debajo del propio sótano. " +
+                "No sé que chingados harán ahí abajo, pero a veces... " +
+                "a veces se llevan enfermos ahí, y no regresan... \n" +
+                "Y no quiero sonar conspiranoico, pero para ser un asilo " +
+                "relativamente pequeño, la morgue es muy transitada... " +
+                "Mejor será no irme de la lengua con Zesimov o acabaré " +
+                "ahí, je, je.\n");
+            
+            paginasDelDocumento.Add("07, Junio \n" +
+                "Me encontraba limpiando la estatua de la musa Urania, " +
+                "y me percaté de que los orificios que tiene en su soporte " +
+                "sirven para insertar algo. La Sra. Wilkes (enfermera jefe), " +
+                "me pilló fisgoneándolos y me echó la bronca por no estar en " +
+                "la oficina. No soy un pendejo, sé que quería que me alejará " +
+                "de ahí, que no metiera mis zarpas dónde no debía, como " +
+                "siempre... Ella y el doctor Karlheinz son la máxima " +
+                "autoridad del asilo y saben (o incluso son responsables) " +
+                "de todos los secretos de Zesimov en él... Cuanto más tiempo" +
+                " paso en este antro, más cosas turbias encuentro... " +
+                "Si no fuera por la gran cantidad de plata que me dan, " +
+                "me hubiera largado de aquí, pero me gusta el dinero.\n");
 
-    private void MostrarDocumento()
-    {
-        documentos.SetActive(true);
-        documentoActivo = true;
-        audioSource.Play();
-        FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
-    }
+            paginasDelDocumento.Add("11, Junio \n" +
+                "Hoy me han traído a la oficina una caja de seguridad con " +
+                "un código. Es muy futurística, la verdad. Me han dicho que " +
+                "no la toque, que la dejé ahí por si el doctor o Wilkes la " +
+                "necesitan en caso de emergencia. Me pregunto que " +
+                "contendrá...\n" +
+                "21, Junio \n" +
+                "La gente teme al cementerio... " +
+                "Teme que se les aparezca algún fantasma... Oh, no, no, no... " +
+                "El cementerio es un lugar seguro. Ahí no hay fantasmas. " +
+                "Los espíritus perdidos se quedan en el lugar de fallecimiento," +
+                " y es aquí, cuando realmente se tiene que tener miedo... " +
+                "Lugares como las carreteras, los hospitales, o...\n" +
+                "los asilos...");
 
-    private void QuitarDocumento()
-    {
-        documentos.SetActive(false);
-        documentoActivo = false;
-        textoDelDocumento.text = "";
-        FindObjectOfType<ControlDelJugador>().PuedeMoverse = true;
-    }
+            paginasDelDocumento.Add("01, Julio \n" +
+                "No soporto más este lugar. Pensaba que serían fantasmas, " +
+                "pero no, es algo más... No sabría explicar qué carajos es " +
+                "lo que estoy viendo últimamente. Voy a informar a mis " +
+                "responsables de que hoy es mi último día acá.\n" +
+                "¡Chingada madre! Legalmente no puedo largarme tan rápido. " +
+                "Oh Dios mío, quiero irme a casa...\n");
 
-    private void MostrarTextoDelDocumento()
-    {
-        if (gameObject.CompareTag("InspeccionDocumentoPrueba"))
-        {
-            textoDelDocumento.text = "El Doctor Isaacs ha informado " +
-                "del escape del paciente 0234567L. Debe de ser " +
-                "encontrado de inmediato.";
+            paginasDelDocumento.Add("(Justo debajo hay un texto escrito a " +
+                "prisas, sin fecha):\n ¡La Luz! ¡Esa luz intermitente viene " +
+                "a por mí! ¡Huí de ella mientras se alimentaba de la Sra. " +
+                "Morgan! Me he encerrado en la oficina. Voy a morir, voy a " +
+                "morir acá... Si alguien encuentra esto, debe saber que " +
+                "Zesimov es el respo... (el texto termina aquí).\n");
         }
     }
 }

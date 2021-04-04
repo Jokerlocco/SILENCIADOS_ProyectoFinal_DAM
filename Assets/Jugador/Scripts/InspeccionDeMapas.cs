@@ -39,7 +39,7 @@ public class InspeccionDeMapas : MonoBehaviour
             MostrarImagenDelMapa();
         }
 
-        if (Input.GetButtonDown("Cerrar"))
+        if (Input.GetButtonDown("Cerrar") && mapaActivo)
             QuitarMapa();
     }
 
