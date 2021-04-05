@@ -50,6 +50,25 @@ public class ObtencionObjetos : MonoBehaviour
                 "Bombilla funcional recogida";
         }
 
+        if (gameObject.CompareTag("Extintor") && 
+            !GameObject.FindGameObjectWithTag("CompartimientoDelExtintor"))
+        {
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                ExtintorEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Extintor recogido";
+        }
+
+        if (gameObject.CompareTag("Ganzua"))
+        {
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                GanzuaEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Ganzúa recogida";
+        }
+
         if (gameObject.CompareTag("GrifoDeBronce"))
         {
             objetoRecogido = true;
@@ -75,6 +94,15 @@ public class ObtencionObjetos : MonoBehaviour
                 GrifoMarmolEnElInventario = true;
             FindObjectOfType<Mensajero>().Mensaje = 
                 "Grifo de mármol recogido";
+        }
+
+        if (gameObject.CompareTag("Jarron"))
+        {
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                JarronEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Jarrón de gran acabado recogido";
         }
 
         if (gameObject.CompareTag("LlaveAlfil"))
@@ -126,7 +154,8 @@ public class ObtencionObjetos : MonoBehaviour
         // Si se ha recogido un objeto...
         if (objetoRecogido)
         {
-            audioSource.Play();
+            if (audioSource != null)
+                audioSource.Play();
             OcultarObjetoDelEscenario();
             FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
         }
@@ -134,33 +163,29 @@ public class ObtencionObjetos : MonoBehaviour
 
     private void OcultarObjetoDelEscenario()
     {
-        if (gameObject.CompareTag("LlavePeon") || 
-            gameObject.CompareTag("LlaveTorre") ||
-            gameObject.CompareTag("LlaveCaballo") ||
-            gameObject.CompareTag("LlaveAlfil") ||
-            gameObject.CompareTag("LlaveRey"))
-        {
-            /* Las llaves tienen dos partes: "La cabeza" y el "cifrado". 
-             * Pues con esto, eliminamos el cifrado que 
-             * es la parte hija de la llave. */
-            GameObject cifradoLlave = 
-                gameObject.transform.GetChild(0).gameObject;
-            Renderer renderer = cifradoLlave.GetComponent<Renderer>();
-            renderer.enabled = false;
-        }
-
-        if (gameObject.CompareTag("Bombilla"))
-        {
-            gameObject.GetComponent<Light>().enabled = false;
-        }
-
-        Renderer rendererDelObjeto = gameObject.GetComponent<Renderer>();
-        rendererDelObjeto.enabled = false;
-        MeshCollider meshColliderDelObjeto = 
-            gameObject.GetComponent<MeshCollider>();
-        meshColliderDelObjeto.enabled = false;
-        
         gameObject.tag = "Recogido";
+
+        // Objeto
+        if (gameObject.GetComponent<Renderer>())
+            gameObject.GetComponent<Renderer>().enabled = false;
+        if (gameObject.GetComponent<MeshCollider>())
+            gameObject.GetComponent<MeshCollider>().enabled = false;
+        if (gameObject.GetComponent<Light>())
+            gameObject.GetComponent<Light>().enabled = false;
+
+        /* Posibles elementos hijos del objeto (Por ejemplo, 
+         * las llaves tienen dos partes: "La cabeza" y el "cifrado". 
+         * Pues con esto, eliminamos el cifrado que  es la parte hija 
+         * de la llave. */
+        foreach (Transform hijo in gameObject.transform)
+        {
+            if (hijo.GetComponent<Renderer>())
+                hijo.GetComponent<Renderer>().enabled = false;
+            if (hijo.GetComponent<MeshCollider>())
+                hijo.GetComponent<MeshCollider>().enabled = false;
+            if (hijo.GetComponent<Light>())
+                hijo.GetComponent<Light>().enabled = false;
+        }
     }
 
     private void DesactivarScript()

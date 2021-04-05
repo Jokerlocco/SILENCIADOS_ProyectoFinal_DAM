@@ -1,4 +1,4 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,6 +52,13 @@ public class UtilizacionDeElementos : MonoBehaviour
                 StartCoroutine(QuitarBaldosaSecretaYMostrarLlaveTorre(2f));
                 EstablecerComoUtilizado();
             }
+
+            else if (gameObject.CompareTag("CompartimientoDelExtintor") &&
+                FindObjectOfType<InventarioJugador>().GanzuaEnElInventario)
+            {
+                StartCoroutine(UsarGanzuaEnElCompartimientoDelExtintor(2f));
+                EstablecerComoUtilizado();
+            }
         }
     }
 
@@ -67,14 +74,14 @@ public class UtilizacionDeElementos : MonoBehaviour
     {
         FindObjectOfType<PantallaNegra>().ActivarAnimacionPantallaNegra();
         FindObjectOfType<PantallaNegra>()
-            .QuitarPantallaNegra(segundosDeLaAnimacion); 
+            .QuitarPantallaNegra(segundosDeLaAnimacion);
     }
 
     private void EncenderProyectorSalaDeReuniones()
     {
         Light luzDelProyector = gameObject.GetComponentInChildren<Light>();
         luzDelProyector.enabled = true;
-        GameObject imagenDelProyector = 
+        GameObject imagenDelProyector =
             GameObject.FindGameObjectWithTag("ImagenDeProyeccion");
         imagenDelProyector.GetComponent<MeshRenderer>().enabled = true;
 
@@ -87,7 +94,7 @@ public class UtilizacionDeElementos : MonoBehaviour
         float segundosDeLaAnimacion)
     {
         ActivarAnimacionPantallaNegra(segundosDeLaAnimacion);
-        yield return new WaitForSecondsRealtime(segundosDeLaAnimacion); // Esperar a que la animaciÃ³n termine antes de continuar
+        yield return new WaitForSecondsRealtime(segundosDeLaAnimacion); // Esperar a que la animación termine antes de continuar
 
         GameObject llaveTorre =
             GameObject.FindGameObjectWithTag("ContenedorLlaveTorre").
@@ -95,7 +102,26 @@ public class UtilizacionDeElementos : MonoBehaviour
         llaveTorre.SetActive(true);
 
         FindObjectOfType<Mensajero>().Mensaje =
-            "HabÃ­a una llave bajo la baldosa.";
+            "Había una llave bajo la baldosa.";
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+    }
+
+    private IEnumerator UsarGanzuaEnElCompartimientoDelExtintor(
+        float segundosDeLaAnimacion)
+    {
+        ActivarAnimacionPantallaNegra(segundosDeLaAnimacion);
+        yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
+
+        // Cambiamos el cristal del compartimiento
+        Renderer cCristalCerradoRender =
+            gameObject.transform.GetChild(0).GetComponent<MeshRenderer>();
+        cCristalCerradoRender.enabled = false;
+        Renderer cCristalAbiertoRender =
+            gameObject.transform.GetChild(1).GetComponent<MeshRenderer>();
+        cCristalCerradoRender.enabled = true;
+
+        FindObjectOfType<Mensajero>().Mensaje =
+            "He abierto el compartimiento del extintor con la ganzúa.";
         FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
     }
 }

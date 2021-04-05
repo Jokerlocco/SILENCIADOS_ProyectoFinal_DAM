@@ -78,6 +78,12 @@ public class InspeccionDeElementos : MonoBehaviour
             FindObjectOfType<Mensajero>().Mensaje = "Hay un escape... " +
                 "Será mejor no acercarse más.";
 
+        else if (gameObject.CompareTag("CompartimientoDelExtintor") &&
+            !FindObjectOfType<InventarioJugador>().GanzuaEnElInventario)
+            FindObjectOfType<Mensajero>().Mensaje = 
+                "Es un extintor, pero el compartimiento está cerrado. " +
+                "Si tuviera la herramienta adecuada creo que podría abrirlo.";
+
         else // Si no ha entrado a ningún if, terminamos con el script.
         {
             mostrarMensaje = false;

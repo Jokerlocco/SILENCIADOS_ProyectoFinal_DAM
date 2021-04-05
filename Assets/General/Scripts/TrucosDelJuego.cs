@@ -9,6 +9,7 @@ public class TrucosDelJuego : MonoBehaviour
     [SerializeField] bool llavePeonEnElInventarioDelJugador = false;
     [SerializeField] bool llaveReyEnElInventarioDelJugador = false;
     [SerializeField] bool llaveTorreEnElInventarioDelJugador = false;
+    [SerializeField] bool ganzuaEnElInventarioDelJugador = false;
 
     private void Update()
     {
@@ -46,5 +47,12 @@ public class TrucosDelJuego : MonoBehaviour
         else
             FindObjectOfType<InventarioJugador>().
                 LlaveTorreEnElInventario = false;
+
+        if (ganzuaEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                GanzuaEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                GanzuaEnElInventario = false;
     }
 }

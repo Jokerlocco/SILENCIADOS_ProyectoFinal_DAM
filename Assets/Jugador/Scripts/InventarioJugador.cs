@@ -18,6 +18,12 @@ public class InventarioJugador : MonoBehaviour
     private string nombreBombilla = "Bombilla funcional";
     public bool BombillaEnElInventario { get; set; } = false;
 
+    private string nombreExtintor = "Extintor";
+    public bool ExtintorEnElInventario { get; set; } = false;
+
+    private string nombreGanzua = "Ganzúa";
+    public bool GanzuaEnElInventario { get; set; } = false;
+
     private string nombreGrifoBronce = "Grifo de bronce";
     public bool GrifoBronceEnElInventario { get; set; } = false;
 
@@ -26,6 +32,9 @@ public class InventarioJugador : MonoBehaviour
 
     private string nombreGrifoMarmol = "Grifo de mármol";
     public bool GrifoMarmolEnElInventario { get; set; } = false;
+
+    private string nombreJarron = "Jarrón";
+    public bool JarronEnElInventario { get; set; } = false;
 
     private string nombreLlaveAlfil = "Llave alfil";
     public bool LlaveAlfilEnElInventario { get; set; } = false;
@@ -150,6 +159,14 @@ public class InventarioJugador : MonoBehaviour
             !contenidoInventario.text.Contains(nombreBombilla))
             contenidoInventario.text += nombreBombilla + "\n";
 
+        if (ExtintorEnElInventario &&
+            !contenidoInventario.text.Contains(nombreExtintor))
+            contenidoInventario.text += nombreExtintor + "\n";
+
+        if (GanzuaEnElInventario &&
+            !contenidoInventario.text.Contains(nombreGanzua))
+            contenidoInventario.text += nombreGanzua + "\n";
+
         if (GrifoBronceEnElInventario &&
             !contenidoInventario.text.Contains(nombreGrifoBronce))
             contenidoInventario.text += nombreGrifoBronce + "\n";
@@ -161,6 +178,10 @@ public class InventarioJugador : MonoBehaviour
         if (GrifoMarmolEnElInventario &&
             !contenidoInventario.text.Contains(nombreGrifoMarmol))
             contenidoInventario.text += nombreGrifoMarmol + "\n";
+
+        if (JarronEnElInventario &&
+            !contenidoInventario.text.Contains(nombreJarron))
+            contenidoInventario.text += nombreJarron + "\n";
 
         if (LlaveAlfilEnElInventario &&
             !contenidoInventario.text.Contains(nombreLlaveAlfil))
