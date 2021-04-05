@@ -149,6 +149,11 @@ public class ObtencionObjetos : MonoBehaviour
             renderer.enabled = false;
         }
 
+        if (gameObject.CompareTag("Bombilla"))
+        {
+            gameObject.GetComponent<Light>().enabled = false;
+        }
+
         Renderer rendererDelObjeto = gameObject.GetComponent<Renderer>();
         rendererDelObjeto.enabled = false;
         MeshCollider meshColliderDelObjeto = 

@@ -5,8 +5,8 @@ public class ActivadorCamara : MonoBehaviour
     private GestorDeCamaras gestorDeCamaras;
     [SerializeField] private GameObject camaraAActivar;
 
-    private bool colisionando;
-    private bool camaraActivada;
+    [SerializeField] private bool colisionando;
+    [SerializeField] private bool camaraActivada;
 
     private void Start()
     {

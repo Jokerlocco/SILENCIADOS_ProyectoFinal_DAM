@@ -77,6 +77,10 @@ public class UtilizacionDeElementos : MonoBehaviour
         GameObject imagenDelProyector = 
             GameObject.FindGameObjectWithTag("ImagenDeProyeccion");
         imagenDelProyector.GetComponent<MeshRenderer>().enabled = true;
+
+        FindObjectOfType<Mensajero>().Mensaje =
+            "He utilizado la bombilla funcional en el proyector.";
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
     }
 
     private IEnumerator QuitarBaldosaSecretaYMostrarLlaveTorre(

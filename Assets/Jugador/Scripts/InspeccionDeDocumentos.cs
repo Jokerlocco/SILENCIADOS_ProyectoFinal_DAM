@@ -220,7 +220,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
 
             paginasDelDocumento.Add("(Justo debajo hay un texto escrito a " +
                 "prisas, sin fecha):\n¡La Luz! ¡Esa luz intermitente viene " +
-                "a por mí! ¡Huí de ella mientras se alimentaba de la Sra. " +
+                "a por mí! ¡Huí de ella mientras se alimentaba de " +
                 "Morgan! Me he encerrado en la oficina. Voy a morir, voy a " +
                 "morir acá... Si alguien encuentra esto, debe saber que " +
                 "Zesimov es el respo... (el texto termina aquí).\n");
@@ -230,7 +230,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
         {
             paginasDelDocumento.Add("¡HE ENCONTRADO UNA LLAVE! ¡SÍ! ¡SÍ! " +
                 "¡SÍ! ¡SÍ! ¡Y SERÁ SÓLO MÍA! ¡MÍA! ¡MÍA! ¡MÍA! ¡SÍ!\n " +
-                "¡NADIE LA ENCONTRARÁ! ¡NI SI QUIERA DÑA. WILKES! \n" +
+                "¡NADIE LA ENCONTRARÁ! ¡NI SI QUIERA LA ENFERMERA WILKES! \n" +
                 "(A no ser que alguien descubra mi documento guía en mi" +
                 " ducha favorita... sí, sí, la que no funciona... je, je...)");
         }
@@ -241,7 +241,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "¡HACE POCO COGÍ LA LLAVE EN FORMA DE TORRE DE AJEDREZ Y " +
                 "LA ESCONDÍ!\n" +
                 "¡JA, JA, JA!\n" +
-                "¡DÑA. MORGAN Y DÑA. SHARON SE HAN " +
+                "¡MORGAN Y SHARON SE HAN " +
                 "VUELTO LOCAS BUSCÁNDOLA!\nLa he escondido en otro de mis " +
                 "lugares secretos: Debajo de una baldosa de los dormitorios, " +
                 "cerca de las camas de Cristóbal y Tom. Es decir, al fondo " +
@@ -254,7 +254,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "le realizará un chequeo en la sala médica B.\n" +
                 "Aunque las enfermeras estarán pendientes de usted, " +
                 "por favor, no beba ni coma nada. " +
-                "Sea responsable.\n\nDña. Wilkes.");
+                "Sea responsable.\n\nEnfermera A.Wilkes.");
         }
     }
 }
