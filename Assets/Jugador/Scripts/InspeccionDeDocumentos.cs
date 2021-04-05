@@ -145,6 +145,9 @@ public class InspeccionDeDocumentos : MonoBehaviour
 
         if (gameObject.CompareTag("D_DiarioDelSecretario"))
         {
+            paginasDelDocumento.Add("DIARIO DEL SECRETARIO\n" +
+                "---------------------------");
+
             paginasDelDocumento.Add(
                 "02, Junio \n" +
                 "Bueno, como me aburro en este antro, voy a escribir " +
@@ -221,6 +224,37 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "Morgan! Me he encerrado en la oficina. Voy a morir, voy a " +
                 "morir acá... Si alguien encuentra esto, debe saber que " +
                 "Zesimov es el respo... (el texto termina aquí).\n");
+        }
+
+        else if (gameObject.CompareTag("D_PistaDeUnLoco1"))
+        {
+            paginasDelDocumento.Add("¡HE ENCONTRADO UNA LLAVE! ¡SÍ! ¡SÍ! " +
+                "¡SÍ! ¡SÍ! ¡Y SERÁ SÓLO MÍA! ¡MÍA! ¡MÍA! ¡MÍA! ¡SÍ!\n " +
+                "¡NADIE LA ENCONTRARÁ! ¡NI SI QUIERA DÑA. WILKES! \n" +
+                "(A no ser que alguien descubra mi documento guía en mi" +
+                " ducha favorita... sí, sí, la que no funciona... je, je...)");
+        }
+
+        else if (gameObject.CompareTag("D_PistaDeUnLoco2"))
+        {
+            paginasDelDocumento.Add("¡ME ENCANTA ENCONTRAR Y ESCONDER COSAS! " +
+                "¡HACE POCO COGÍ LA LLAVE EN FORMA DE TORRE DE AJEDREZ Y " +
+                "LA ESCONDÍ!\n" +
+                "¡JA, JA, JA!\n" +
+                "¡DÑA. MORGAN Y DÑA. SHARON SE HAN " +
+                "VUELTO LOCAS BUSCÁNDOLA!\nLa he escondido en otro de mis " +
+                "lugares secretos: Debajo de una baldosa de los dormitorios, " +
+                "cerca de las camas de Cristóbal y Tom. Es decir, al fondo " +
+                "de la sala...");
+        }
+
+        else if (gameObject.CompareTag("D_RecordatorioACristobal"))
+        {
+            paginasDelDocumento.Add("Cristóbal, acuérdese de que mañana se " +
+                "le realizará un chequeo en la sala médica B.\n" +
+                "Aunque las enfermeras estarán pendientes de usted, " +
+                "por favor, no beba ni coma nada. " +
+                "Sea responsable.\n\nDña. Wilkes.");
         }
     }
 }

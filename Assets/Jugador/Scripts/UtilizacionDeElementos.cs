@@ -45,15 +45,29 @@ public class UtilizacionDeElementos : MonoBehaviour
                     BombillaEnElInventario = false;
                 EncenderProyectorSalaDeReuniones();
                 EstablecerComoUtilizado();
-            }    
+            }
+
+            else if (gameObject.CompareTag("BaldosaSecreta"))
+            {
+                StartCoroutine(QuitarBaldosaSecretaYMostrarLlaveTorre(2f));
+                EstablecerComoUtilizado();
+            }
         }
     }
 
     private void EstablecerComoUtilizado()
     {
-        audioSource.Play();
+        if (audioSource != null)
+            audioSource.Play();
         gameObject.tag = "Utilizado";
         DesactivarScript();
+    }
+
+    private void ActivarAnimacionPantallaNegra(float segundosDeLaAnimacion)
+    {
+        FindObjectOfType<PantallaNegra>().ActivarAnimacionPantallaNegra();
+        FindObjectOfType<PantallaNegra>()
+            .QuitarPantallaNegra(segundosDeLaAnimacion); 
     }
 
     private void EncenderProyectorSalaDeReuniones()
@@ -63,5 +77,21 @@ public class UtilizacionDeElementos : MonoBehaviour
         GameObject imagenDelProyector = 
             GameObject.FindGameObjectWithTag("ImagenDeProyeccion");
         imagenDelProyector.GetComponent<MeshRenderer>().enabled = true;
+    }
+
+    private IEnumerator QuitarBaldosaSecretaYMostrarLlaveTorre(
+        float segundosDeLaAnimacion)
+    {
+        ActivarAnimacionPantallaNegra(segundosDeLaAnimacion);
+        yield return new WaitForSecondsRealtime(segundosDeLaAnimacion); // Esperar a que la animación termine antes de continuar
+
+        GameObject llaveTorre =
+            GameObject.FindGameObjectWithTag("ContenedorLlaveTorre").
+            gameObject.transform.GetChild(0).gameObject;
+        llaveTorre.SetActive(true);
+
+        FindObjectOfType<Mensajero>().Mensaje =
+            "Había una llave bajo la baldosa.";
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
     }
 }

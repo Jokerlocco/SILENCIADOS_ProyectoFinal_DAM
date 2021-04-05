@@ -128,7 +128,6 @@ public class ObtencionObjetos : MonoBehaviour
         {
             audioSource.Play();
             OcultarObjetoDelEscenario();
-            //StartCoroutine(InformarSobreObjetoRecogido());
             FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
         }
     }

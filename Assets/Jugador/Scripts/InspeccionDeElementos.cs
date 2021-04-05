@@ -58,6 +58,7 @@ public class InspeccionDeElementos : MonoBehaviour
                 "Debo buscar otra forma de salir.";
             ReproducirSonidoElemento();
         }
+
         else if (gameObject.CompareTag("InspeccionAscensor"))
             FindObjectOfType<Mensajero>().Mensaje =
                 "El ascensor está destrozado. No se puede utilizar.";

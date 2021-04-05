@@ -5,17 +5,40 @@ public class ActivadorCamara : MonoBehaviour
     private GestorDeCamaras gestorDeCamaras;
     [SerializeField] private GameObject camaraAActivar;
 
+    private bool colisionando;
+    private bool camaraActivada;
+
     private void Start()
     {
         gestorDeCamaras = FindObjectOfType<GestorDeCamaras>();
+        camaraActivada = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if (other.CompareTag("Jugador"))
+        if (colisionando && !camaraActivada)
+            ActivarCamara();
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Jugador"))
+            colisionando = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Jugador"))
         {
-            gestorDeCamaras.DesactivarTodasLasCamaras(); // Otra forma de hacer una especie de "SendMessage"
-            camaraAActivar.SetActive(true);
+            colisionando = false;
+            camaraActivada = false;
         }
+    }
+
+    private void ActivarCamara()
+    {
+        gestorDeCamaras.DesactivarTodasLasCamaras(); // Otra forma de hacer una especie de "SendMessage"
+        camaraAActivar.SetActive(true);
+        camaraActivada = true;
     }
 }

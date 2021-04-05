@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -21,7 +20,7 @@ public class Mensajero : MonoBehaviour
 
     private IEnumerator EsperarEnLaInterfazAntesDeCerrar()
     {
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(4);
         OcultarInterfazMensaje();
     }
 
