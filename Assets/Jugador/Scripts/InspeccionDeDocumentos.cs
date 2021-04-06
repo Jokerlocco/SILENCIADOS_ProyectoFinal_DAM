@@ -200,8 +200,8 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "un código. Es muy futurística, la verdad. Me han dicho que " +
                 "no la toque, que la dejé ahí por si el doctor o Wilkes la " +
                 "necesitan en caso de emergencia. Me pregunto que " +
-                "contendrá...\n" +
-                "21, Junio \n\n" +
+                "contendrá...\n\n" +
+                "21, Junio \n" +
                 "La gente teme al cementerio... " +
                 "Teme que se les aparezca algún fantasma... Oh, no, no, no... " +
                 "El cementerio es un lugar seguro. Ahí no hay fantasmas. " +

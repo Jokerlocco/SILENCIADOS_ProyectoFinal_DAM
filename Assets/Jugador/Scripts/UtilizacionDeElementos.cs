@@ -96,10 +96,19 @@ public class UtilizacionDeElementos : MonoBehaviour
         ActivarAnimacionPantallaNegra(segundosDeLaAnimacion);
         yield return new WaitForSecondsRealtime(segundosDeLaAnimacion); // Esperar a que la animación termine antes de continuar
 
-        GameObject llaveTorre =
-            GameObject.FindGameObjectWithTag("ContenedorLlaveTorre").
+        // Mostrarmos la baldosa levantada:
+        GameObject baldosaLevantada1 = 
             gameObject.transform.GetChild(0).gameObject;
-        llaveTorre.SetActive(true);
+        baldosaLevantada1.SetActive(true);
+        GameObject baldosaLevantada2 =
+            gameObject.transform.GetChild(1).gameObject;
+        baldosaLevantada2.SetActive(true);
+
+        // Y la llave
+        GameObject llaveTorre =
+            GameObject.FindGameObjectWithTag("LlaveTorre").gameObject;
+        llaveTorre.GetComponent<Renderer>().enabled = true;
+        llaveTorre.transform.GetChild(0).GetComponent<Renderer>().enabled = true;
 
         FindObjectOfType<Mensajero>().Mensaje =
             "Había una llave bajo la baldosa.";
@@ -118,7 +127,7 @@ public class UtilizacionDeElementos : MonoBehaviour
         cCristalCerradoRender.enabled = false;
         Renderer cCristalAbiertoRender =
             gameObject.transform.GetChild(1).GetComponent<MeshRenderer>();
-        cCristalCerradoRender.enabled = true;
+        cCristalAbiertoRender.enabled = true;
 
         FindObjectOfType<Mensajero>().Mensaje =
             "He abierto el compartimiento del extintor con la ganzúa.";

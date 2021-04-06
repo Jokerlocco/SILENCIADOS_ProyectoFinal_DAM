@@ -34,7 +34,8 @@ public class ObtencionObjetos : MonoBehaviour
             DesactivarScript();
         else
         {
-            if (Input.GetButtonDown("Interactuar") && colisionando)
+            if (Input.GetButtonDown("Interactuar") && colisionando &&
+                FindObjectOfType<ControlDelJugador>().PuedeMoverse)
                 RecogerObjeto();
         }
     }

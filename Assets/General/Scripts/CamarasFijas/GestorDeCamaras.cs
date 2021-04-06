@@ -4,9 +4,21 @@ public class GestorDeCamaras : MonoBehaviour
 {
     [SerializeField] private GameObject[] camaras;
 
-    public void DesactivarTodasLasCamaras()
+    public void CambiarCamara(GameObject camaraAActivar)
     {
-        for (int numCamara = 0; numCamara < camaras.Length; numCamara++)
-            camaras[numCamara].SetActive(false);
+        Debug.Log("CAMARA A ACTIVAR:" + camaraAActivar.name);
+
+        foreach (GameObject camara in camaras)
+        {
+            if (camara.activeSelf)
+            {
+                Debug.Log("CAMARA A DESACTIVAR: " + camara.name);
+                camara.SetActive(false);
+                camaraAActivar.SetActive(true);
+                break;
+            }
+        }
+
+        Debug.Log("-------------CAMBIADA-------------");
     }
 }
