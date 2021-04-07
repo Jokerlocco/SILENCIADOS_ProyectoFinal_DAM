@@ -73,16 +73,25 @@ public class InspeccionDeElementos : MonoBehaviour
             FindObjectOfType<Mensajero>().Mensaje = 
                 "El proyector parece funcionar, pero le falta la bombilla.";
 
-        else if (gameObject.CompareTag("FuegoEnLaCocina") || 
-            gameObject.CompareTag("HumoEnSMaquinas"))
+        else if (gameObject.CompareTag("FuegoEnLaCocina") && 
+            !FindObjectOfType<InventarioJugador>().ExtintorEnElInventario)
             FindObjectOfType<Mensajero>().Mensaje = "Hay un escape... " +
                 "Será mejor no acercarse más.";
+
+        else if (gameObject.CompareTag("GasEnSalaDeMaquinas"))
+            FindObjectOfType<Mensajero>().Mensaje = "Hay un escape de gas. " +
+                "Si tuviera la herramienta adecuada podría detenerlo.";
 
         else if (gameObject.CompareTag("CompartimientoDelExtintor") &&
             !FindObjectOfType<InventarioJugador>().GanzuaEnElInventario)
             FindObjectOfType<Mensajero>().Mensaje = 
                 "Es un extintor, pero el compartimiento está cerrado. " +
                 "Si tuviera la herramienta adecuada creo que podría abrirlo.";
+
+        else if (gameObject.CompareTag("ContenedorBiologico"))
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Si tuviese los componentes necesarios podría " +
+                "crear un potente disolvente.";
 
         else // Si no ha entrado a ningún if, terminamos con el script.
         {

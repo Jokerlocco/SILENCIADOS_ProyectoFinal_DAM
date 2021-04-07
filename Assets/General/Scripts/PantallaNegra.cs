@@ -8,12 +8,11 @@ public class PantallaNegra : MonoBehaviour
     private void Start()
     {
         animacion = gameObject.GetComponent<Animator>();
-        animacion.enabled = false;
     }
 
     public void ActivarAnimacionPantallaNegra()
     {
-        animacion.enabled = true;
+        animacion.SetBool("MostrarPantallaNegra", true);
         FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
     }
 
@@ -25,7 +24,7 @@ public class PantallaNegra : MonoBehaviour
     private IEnumerator EsperarAntesDeQuitar(float segundosAEsperar)
     {
         yield return new WaitForSecondsRealtime(segundosAEsperar);
-        animacion.SetBool("QuitarPantallaNegra", true);
+        animacion.SetBool("MostrarPantallaNegra", false);
 
         yield return new WaitForSecondsRealtime(1);
         FindObjectOfType<ControlDelJugador>().PuedeMoverse = true;

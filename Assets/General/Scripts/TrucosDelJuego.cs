@@ -10,6 +10,11 @@ public class TrucosDelJuego : MonoBehaviour
     [SerializeField] bool llaveReyEnElInventarioDelJugador = false;
     [SerializeField] bool llaveTorreEnElInventarioDelJugador = false;
     [SerializeField] bool ganzuaEnElInventarioDelJugador = false;
+    [SerializeField] bool extintorEnElInventarioDelJugador = false;
+    [SerializeField] bool jarronEnElInventarioDelJugador = false;
+    [SerializeField] bool grifoMarmolEnElInventarioDelJugador = false;
+    [SerializeField] bool grifoMaderaEnElInventarioDelJugador = false;
+    [SerializeField] bool grifoBronceEnElInventarioDelJugador = false;
 
     private void Update()
     {
@@ -54,5 +59,40 @@ public class TrucosDelJuego : MonoBehaviour
         else
             FindObjectOfType<InventarioJugador>().
                 GanzuaEnElInventario = false;
+
+        if (extintorEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                ExtintorEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                ExtintorEnElInventario = false;
+
+        if (jarronEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                JarronEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                JarronEnElInventario = false;
+
+        if (grifoMarmolEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                GrifoMarmolEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                GrifoMarmolEnElInventario = false;
+
+        if (grifoMaderaEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                GrifoMaderaEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                GrifoMaderaEnElInventario = false;
+
+        if (grifoBronceEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                GrifoBronceEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                GrifoBronceEnElInventario = false;
     }
 }

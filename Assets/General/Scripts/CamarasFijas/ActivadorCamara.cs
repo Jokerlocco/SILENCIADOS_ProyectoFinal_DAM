@@ -14,9 +14,6 @@ public class ActivadorCamara : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Jugador"))
-        {
-            Debug.Log("ENTER en " + camaraAActivar.name);
             gestorDeCamaras.CambiarCamara(camaraAActivar);
-        }
     }
 }

@@ -38,27 +38,40 @@ public class UtilizacionDeElementos : MonoBehaviour
     {
         if (Input.GetButtonDown("Interactuar") && colisionando)
         {
+            bool elementoUtilizado = false;
+
             if (gameObject.CompareTag("Proyector") &&
                 FindObjectOfType<InventarioJugador>().BombillaEnElInventario)
             {
                 FindObjectOfType<InventarioJugador>().
                     BombillaEnElInventario = false;
                 EncenderProyectorSalaDeReuniones();
-                EstablecerComoUtilizado();
+                elementoUtilizado = true;
             }
 
             else if (gameObject.CompareTag("BaldosaSecreta"))
             {
                 StartCoroutine(QuitarBaldosaSecretaYMostrarLlaveTorre(2f));
-                EstablecerComoUtilizado();
+                elementoUtilizado = true;
             }
 
             else if (gameObject.CompareTag("CompartimientoDelExtintor") &&
                 FindObjectOfType<InventarioJugador>().GanzuaEnElInventario)
             {
                 StartCoroutine(UsarGanzuaEnElCompartimientoDelExtintor(2f));
-                EstablecerComoUtilizado();
+                elementoUtilizado = true;
             }
+
+            else if (gameObject.CompareTag("FuegoEnLaCocina") &&
+                 FindObjectOfType<InventarioJugador>().ExtintorEnElInventario)
+            {
+                StartCoroutine(AgagarFuegoCocinaConExtintor(2f));
+                elementoUtilizado = true;
+            }
+
+
+            if (elementoUtilizado)
+                EstablecerComoUtilizado();
         }
     }
 
@@ -66,11 +79,13 @@ public class UtilizacionDeElementos : MonoBehaviour
     {
         if (audioSource != null)
             audioSource.Play();
+
         gameObject.tag = "Utilizado";
+
         DesactivarScript();
     }
 
-    private void ActivarAnimacionPantallaNegra(float segundosDeLaAnimacion)
+    private void EstablecerAnimacionPantallaNegra(float segundosDeLaAnimacion)
     {
         FindObjectOfType<PantallaNegra>().ActivarAnimacionPantallaNegra();
         FindObjectOfType<PantallaNegra>()
@@ -93,7 +108,7 @@ public class UtilizacionDeElementos : MonoBehaviour
     private IEnumerator QuitarBaldosaSecretaYMostrarLlaveTorre(
         float segundosDeLaAnimacion)
     {
-        ActivarAnimacionPantallaNegra(segundosDeLaAnimacion);
+        EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
         yield return new WaitForSecondsRealtime(segundosDeLaAnimacion); // Esperar a que la animación termine antes de continuar
 
         // Mostrarmos la baldosa levantada:
@@ -118,7 +133,7 @@ public class UtilizacionDeElementos : MonoBehaviour
     private IEnumerator UsarGanzuaEnElCompartimientoDelExtintor(
         float segundosDeLaAnimacion)
     {
-        ActivarAnimacionPantallaNegra(segundosDeLaAnimacion);
+        EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
         yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
 
         // Cambiamos el cristal del compartimiento
@@ -131,6 +146,23 @@ public class UtilizacionDeElementos : MonoBehaviour
 
         FindObjectOfType<Mensajero>().Mensaje =
             "He abierto el compartimiento del extintor con la ganzúa.";
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+    }
+
+    private IEnumerator AgagarFuegoCocinaConExtintor(
+        float segundosDeLaAnimacion)
+    {
+        GameObject fuegoEnLaCocina =
+            GameObject.FindGameObjectWithTag("FuegoEnLaCocina").gameObject;
+
+        EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
+        yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
+
+        fuegoEnLaCocina.SetActive(false);
+        FindObjectOfType<InventarioJugador>().ExtintorEnElInventario = false;
+
+        FindObjectOfType<Mensajero>().Mensaje =
+            "He apagado el fuego con el extintor.";
         FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
     }
 }

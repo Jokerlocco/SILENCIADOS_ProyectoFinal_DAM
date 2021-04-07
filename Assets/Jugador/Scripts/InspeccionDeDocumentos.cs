@@ -180,7 +180,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "relativamente pequeño, la morgue es muy transitada... " +
                 "Mejor será no irme de la lengua con Zesimov o acabaré " +
                 "ahí, je, je.\n");
-            
+
             paginasDelDocumento.Add("07, Junio \n" +
                 "Me encontraba limpiando la estatua de la musa Urania, " +
                 "y me percaté de que los orificios que tiene en su soporte " +
@@ -255,6 +255,16 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "Aunque las enfermeras estarán pendientes de usted, " +
                 "por favor, no beba ni coma nada. " +
                 "Sea responsable.\n\nEnfermera A.Wilkes.");
+        }
+
+        else if (gameObject.CompareTag("D_CombinacionesQuimicos"))
+        {
+            paginasDelDocumento.Add("(Entre multiples combinaciones, " +
+                "me interesa la siguiente):\n\n" +
+                "Disolvente de silicona:\n" +
+                "Combinar acetona y éter etílico diluidos en partes iguales. " +
+                "Unas gotas de vinagre ayudará a acelerar el " +
+                "proceso de disolución.");
         }
     }
 }
