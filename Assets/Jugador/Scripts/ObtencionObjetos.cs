@@ -42,6 +42,15 @@ public class ObtencionObjetos : MonoBehaviour
 
     private void RecogerObjeto()
     {
+        if (gameObject.CompareTag("Acetona"))
+        {
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                AcetonaEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Acetona recogida";
+        }
+
         if (gameObject.CompareTag("Bombilla"))
         {
             objetoRecogido = true;
@@ -115,6 +124,15 @@ public class ObtencionObjetos : MonoBehaviour
                 "Llave caballo recogida";
         }
 
+        if (gameObject.CompareTag("LlaveInglesa"))
+        {
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                LlaveInglesaEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Llave inglesa recogida";
+        }
+
         if (gameObject.CompareTag("LlavePeon") && 
             FindObjectOfType<CajaDeSeguridad>().CajaAbierta)
         {
@@ -159,6 +177,25 @@ public class ObtencionObjetos : MonoBehaviour
                     "Llave alfil recogida";
             }
         }
+
+        if (gameObject.CompareTag("Vinagre"))
+        {
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                VinagreEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Vinagre recogido";
+        }
+
+        if (gameObject.CompareTag("Eter"))
+        {
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                EterEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Éter etílico recogido";
+        }
+
 
         // Si se ha recogido un objeto...
         if (objetoRecogido)

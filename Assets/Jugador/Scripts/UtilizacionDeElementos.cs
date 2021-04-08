@@ -69,8 +69,19 @@ public class UtilizacionDeElementos : MonoBehaviour
                 elementoUtilizado = true;
             }
 
+            else if (gameObject.CompareTag("ContenedorBiologico") &&
+                (FindObjectOfType<InventarioJugador>().AcetonaEnElInventario &&
+                FindObjectOfType<InventarioJugador>().EterEnElInventario &&
+                FindObjectOfType<InventarioJugador>().VinagreEnElInventario))
+            {
+                StartCoroutine(
+                    CombinarComponentesYCrearDisolventeDeSilicona(2f));
+                elementoUtilizado = true;
+            }
+
             else if (gameObject.CompareTag("SiliconaLlaveAlfil") &&
-                 FindObjectOfType<InventarioJugador>().DisolventeDeSiliconaEnElInventario)
+                 FindObjectOfType<InventarioJugador>().
+                 DisolventeDeSiliconaEnElInventario)
             {
                 StartCoroutine(DisolverSiliconaLlaveAlfil(2f));
                 elementoUtilizado = true;
@@ -170,6 +181,24 @@ public class UtilizacionDeElementos : MonoBehaviour
 
         FindObjectOfType<Mensajero>().Mensaje =
             "He apagado el fuego con el extintor.";
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+    }
+
+    private IEnumerator CombinarComponentesYCrearDisolventeDeSilicona(
+    float segundosDeLaAnimacion)
+    {
+        EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
+        yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
+
+        FindObjectOfType<InventarioJugador>().VinagreEnElInventario = false;
+        FindObjectOfType<InventarioJugador>().EterEnElInventario = false;
+        FindObjectOfType<InventarioJugador>().AcetonaEnElInventario = false;
+        FindObjectOfType<InventarioJugador>()
+            .DisolventeDeSiliconaEnElInventario = true;
+
+        FindObjectOfType<Mensajero>().Mensaje =
+            "Usando la acetona, el éter, y el vinagre en esta cosa, " +
+            "he podido crear un disolvente para la silicona.";
         FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
     }
 

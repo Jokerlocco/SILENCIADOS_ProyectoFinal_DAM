@@ -48,6 +48,9 @@ public class InventarioJugador : MonoBehaviour
     private string nombreLlaveCaballo = "Llave caballo";
     public bool LlaveCaballoEnElInventario { get; set; } = false;
 
+    private string nombreLlaveInglesa = "Llave inglesa";
+    public bool LlaveInglesaEnElInventario { get; set; } = false;
+
     private string nombreLlavePeon = "Llave peón";
     public bool LlavePeonEnElInventario { get; set; } = false;
 
@@ -201,6 +204,10 @@ public class InventarioJugador : MonoBehaviour
         if (LlaveCaballoEnElInventario &&
             !contenidoInventario.text.Contains(nombreLlaveCaballo))
             contenidoInventario.text += nombreLlaveCaballo + "\n";
+
+        if (LlaveInglesaEnElInventario &&
+            !contenidoInventario.text.Contains(nombreLlaveInglesa))
+            contenidoInventario.text += nombreLlaveInglesa + "\n";
 
         if (LlavePeonEnElInventario && 
             !contenidoInventario.text.Contains(nombreLlavePeon))
