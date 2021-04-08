@@ -69,6 +69,13 @@ public class UtilizacionDeElementos : MonoBehaviour
                 elementoUtilizado = true;
             }
 
+            else if (gameObject.CompareTag("SiliconaLlaveAlfil") &&
+                 FindObjectOfType<InventarioJugador>().DisolventeDeSiliconaEnElInventario)
+            {
+                StartCoroutine(DisolverSiliconaLlaveAlfil(2f));
+                elementoUtilizado = true;
+            }
+
 
             if (elementoUtilizado)
                 EstablecerComoUtilizado();
@@ -163,6 +170,25 @@ public class UtilizacionDeElementos : MonoBehaviour
 
         FindObjectOfType<Mensajero>().Mensaje =
             "He apagado el fuego con el extintor.";
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+    }
+
+    private IEnumerator DisolverSiliconaLlaveAlfil(float segundosDeLaAnimacion)
+    {
+        EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
+        yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
+        audioSource.Stop();
+
+        MeshRenderer renderSiliconaLlaveAlfil = 
+            gameObject.GetComponent<MeshRenderer>();
+        renderSiliconaLlaveAlfil.enabled = false;
+
+        FindObjectOfType<InventarioJugador>()
+            .DisolventeDeSiliconaEnElInventario = false;
+
+        FindObjectOfType<Mensajero>().Mensaje =
+            "He usado el disolvente en la silicona y " +
+            "se ha disuelto bastante rápido.";
         FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
     }
 }

@@ -15,6 +15,10 @@ public class TrucosDelJuego : MonoBehaviour
     [SerializeField] bool grifoMarmolEnElInventarioDelJugador = false;
     [SerializeField] bool grifoMaderaEnElInventarioDelJugador = false;
     [SerializeField] bool grifoBronceEnElInventarioDelJugador = false;
+    [SerializeField] bool vinagreEnElInventarioDelJugador = false;
+    [SerializeField] bool acetonaEnElInventarioDelJugador = false;
+    [SerializeField] bool eterEnElInventarioDelJugador = false;
+    [SerializeField] bool disolventeDeSiliconaEnElInventarioDelJugador = false;
 
     private void Update()
     {
@@ -94,5 +98,33 @@ public class TrucosDelJuego : MonoBehaviour
         else
             FindObjectOfType<InventarioJugador>().
                 GrifoBronceEnElInventario = false;
+
+        if (vinagreEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                VinagreEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                VinagreEnElInventario = false;
+
+        if (eterEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                EterEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                EterEnElInventario = false;
+
+        if (acetonaEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                AcetonaEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                AcetonaEnElInventario = false;
+
+        if (disolventeDeSiliconaEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                DisolventeDeSiliconaEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                DisolventeDeSiliconaEnElInventario = false;
     }
 }

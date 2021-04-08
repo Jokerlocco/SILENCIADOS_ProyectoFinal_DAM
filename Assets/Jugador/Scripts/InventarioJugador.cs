@@ -15,8 +15,14 @@ public class InventarioJugador : MonoBehaviour
 
 
     // Objetos (ordenados alfabéticamente)
+    private string nombreAcetona = "Acetona";
+    public bool AcetonaEnElInventario { get; set; } = false;
+
     private string nombreBombilla = "Bombilla funcional";
     public bool BombillaEnElInventario { get; set; } = false;
+
+    private string nombreDisolventeDeSilicona = "Disolvente de silicona";
+    public bool DisolventeDeSiliconaEnElInventario { get; set; } = false;
 
     private string nombreExtintor = "Extintor";
     public bool ExtintorEnElInventario { get; set; } = false;
@@ -50,6 +56,13 @@ public class InventarioJugador : MonoBehaviour
 
     private string nombreLlaveTorre = "Llave torre";
     public bool LlaveTorreEnElInventario { get; set; } = false;
+
+    private string nombreVinagre = "Vinagre";
+    public bool VinagreEnElInventario { get; set; } = false;
+
+    private string nombreEter = "Éter etílico";
+    public bool EterEnElInventario { get; set; } = false;
+
 
     // Usos de las llaves
     public int NumUsosLlaveAlfil { get; set; } = 0;
@@ -122,42 +135,40 @@ public class InventarioJugador : MonoBehaviour
     {
         if (LlaveAlfilEnElInventario &&
             NumUsosLlaveAlfil == cantidadDePuertasParaLlaveAlfil)
-        {
             LlaveAlfilEnElInventario = false;
-        }
 
         if (LlaveCaballoEnElInventario &&
             NumUsosLlaveCaballo == cantidadDePuertasParaLlaveCaballo)
-        {
             LlaveCaballoEnElInventario = false;
-        }
 
         if (LlavePeonEnElInventario && 
             NumUsosLlavePeon == cantidadDePuertasParaLlavePeon)
-        {
             LlavePeonEnElInventario = false;
-        }
 
         if (LlaveReyEnElInventario &&
             NumUsosLlaveRey == cantidadDePuertasParaLlaveRey)
-        {
             LlaveReyEnElInventario = false;
-        }
 
         if (LlaveTorreEnElInventario &&
             NumUsosLlaveTorre == cantidadDePuertasParaLlaveTorre)
-        {
             LlaveTorreEnElInventario = false;
-        }
     }
 
     private void MostrarObjetosQueEstanEnElInventario()
     {
         contenidoInventario.text = "";
 
+        if (AcetonaEnElInventario &&
+            !contenidoInventario.text.Contains(nombreAcetona))
+            contenidoInventario.text += nombreAcetona + "\n";
+
         if (BombillaEnElInventario &&
             !contenidoInventario.text.Contains(nombreBombilla))
             contenidoInventario.text += nombreBombilla + "\n";
+
+        if (DisolventeDeSiliconaEnElInventario &&
+            !contenidoInventario.text.Contains(nombreDisolventeDeSilicona))
+            contenidoInventario.text += nombreDisolventeDeSilicona + "\n";
 
         if (ExtintorEnElInventario &&
             !contenidoInventario.text.Contains(nombreExtintor))
@@ -202,5 +213,13 @@ public class InventarioJugador : MonoBehaviour
         if (LlaveTorreEnElInventario &&
             !contenidoInventario.text.Contains(nombreLlaveTorre))
             contenidoInventario.text += nombreLlaveTorre + "\n";
+
+        if (VinagreEnElInventario &&
+            !contenidoInventario.text.Contains(nombreVinagre))
+            contenidoInventario.text += nombreVinagre + "\n";
+
+        if (EterEnElInventario &&
+            !contenidoInventario.text.Contains(nombreEter))
+            contenidoInventario.text += nombreEter + "\n";
     }
 }

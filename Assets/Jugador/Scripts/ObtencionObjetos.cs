@@ -106,15 +106,6 @@ public class ObtencionObjetos : MonoBehaviour
                 "Jarrón de gran acabado recogido";
         }
 
-        if (gameObject.CompareTag("LlaveAlfil"))
-        {
-            objetoRecogido = true;
-            FindObjectOfType<InventarioJugador>().
-                LlaveAlfilEnElInventario = true;
-            FindObjectOfType<Mensajero>().Mensaje = 
-                "Llave alfil recogida";
-        }
-
         if (gameObject.CompareTag("LlaveCaballo"))
         {
             objetoRecogido = true;
@@ -150,6 +141,23 @@ public class ObtencionObjetos : MonoBehaviour
                 LlaveTorreEnElInventario = true;
             FindObjectOfType<Mensajero>().Mensaje =
                 "Llave torre recogida";
+        }
+
+        if (gameObject.CompareTag("LlaveAlfil"))
+        {
+            MeshRenderer renderSiliconaLlaveAlfil = 
+                gameObject.transform.GetChild(1).gameObject.
+                GetComponent<MeshRenderer>();
+
+            // Si se ha quitado la silicona...
+            if (!renderSiliconaLlaveAlfil.enabled)
+            {
+                objetoRecogido = true;
+                FindObjectOfType<InventarioJugador>().
+                    LlaveAlfilEnElInventario = true;
+                FindObjectOfType<Mensajero>().Mensaje =
+                    "Llave alfil recogida";
+            }
         }
 
         // Si se ha recogido un objeto...

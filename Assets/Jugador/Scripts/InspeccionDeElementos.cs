@@ -88,10 +88,19 @@ public class InspeccionDeElementos : MonoBehaviour
                 "Es un extintor, pero el compartimiento está cerrado. " +
                 "Si tuviera la herramienta adecuada creo que podría abrirlo.";
 
-        else if (gameObject.CompareTag("ContenedorBiologico"))
+        else if (gameObject.CompareTag("ContenedorBiologico") &&
+            (!FindObjectOfType<InventarioJugador>().AcetonaEnElInventario ||
+            !FindObjectOfType<InventarioJugador>().EterEnElInventario ||
+            !FindObjectOfType<InventarioJugador>().VinagreEnElInventario))
             FindObjectOfType<Mensajero>().Mensaje =
                 "Si tuviese los componentes necesarios podría " +
                 "crear un potente disolvente.";
+
+        else if (gameObject.CompareTag("SiliconaLlaveAlfil") &&
+            !FindObjectOfType<InventarioJugador>().DisolventeDeSiliconaEnElInventario)
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Es una llave en forma de alfil, pero no puedo cogerla porque " +
+                "está pegada con silicona...";
 
         else // Si no ha entrado a ningún if, terminamos con el script.
         {
