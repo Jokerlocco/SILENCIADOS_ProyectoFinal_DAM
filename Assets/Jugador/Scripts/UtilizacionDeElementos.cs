@@ -87,6 +87,22 @@ public class UtilizacionDeElementos : MonoBehaviour
                 elementoUtilizado = true;
             }
 
+            else if (gameObject.CompareTag("MotorHidraulico") &&
+                 FindObjectOfType<InventarioJugador>().
+                 LlaveInglesaEnElInventario)
+            {
+                StartCoroutine(ArreglarMotorHidraulico(2f));
+                elementoUtilizado = true;
+            }
+
+            else if (gameObject.CompareTag("GrifoDeLavabo") &&
+                 FindObjectOfType<InventarioJugador>().JarronEnElInventario &&
+                 FindObjectOfType<EstadoDelJuego>().MotorHidraulicoArreglado)
+            {
+                StartCoroutine(LlenarJarronConAguaDelGrifo(2f));
+                elementoUtilizado = true;
+            }
+
 
             if (elementoUtilizado)
                 EstablecerComoUtilizado();
@@ -98,7 +114,20 @@ public class UtilizacionDeElementos : MonoBehaviour
         if (audioSource != null)
             audioSource.Play();
 
-        gameObject.tag = "Utilizado";
+        if (gameObject.CompareTag("GrifoDeLavabo")) // Si hay que establecer varios objetos en el mapa (grifos de lavabos por ejemplo)...
+        {
+            GameObject[] grifos = 
+                GameObject.FindGameObjectsWithTag("GrifoDeLavabo");
+
+            foreach (GameObject grifo in grifos)
+            {
+                grifo.gameObject.tag = "Utilizado";
+            }
+        }
+        else
+        {
+            gameObject.tag = "Utilizado";
+        }
 
         DesactivarScript();
     }
@@ -130,7 +159,7 @@ public class UtilizacionDeElementos : MonoBehaviour
         yield return new WaitForSecondsRealtime(segundosDeLaAnimacion); // Esperar a que la animación termine antes de continuar
 
         // Mostrarmos la baldosa levantada:
-        GameObject baldosaLevantada1 = 
+        GameObject baldosaLevantada1 =
             gameObject.transform.GetChild(0).gameObject;
         baldosaLevantada1.SetActive(true);
         GameObject baldosaLevantada2 =
@@ -208,7 +237,7 @@ public class UtilizacionDeElementos : MonoBehaviour
         yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
         audioSource.Stop();
 
-        MeshRenderer renderSiliconaLlaveAlfil = 
+        MeshRenderer renderSiliconaLlaveAlfil =
             gameObject.GetComponent<MeshRenderer>();
         renderSiliconaLlaveAlfil.enabled = false;
 
@@ -220,4 +249,37 @@ public class UtilizacionDeElementos : MonoBehaviour
             "se ha disuelto bastante rápido.";
         FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
     }
+
+    private IEnumerator ArreglarMotorHidraulico(float segundosDeLaAnimacion)
+    {
+        EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
+        yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
+
+        FindObjectOfType<InventarioJugador>()
+            .LlaveInglesaEnElInventario = false;
+
+        FindObjectOfType<EstadoDelJuego>().MotorHidraulicoArreglado = true;
+
+        FindObjectOfType<Mensajero>().Mensaje =
+            "He arreglado el motor hidraúlico con la llave inglesa. " +
+            "Ahora los grifos de los lavabos deberían funcionar.";
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+    }
+
+    private IEnumerator LlenarJarronConAguaDelGrifo(float segundosDeLaAnimacion)
+    {
+        EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
+        yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
+
+        FindObjectOfType<InventarioJugador>()
+            .JarronEnElInventario = false;
+        FindObjectOfType<InventarioJugador>()
+            .JarronConAguaEnElInventario = true;
+
+        FindObjectOfType<Mensajero>().Mensaje =
+            "He llenado el jarrón con agua del grifo.";
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+    }
+
+
 }

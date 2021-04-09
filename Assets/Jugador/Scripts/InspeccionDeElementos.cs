@@ -102,6 +102,26 @@ public class InspeccionDeElementos : MonoBehaviour
                 "Es una llave en forma de alfil, pero no puedo cogerla porque " +
                 "está pegada con silicona...";
 
+        else if (gameObject.CompareTag("MotorHidraulico") &&
+            !FindObjectOfType<InventarioJugador>().LlaveInglesaEnElInventario)
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Es el motor hidraúlico del asilo. " +
+                "Creo que si lo arreglo, los grifos de los lavabos funcionarán, " +
+                "pero necesito una llave inglesa.";
+
+        else if (gameObject.CompareTag("GrifoDeLavabo") &&
+            !FindObjectOfType<InventarioJugador>().JarronEnElInventario &&
+            !FindObjectOfType<EstadoDelJuego>().MotorHidraulicoArreglado)
+            FindObjectOfType<Mensajero>().Mensaje =
+                "El grifo no da agua...";
+        else if (gameObject.CompareTag("GrifoDeLavabo") &&
+            FindObjectOfType<InventarioJugador>().JarronEnElInventario &&
+            !FindObjectOfType<EstadoDelJuego>().MotorHidraulicoArreglado)
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Podría llenar el jarrón con agua, pero el grifo no da. " +
+                "Debo solucionarlo...";
+
+
         else // Si no ha entrado a ningún if, terminamos con el script.
         {
             mostrarMensaje = false;

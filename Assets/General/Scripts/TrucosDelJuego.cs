@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TrucosDelJuego : MonoBehaviour
 {
+    // Objetos
     [SerializeField] bool llaveAlfilEnElInventarioDelJugador = false;
     [SerializeField] bool llaveCaballoEnElInventarioDelJugador = false;
     [SerializeField] bool llavePeonEnElInventarioDelJugador = false;
@@ -19,8 +20,34 @@ public class TrucosDelJuego : MonoBehaviour
     [SerializeField] bool acetonaEnElInventarioDelJugador = false;
     [SerializeField] bool eterEnElInventarioDelJugador = false;
     [SerializeField] bool disolventeDeSiliconaEnElInventarioDelJugador = false;
+    [SerializeField] bool llaveInglesaEnElInventarioDelJugador = false;
+    [SerializeField] bool jarronConAguaEnElInventarioDelJugador = false;
+
+    // Separador para la interfaz de Unity:
+#pragma warning disable 0414
+    [SerializeField] bool _______________________ = false;
+
+    // Estado del juego
+    [SerializeField] bool motorHidraulicoArreglado = false;
+
 
     private void Update()
+    {
+        ActivarODesactivarObjetos();
+        ActivarODesactivarEstadosDelJuego();
+    }
+
+    private void ActivarODesactivarEstadosDelJuego()
+    {
+        if (motorHidraulicoArreglado)
+            FindObjectOfType<EstadoDelJuego>().
+                MotorHidraulicoArreglado = true;
+        else
+            FindObjectOfType<EstadoDelJuego>().
+                MotorHidraulicoArreglado = false;
+    }
+
+    private void ActivarODesactivarObjetos()
     {
         if (llaveAlfilEnElInventarioDelJugador)
             FindObjectOfType<InventarioJugador>().
@@ -126,5 +153,19 @@ public class TrucosDelJuego : MonoBehaviour
         else
             FindObjectOfType<InventarioJugador>().
                 DisolventeDeSiliconaEnElInventario = false;
+
+        if (llaveInglesaEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                LlaveInglesaEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                LlaveInglesaEnElInventario = false;
+
+        if (jarronConAguaEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                JarronConAguaEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                JarronConAguaEnElInventario = false;
     }
 }

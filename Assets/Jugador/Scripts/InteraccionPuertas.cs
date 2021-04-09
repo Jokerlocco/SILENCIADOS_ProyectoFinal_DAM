@@ -213,7 +213,7 @@ public class InteraccionPuertas : MonoBehaviour
         else
         {
             FindObjectOfType<Mensajero>().Mensaje = 
-                "Has desbloqueado la puerta con la llave " + tipoDeCerradura;
+                "He desbloqueado la puerta con la llave " + tipoDeCerradura;
         }
 
         FindObjectOfType<Mensajero>().MostrarInterfazMensaje();

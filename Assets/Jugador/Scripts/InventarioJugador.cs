@@ -42,6 +42,9 @@ public class InventarioJugador : MonoBehaviour
     private string nombreJarron = "Jarrón";
     public bool JarronEnElInventario { get; set; } = false;
 
+    private string nombreJarronConAgua = "Jarrón con agua";
+    public bool JarronConAguaEnElInventario { get; set; } = false;
+
     private string nombreLlaveAlfil = "Llave alfil";
     public bool LlaveAlfilEnElInventario { get; set; } = false;
 
@@ -196,6 +199,10 @@ public class InventarioJugador : MonoBehaviour
         if (JarronEnElInventario &&
             !contenidoInventario.text.Contains(nombreJarron))
             contenidoInventario.text += nombreJarron + "\n";
+
+        if (JarronConAguaEnElInventario &&
+            !contenidoInventario.text.Contains(nombreJarronConAgua))
+            contenidoInventario.text += nombreJarronConAgua + "\n";
 
         if (LlaveAlfilEnElInventario &&
             !contenidoInventario.text.Contains(nombreLlaveAlfil))
