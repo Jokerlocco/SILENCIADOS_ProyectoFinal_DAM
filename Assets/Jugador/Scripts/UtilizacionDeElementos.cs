@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UtilizacionDeElementos : MonoBehaviour
@@ -49,27 +48,27 @@ public class UtilizacionDeElementos : MonoBehaviour
                 elementoUtilizado = true;
             }
 
-            else if (gameObject.CompareTag("BaldosaSecreta"))
+            if (gameObject.CompareTag("BaldosaSecreta"))
             {
                 StartCoroutine(QuitarBaldosaSecretaYMostrarLlaveTorre(2f));
                 elementoUtilizado = true;
             }
 
-            else if (gameObject.CompareTag("CompartimientoDelExtintor") &&
+            if (gameObject.CompareTag("CompartimientoDelExtintor") &&
                 FindObjectOfType<InventarioJugador>().GanzuaEnElInventario)
             {
                 StartCoroutine(UsarGanzuaEnElCompartimientoDelExtintor(2f));
                 elementoUtilizado = true;
             }
 
-            else if (gameObject.CompareTag("FuegoEnLaCocina") &&
+            if (gameObject.CompareTag("FuegoEnLaCocina") &&
                  FindObjectOfType<InventarioJugador>().ExtintorEnElInventario)
             {
                 StartCoroutine(AgagarFuegoCocinaConExtintor(2f));
                 elementoUtilizado = true;
             }
 
-            else if (gameObject.CompareTag("ContenedorBiologico") &&
+            if (gameObject.CompareTag("ContenedorBiologico") &&
                 (FindObjectOfType<InventarioJugador>().AcetonaEnElInventario &&
                 FindObjectOfType<InventarioJugador>().EterEnElInventario &&
                 FindObjectOfType<InventarioJugador>().VinagreEnElInventario))
@@ -79,7 +78,7 @@ public class UtilizacionDeElementos : MonoBehaviour
                 elementoUtilizado = true;
             }
 
-            else if (gameObject.CompareTag("SiliconaLlaveAlfil") &&
+            if (gameObject.CompareTag("SiliconaLlaveAlfil") &&
                  FindObjectOfType<InventarioJugador>().
                  DisolventeDeSiliconaEnElInventario)
             {
@@ -87,7 +86,7 @@ public class UtilizacionDeElementos : MonoBehaviour
                 elementoUtilizado = true;
             }
 
-            else if (gameObject.CompareTag("MotorHidraulico") &&
+            if (gameObject.CompareTag("MotorHidraulico") &&
                  FindObjectOfType<InventarioJugador>().
                  LlaveInglesaEnElInventario)
             {
@@ -95,11 +94,18 @@ public class UtilizacionDeElementos : MonoBehaviour
                 elementoUtilizado = true;
             }
 
-            else if (gameObject.CompareTag("GrifoDeLavabo") &&
+            if (gameObject.CompareTag("GrifoDeLavabo") &&
                  FindObjectOfType<InventarioJugador>().JarronEnElInventario &&
                  FindObjectOfType<EstadoDelJuego>().MotorHidraulicoArreglado)
             {
                 StartCoroutine(LlenarJarronConAguaDelGrifo(2f));
+                elementoUtilizado = true;
+            }
+
+            if (gameObject.CompareTag("CodigoSalaObservacionEnHRA") &&
+                 FindObjectOfType<InventarioJugador>().JarronConAguaEnElInventario)
+            {
+                StartCoroutine(EliminarManchaDeLaPared(2f));
                 elementoUtilizado = true;
             }
 
@@ -116,7 +122,7 @@ public class UtilizacionDeElementos : MonoBehaviour
 
         if (gameObject.CompareTag("GrifoDeLavabo")) // Si hay que establecer varios objetos en el mapa (grifos de lavabos por ejemplo)...
         {
-            GameObject[] grifos = 
+            GameObject[] grifos =
                 GameObject.FindGameObjectsWithTag("GrifoDeLavabo");
 
             foreach (GameObject grifo in grifos)
@@ -281,5 +287,26 @@ public class UtilizacionDeElementos : MonoBehaviour
         FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
     }
 
+    private IEnumerator EliminarManchaDeLaPared(float segundosDeLaAnimacion)
+    {
+        EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
+        yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
+
+        // Desactivamos las manchas
+        Renderer mancha1Renderer =
+            gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        mancha1Renderer.enabled = false;
+        Renderer mancha2Renderer =
+            gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>();
+        mancha2Renderer.enabled = false;
+
+        FindObjectOfType<InventarioJugador>()
+            .JarronConAguaEnElInventario = false;
+
+        FindObjectOfType<Mensajero>().Mensaje =
+            "He eliminado la mancha con el jarrón con agua. " +
+            "Hay una especie de código grabado en la pared.";
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+    }
 
 }

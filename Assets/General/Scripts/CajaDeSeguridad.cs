@@ -18,9 +18,8 @@ public class CajaDeSeguridad : MonoBehaviour
     [SerializeField] AudioClip sonidoCodigoCajaDeSeguridadCorrecto; // Asignado en Unity
     [SerializeField] AudioClip sonidoCodigoCajaDeSeguridadIncorrecto; // Asignado en Unity
 
-    public bool CajaAbierta { get; set; }
-
     private string codigoCajaDeSeguridadSecretaria = "6427";
+    private string codigoCajaDeSeguridadSObservacion = "0634";
 
     private void Start()
     {
@@ -30,8 +29,6 @@ public class CajaDeSeguridad : MonoBehaviour
         animacionTapaderaDeLaCaja = GetComponent<Animator>();
 
         audioSource = GetComponent<AudioSource>();
-
-        CajaAbierta = false;
     }
 
     private void Update()
@@ -59,18 +56,23 @@ public class CajaDeSeguridad : MonoBehaviour
         enabled = false;
     }
 
-    private void SeHaPulsadoUnBoton(string botonPulsado) // Es llamado en la clase "Boton"
+    public void SeHaPulsadoUnBoton(string botonPulsado) // Es llamado en la clase "Boton"
     {
         if (botonPulsado == "btnOk")
         {
-            if (textoCodigoPanel.text == codigoCajaDeSeguridadSecretaria)
+            if (gameObject.CompareTag("CajaDeSeguridadSecretaria") && 
+                textoCodigoPanel.text == codigoCajaDeSeguridadSecretaria)
             {
-                ReproducirSonidoCodigoCajaDeSeguridadCorrecto();
-                EstablecerAnimacionCodigoCorrecto();
-                EstablecerAnimacionAbrirCaja();
-                CajaAbierta = true;
-                gameObject.tag = "Utilizado";
-                StartCoroutine(EsperarAntesDeCerrar());
+                AbrirCajaDeSeguridadPorCodigoCorrecto();
+                FindObjectOfType<EstadoDelJuego>().
+                    CajaDeSeguridadSecretariaAbierta = true;
+            }
+            else if (gameObject.CompareTag("CajaDeSeguridadSObservacion") &&
+                textoCodigoPanel.text == codigoCajaDeSeguridadSObservacion)
+            {
+                AbrirCajaDeSeguridadPorCodigoCorrecto();
+                FindObjectOfType<EstadoDelJuego>().
+                    CajaDeSeguridadSObservacionAbierta = true;
             }
             else
             {
@@ -145,5 +147,14 @@ public class CajaDeSeguridad : MonoBehaviour
     {
         animacionTapaderaDeLaCaja.SetBool(
             "seHaIntroducidoElCodigoCorrecto", true);
+    }
+
+    private void AbrirCajaDeSeguridadPorCodigoCorrecto()
+    {
+        ReproducirSonidoCodigoCajaDeSeguridadCorrecto();
+        EstablecerAnimacionCodigoCorrecto();
+        EstablecerAnimacionAbrirCaja();
+        gameObject.tag = "Utilizado";
+        StartCoroutine(EsperarAntesDeCerrar());
     }
 }

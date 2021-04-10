@@ -15,7 +15,7 @@ public class Boton : MonoBehaviour
     void Start()
     {
         imagen = GetComponent<Image>();
-        imagen.color = colorBotonSinSeleccionar; 
+        imagen.color = colorBotonSinSeleccionar;
     }
 
     private void Update()
@@ -39,7 +39,6 @@ public class Boton : MonoBehaviour
             if (transform.parent.CompareTag("BotonesMenuPrincipal"))
             {
                 if (accionDelBoton == "CargarEscenaAsilo")
-                    //SceneManager.LoadScene("Asilo");
                     CargadorDeEscenas.CargarEscena("Asilo");
                 else if (accionDelBoton == "SalirDelJuego")
                     Application.Quit();
@@ -47,43 +46,56 @@ public class Boton : MonoBehaviour
 
             if (transform.parent.CompareTag("BotonesPanelNumerico"))
             {
-                if (accionDelBoton == "Numero1")
-                    FindObjectOfType<CajaDeSeguridad>().
-                        SendMessage("SeHaPulsadoUnBoton", "1");
-                if (accionDelBoton == "Numero2")
-                    FindObjectOfType<CajaDeSeguridad>().
-                        SendMessage("SeHaPulsadoUnBoton", "2");
-                if (accionDelBoton == "Numero3")
-                    FindObjectOfType<CajaDeSeguridad>().
-                        SendMessage("SeHaPulsadoUnBoton", "3");
-                if (accionDelBoton == "btnOk")
-                    FindObjectOfType<CajaDeSeguridad>().
-                        SendMessage("SeHaPulsadoUnBoton", "btnOk");
-                if (accionDelBoton == "Numero4")
-                    FindObjectOfType<CajaDeSeguridad>().
-                        SendMessage("SeHaPulsadoUnBoton", "4");
-                if (accionDelBoton == "Numero5")
-                    FindObjectOfType<CajaDeSeguridad>().
-                        SendMessage("SeHaPulsadoUnBoton", "5");
-                if (accionDelBoton == "Numero6")
-                    FindObjectOfType<CajaDeSeguridad>().
-                        SendMessage("SeHaPulsadoUnBoton", "6");
-                if (accionDelBoton == "Numero0")
-                    FindObjectOfType<CajaDeSeguridad>().
-                        SendMessage("SeHaPulsadoUnBoton", "0");
-                if (accionDelBoton == "Numero7")
-                    FindObjectOfType<CajaDeSeguridad>().
-                        SendMessage("SeHaPulsadoUnBoton", "7");
-                if (accionDelBoton == "Numero8")
-                    FindObjectOfType<CajaDeSeguridad>().
-                        SendMessage("SeHaPulsadoUnBoton", "8");
-                if (accionDelBoton == "Numero9")
-                    FindObjectOfType<CajaDeSeguridad>().
-                        SendMessage("SeHaPulsadoUnBoton", "9");
-                if (accionDelBoton == "btnBorrar")
-                    FindObjectOfType<CajaDeSeguridad>().
-                        SendMessage("SeHaPulsadoUnBoton", "btnBorrar");
+                CajaDeSeguridad cajaDeSeguridadActiva =
+                    DeterminarCajaDeSeguridadActiva();
+
+                if (cajaDeSeguridadActiva != null)
+                {
+                    if (accionDelBoton == "Numero1")
+                        cajaDeSeguridadActiva.SeHaPulsadoUnBoton("1");
+                    if (accionDelBoton == "Numero2")
+                        cajaDeSeguridadActiva.SeHaPulsadoUnBoton("2");
+                    if (accionDelBoton == "Numero3")
+                        cajaDeSeguridadActiva.SeHaPulsadoUnBoton("3");
+                    if (accionDelBoton == "btnOk")
+                        cajaDeSeguridadActiva.SeHaPulsadoUnBoton("btnOk");
+                    if (accionDelBoton == "Numero4")
+                        cajaDeSeguridadActiva.SeHaPulsadoUnBoton("4");
+                    if (accionDelBoton == "Numero5")
+                        cajaDeSeguridadActiva.SeHaPulsadoUnBoton("5");
+                    if (accionDelBoton == "Numero6")
+                        cajaDeSeguridadActiva.SeHaPulsadoUnBoton("6");
+                    if (accionDelBoton == "Numero0")
+                        cajaDeSeguridadActiva.SeHaPulsadoUnBoton("0");
+                    if (accionDelBoton == "Numero7")
+                        cajaDeSeguridadActiva.SeHaPulsadoUnBoton("7");
+                    if (accionDelBoton == "Numero8")
+                        cajaDeSeguridadActiva.SeHaPulsadoUnBoton("8");
+                    if (accionDelBoton == "Numero9")
+                        cajaDeSeguridadActiva.SeHaPulsadoUnBoton("9");
+                    if (accionDelBoton == "btnBorrar")
+                        cajaDeSeguridadActiva.SeHaPulsadoUnBoton("btnBorrar");
+                }
             }
         }
+    }
+
+    private CajaDeSeguridad DeterminarCajaDeSeguridadActiva()
+    {
+        CajaDeSeguridad cajaDeSeguridadActiva = null;
+
+        CajaDeSeguridad[] cajasDeSeguridad = 
+            FindObjectsOfType<CajaDeSeguridad>();
+
+        foreach (CajaDeSeguridad caja in cajasDeSeguridad)
+        {
+            if (caja.isActiveAndEnabled)
+            {
+                cajaDeSeguridadActiva = caja;
+                break;
+            }   
+        }
+
+        return cajaDeSeguridadActiva;
     }
 }

@@ -133,8 +133,9 @@ public class ObtencionObjetos : MonoBehaviour
                 "Llave inglesa recogida";
         }
 
-        if (gameObject.CompareTag("LlavePeon") && 
-            FindObjectOfType<CajaDeSeguridad>().CajaAbierta)
+        if (gameObject.CompareTag("LlavePeon") &&
+            FindObjectOfType<EstadoDelJuego>().
+                    CajaDeSeguridadSecretariaAbierta)
         {
             objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
@@ -143,7 +144,9 @@ public class ObtencionObjetos : MonoBehaviour
                 "Llave peón recogida";
         }
 
-        if (gameObject.CompareTag("LlaveRey"))
+        if (gameObject.CompareTag("LlaveRey") &&
+            FindObjectOfType<EstadoDelJuego>().
+                    CajaDeSeguridadSObservacionAbierta)
         {
             objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().

@@ -138,7 +138,8 @@ public class InteraccionPuertas : MonoBehaviour
         if (other.gameObject.CompareTag("Jugador"))
         {
             interactuandoConLaPuerta = false;
-            FindObjectOfType<Mensajero>().OcultarInterfazMensaje();
+            if (FindObjectOfType<Mensajero>().InterfazMensajeActiva)
+                FindObjectOfType<Mensajero>().OcultarInterfazMensaje();
         }
     }
 

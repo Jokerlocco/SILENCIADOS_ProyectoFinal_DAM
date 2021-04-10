@@ -27,7 +27,8 @@ public class InspeccionDeElementos : MonoBehaviour
         if (other.gameObject.CompareTag("Jugador"))
         {
             colisionando = false;
-            FindObjectOfType<Mensajero>().OcultarInterfazMensaje();
+            if (FindObjectOfType<Mensajero>().InterfazMensajeActiva)
+                FindObjectOfType<Mensajero>().OcultarInterfazMensaje();
         }
     }
 
@@ -120,6 +121,13 @@ public class InspeccionDeElementos : MonoBehaviour
             FindObjectOfType<Mensajero>().Mensaje =
                 "Podría llenar el jarrón con agua, pero el grifo no da. " +
                 "Debo solucionarlo...";
+
+        else if (gameObject.CompareTag("CodigoSalaObservacionEnHRA") &&
+            !FindObjectOfType<InventarioJugador>().JarronConAguaEnElInventario)
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Hay una mancha en la pared, parece que está ocultando algo. " +
+                "Su textura es muy extraña, pero creo que si arrojase agua," +
+                " podría eliminarla.";
 
 
         else // Si no ha entrado a ningún if, terminamos con el script.

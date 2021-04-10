@@ -9,8 +9,21 @@ public class InspeccionDeCajaDeSeguridad : MonoBehaviour
     private void Update()
     {
         if (Input.GetButtonDown("Interactuar") && colisionando && 
-            !FindObjectOfType<CajaDeSeguridad>().CajaAbierta)
+            gameObject.CompareTag("CajaDeSeguridadSecretaria") &&
+            !FindObjectOfType<EstadoDelJuego>().
+                CajaDeSeguridadSecretariaAbierta)
+        {
+            ActivarScriptParaLaCajaEspecifica();
             MostrarPanelNumericoDeLaCajaDeSeguridad();
+        }
+        else if (Input.GetButtonDown("Interactuar") && colisionando &&
+            gameObject.CompareTag("CajaDeSeguridadSObservacion") &&
+            !FindObjectOfType<EstadoDelJuego>().
+                CajaDeSeguridadSObservacionAbierta)
+        {
+            ActivarScriptParaLaCajaEspecifica();
+            MostrarPanelNumericoDeLaCajaDeSeguridad();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,9 +38,14 @@ public class InspeccionDeCajaDeSeguridad : MonoBehaviour
             colisionando = false;
     }
 
+    private void ActivarScriptParaLaCajaEspecifica()
+    {
+        gameObject.GetComponent<CajaDeSeguridad>().enabled = true;
+    }
+
     private void MostrarPanelNumericoDeLaCajaDeSeguridad()
     {
-        FindObjectOfType<CajaDeSeguridad>().
+            FindObjectOfType<CajaDeSeguridad>().
                         SendMessage("AbrirPanelNumerico");
     }
 }
