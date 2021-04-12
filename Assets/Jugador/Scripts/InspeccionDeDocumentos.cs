@@ -82,7 +82,6 @@ public class InspeccionDeDocumentos : MonoBehaviour
             flechaIzquierda.enabled = true;
         else
             flechaIzquierda.enabled = false;
-
     }
 
     private void MostrarIndicadorNumPagina()
@@ -265,6 +264,15 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "Combinar acetona y éter etílico diluidos en partes iguales. " +
                 "Unas gotas de vinagre ayudará a acelerar el " +
                 "proceso de disolución.");
+        }
+        else if (gameObject.CompareTag("D_PistaDeLaPizarra"))
+        {
+            paginasDelDocumento.Add("Resuelve la operación de la pizarra" +
+                " para obtener el código de la caja de seguridad LMC, " +
+                "número: '5467KF'.\n" +
+                "Debe de ser transportada de mi despacho " +
+                "al laboratorio en cuanto leas esto.\n\n" +
+                "Dr. Karlheinz");
         }
     }
 }
