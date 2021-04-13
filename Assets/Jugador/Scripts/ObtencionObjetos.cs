@@ -79,7 +79,8 @@ public class ObtencionObjetos : MonoBehaviour
                 "Ganzúa recogida";
         }
 
-        if (gameObject.CompareTag("GrifoDeBronce"))
+        if (gameObject.CompareTag("GrifoDeBronce") &&
+            FindObjectOfType<EstadoDelJuego>().CajaDeSeguridadSMaquinasAbierta)
         {
             objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().
@@ -97,7 +98,8 @@ public class ObtencionObjetos : MonoBehaviour
                 "Grifo de madera recogido";
         }
 
-        if (gameObject.CompareTag("GrifoDeMarmol"))
+        if (gameObject.CompareTag("GrifoDeMarmol") && 
+            FindObjectOfType<EstadoDelJuego>().CajaDeSeguridadDMJAbierta)
         {
             objetoRecogido = true;
             FindObjectOfType<InventarioJugador>().

@@ -20,6 +20,8 @@ public class CajaDeSeguridad : MonoBehaviour
 
     private string codigoCajaDeSeguridadSecretaria = "6427";
     private string codigoCajaDeSeguridadSObservacion = "0634";
+    private string codigoCajaDeSeguridadDMJ = "1625";
+    private string codigoCajaDeSeguridadSMaquinas = "8642";
 
     private void Start()
     {
@@ -73,6 +75,20 @@ public class CajaDeSeguridad : MonoBehaviour
                 AbrirCajaDeSeguridadPorCodigoCorrecto();
                 FindObjectOfType<EstadoDelJuego>().
                     CajaDeSeguridadSObservacionAbierta = true;
+            }
+            else if (gameObject.CompareTag("CajaDeSeguridadDMJ") &&
+                textoCodigoPanel.text == codigoCajaDeSeguridadDMJ)
+            {
+                AbrirCajaDeSeguridadPorCodigoCorrecto();
+                FindObjectOfType<EstadoDelJuego>().
+                    CajaDeSeguridadDMJAbierta = true;
+            }
+            else if (gameObject.CompareTag("CajaDeSeguridadSMaquinas") &&
+                textoCodigoPanel.text == codigoCajaDeSeguridadSMaquinas)
+            {
+                AbrirCajaDeSeguridadPorCodigoCorrecto();
+                FindObjectOfType<EstadoDelJuego>().
+                    CajaDeSeguridadSMaquinasAbierta = true;
             }
             else
             {

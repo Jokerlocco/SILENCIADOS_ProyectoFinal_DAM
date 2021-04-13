@@ -126,6 +126,11 @@ public class InspeccionDeElementos : MonoBehaviour
                 "Su textura es muy extraña, pero creo que si arrojase agua," +
                 " podría eliminarla.";
 
+        else if (gameObject.CompareTag("CajaDeSeguridadIdentificacion"))
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Es una caja de seguridad que require una tarjeta de " +
+                "identificación específica.";
+
 
         else // Si no ha entrado a ningún if, terminamos con el script.
         {

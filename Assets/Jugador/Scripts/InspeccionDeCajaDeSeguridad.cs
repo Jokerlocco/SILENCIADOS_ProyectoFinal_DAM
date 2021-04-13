@@ -24,6 +24,22 @@ public class InspeccionDeCajaDeSeguridad : MonoBehaviour
             ActivarScriptParaLaCajaEspecifica();
             MostrarPanelNumericoDeLaCajaDeSeguridad();
         }
+        else if (Input.GetButtonDown("Interactuar") && colisionando &&
+            gameObject.CompareTag("CajaDeSeguridadDMJ") &&
+            !FindObjectOfType<EstadoDelJuego>().
+                CajaDeSeguridadDMJAbierta)
+        {
+            ActivarScriptParaLaCajaEspecifica();
+            MostrarPanelNumericoDeLaCajaDeSeguridad();
+        }
+        else if (Input.GetButtonDown("Interactuar") && colisionando &&
+            gameObject.CompareTag("CajaDeSeguridadSMaquinas") &&
+            !FindObjectOfType<EstadoDelJuego>().
+                CajaDeSeguridadSMaquinasAbierta)
+        {
+            ActivarScriptParaLaCajaEspecifica();
+            MostrarPanelNumericoDeLaCajaDeSeguridad();
+        }
     }
 
     private void OnTriggerEnter(Collider other)

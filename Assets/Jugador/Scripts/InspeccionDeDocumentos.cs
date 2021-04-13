@@ -269,7 +269,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
         {
             paginasDelDocumento.Add("Resuelve la operación de la pizarra" +
                 " para obtener el código de la caja de seguridad LMC, " +
-                "número: '5467KF'.\n" +
+                "número: '6352'.\n" +
                 "Debe de ser transportada de mi despacho " +
                 "al laboratorio en cuanto leas esto.\n\n" +
                 "Dr. Karlheinz");
