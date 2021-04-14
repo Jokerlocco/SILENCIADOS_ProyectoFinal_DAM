@@ -22,6 +22,9 @@ public class TrucosDelJuego : MonoBehaviour
     [SerializeField] bool disolventeDeSiliconaEnElInventarioDelJugador = false;
     [SerializeField] bool llaveInglesaEnElInventarioDelJugador = false;
     [SerializeField] bool jarronConAguaEnElInventarioDelJugador = false;
+    [SerializeField] bool tarjetaIdentificacionAlynSEnElInventarioDelJugador = false;
+    [SerializeField] bool tarjetaIdentificacionMorganSEnElInventarioDelJugador = false;
+    [SerializeField] bool tarjetaIdentificacionRKarlheinzEnElInventarioDelJugador = false;
 
     // Separador para la interfaz de Unity:
 #pragma warning disable 0414
@@ -29,6 +32,7 @@ public class TrucosDelJuego : MonoBehaviour
 
     // Estado del juego
     [SerializeField] bool motorHidraulicoArreglado = false;
+    [SerializeField] bool cajaDeSeguridadIdentificacionbierta = false;
 
 
     private void Update()
@@ -45,6 +49,13 @@ public class TrucosDelJuego : MonoBehaviour
         else
             FindObjectOfType<EstadoDelJuego>().
                 MotorHidraulicoArreglado = false;
+
+        if (cajaDeSeguridadIdentificacionbierta)
+            FindObjectOfType<EstadoDelJuego>().
+                CajaDeSeguridadDeIdentificacionAbierta = true;
+        else
+            FindObjectOfType<EstadoDelJuego>().
+                CajaDeSeguridadDeIdentificacionAbierta = false;
     }
 
     private void ActivarODesactivarObjetos()
@@ -167,5 +178,26 @@ public class TrucosDelJuego : MonoBehaviour
         else
             FindObjectOfType<InventarioJugador>().
                 JarronConAguaEnElInventario = false;
+
+        if (tarjetaIdentificacionAlynSEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                TarjetaDeIdentificacionAlynSEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                TarjetaDeIdentificacionAlynSEnElInventario = false;
+
+        if (tarjetaIdentificacionMorganSEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                TarjetaDeIdentificacionMorganSEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                TarjetaDeIdentificacionMorganSEnElInventario = false;
+
+        if (tarjetaIdentificacionRKarlheinzEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                TarjetaDeIdentificacionRKarlheinzEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                TarjetaDeIdentificacionRKarlheinzEnElInventario = false;
     }
 }

@@ -63,6 +63,15 @@ public class InventarioJugador : MonoBehaviour
     private string nombreLlaveTorre = "Llave torre";
     public bool LlaveTorreEnElInventario { get; set; } = false;
 
+    private string nombreTarjetaDeIdentificacionAlynS = "Tjt.Id: Alyn Spencer";
+    public bool TarjetaDeIdentificacionAlynSEnElInventario { get; set; } = false;
+
+    private string nombreTarjetaDeIdentificacionMorganS = "Tjt.Id: Morgan Sanderson";
+    public bool TarjetaDeIdentificacionMorganSEnElInventario { get; set; } = false;
+
+    private string nombreTarjetaDeIdentificacionRKarlheinz = "Tjt.Id: Raphael Karlheinz";
+    public bool TarjetaDeIdentificacionRKarlheinzEnElInventario { get; set; } = false;
+
     private string nombreVinagre = "Vinagre";
     public bool VinagreEnElInventario { get; set; } = false;
 
@@ -227,6 +236,18 @@ public class InventarioJugador : MonoBehaviour
         if (LlaveTorreEnElInventario &&
             !contenidoInventario.text.Contains(nombreLlaveTorre))
             contenidoInventario.text += nombreLlaveTorre + "\n";
+
+        if (TarjetaDeIdentificacionAlynSEnElInventario &&
+            !contenidoInventario.text.Contains(nombreTarjetaDeIdentificacionAlynS))
+            contenidoInventario.text += nombreTarjetaDeIdentificacionAlynS + "\n";
+
+        if (TarjetaDeIdentificacionMorganSEnElInventario &&
+            !contenidoInventario.text.Contains(nombreTarjetaDeIdentificacionMorganS))
+            contenidoInventario.text += nombreTarjetaDeIdentificacionMorganS + "\n";
+
+        if (TarjetaDeIdentificacionRKarlheinzEnElInventario &&
+            !contenidoInventario.text.Contains(nombreTarjetaDeIdentificacionRKarlheinz))
+            contenidoInventario.text += nombreTarjetaDeIdentificacionRKarlheinz + "\n";
 
         if (VinagreEnElInventario &&
             !contenidoInventario.text.Contains(nombreVinagre))

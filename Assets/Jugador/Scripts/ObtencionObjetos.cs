@@ -117,6 +117,23 @@ public class ObtencionObjetos : MonoBehaviour
                 "Jarrón de gran acabado recogido";
         }
 
+        if (gameObject.CompareTag("LlaveAlfil"))
+        {
+            MeshRenderer renderSiliconaLlaveAlfil =
+                gameObject.transform.GetChild(1).gameObject.
+                GetComponent<MeshRenderer>();
+
+            // Si se ha quitado la silicona...
+            if (!renderSiliconaLlaveAlfil.enabled)
+            {
+                objetoRecogido = true;
+                FindObjectOfType<InventarioJugador>().
+                    LlaveAlfilEnElInventario = true;
+                FindObjectOfType<Mensajero>().Mensaje =
+                    "Llave alfil recogida";
+            }
+        }
+
         if (gameObject.CompareTag("LlaveCaballo"))
         {
             objetoRecogido = true;
@@ -166,21 +183,51 @@ public class ObtencionObjetos : MonoBehaviour
                 "Llave torre recogida";
         }
 
-        if (gameObject.CompareTag("LlaveAlfil"))
+        if (gameObject.CompareTag("TarjetaIdentificacionAlynS") && 
+            !FindObjectOfType<EstadoDelJuego>().
+            CajaDeSeguridadDeIdentificacionAbierta)
         {
-            MeshRenderer renderSiliconaLlaveAlfil = 
-                gameObject.transform.GetChild(1).gameObject.
-                GetComponent<MeshRenderer>();
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                TarjetaDeIdentificacionAlynSEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Tarjeta de identificación de la enfermera " +
+                "'Alyn Spencer' recogida";
+        }
 
-            // Si se ha quitado la silicona...
-            if (!renderSiliconaLlaveAlfil.enabled)
-            {
-                objetoRecogido = true;
-                FindObjectOfType<InventarioJugador>().
-                    LlaveAlfilEnElInventario = true;
-                FindObjectOfType<Mensajero>().Mensaje =
-                    "Llave alfil recogida";
-            }
+        if (gameObject.CompareTag("TarjetaIdentificacionMorganS") &&
+            !FindObjectOfType<EstadoDelJuego>().
+            CajaDeSeguridadDeIdentificacionAbierta)
+        {
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                TarjetaDeIdentificacionMorganSEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Tarjeta de identificación del enfermero " +
+                "'Morgan Sanderson' recogida";
+        }
+
+        if (gameObject.CompareTag("TarjetaIdentificacionRKarlheinz") &&
+            !FindObjectOfType<EstadoDelJuego>().
+            CajaDeSeguridadDeIdentificacionAbierta)
+        {
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                TarjetaDeIdentificacionRKarlheinzEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Tarjeta de identificación del médico jefe " +
+                "'Raphael Karlheinz' recogida";
+        }
+
+        if ((gameObject.CompareTag("TarjetaIdentificacionAlynS") ||
+            gameObject.CompareTag("TarjetaIdentificacionMorganS") ||
+            gameObject.CompareTag("TarjetaIdentificacionRKarlheinz")) &&
+            FindObjectOfType<EstadoDelJuego>().
+            CajaDeSeguridadDeIdentificacionAbierta)
+        {
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Ya no necesito esta tarjeta de identificación.";
+            FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
         }
 
         if (gameObject.CompareTag("Vinagre"))

@@ -109,6 +109,50 @@ public class UtilizacionDeElementos : MonoBehaviour
                 elementoUtilizado = true;
             }
 
+            if (gameObject.CompareTag("CajaDeSeguridadIdentificacion") &&
+                !FindObjectOfType<InventarioJugador>().
+                    TarjetaDeIdentificacionAlynSEnElInventario &&
+                !FindObjectOfType<InventarioJugador>().
+                    TarjetaDeIdentificacionMorganSEnElInventario &&
+                !FindObjectOfType<InventarioJugador>().
+                TarjetaDeIdentificacionRKarlheinzEnElInventario)
+            {
+                FindObjectOfType<Mensajero>().Mensaje =
+                "Es una caja de seguridad que requiere una tarjeta de " +
+                "identificación específica.";
+                FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+            }
+            else if (gameObject.CompareTag("CajaDeSeguridadIdentificacion") &&
+                FindObjectOfType<InventarioJugador>().
+                    TarjetaDeIdentificacionRKarlheinzEnElInventario)
+            {
+                UtilizarTarjetaCorrectaEnLaCajaDeSeguridadDeIdentificacion();
+                elementoUtilizado = true;
+            }
+            else if (gameObject.CompareTag("CajaDeSeguridadIdentificacion") &&
+                FindObjectOfType<InventarioJugador>().
+                    TarjetaDeIdentificacionAlynSEnElInventario)
+            {
+                FindObjectOfType<Mensajero>().Mensaje =
+                "Es una caja de seguridad que requiere una tarjeta de " +
+                "identificación específica, y esta no me sirve...";
+                FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+                FindObjectOfType<InventarioJugador>().
+                    TarjetaDeIdentificacionAlynSEnElInventario = false;
+            }
+            else if (gameObject.CompareTag("CajaDeSeguridadIdentificacion") &&
+                FindObjectOfType<InventarioJugador>().
+                    TarjetaDeIdentificacionMorganSEnElInventario)
+            {
+                FindObjectOfType<Mensajero>().Mensaje =
+                "Es una caja de seguridad que requiere una tarjeta de " +
+                "identificación específica, y esta no me sirve...";
+                FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+                FindObjectOfType<InventarioJugador>().
+                    TarjetaDeIdentificacionMorganSEnElInventario = false;
+            }
+            
+
 
             if (elementoUtilizado)
                 EstablecerComoUtilizado();
@@ -307,6 +351,29 @@ public class UtilizacionDeElementos : MonoBehaviour
             "He eliminado la mancha con el jarrón con agua. " +
             "Hay una especie de código grabado en la pared.";
         FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+    }
+
+    private void UtilizarTarjetaCorrectaEnLaCajaDeSeguridadDeIdentificacion()
+    {
+        Animator animacionTapaderaDeLaCaja = //gameObject.transform.GetChild(1).transform.GetChild(0).
+            GetComponent<Animator>();
+        animacionTapaderaDeLaCaja.SetBool(
+            "seHaIntroducidoElCodigoCorrecto", true);
+
+        FindObjectOfType<Mensajero>().Mensaje =
+            "He utilizado la tarjeta de identificación del " + 
+            "doctor Karlheinz en la caja de seguridad.";
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+
+        FindObjectOfType<InventarioJugador>().
+            TarjetaDeIdentificacionAlynSEnElInventario = false;
+        FindObjectOfType<InventarioJugador>().
+            TarjetaDeIdentificacionMorganSEnElInventario = false;
+        FindObjectOfType<InventarioJugador>().
+            TarjetaDeIdentificacionRKarlheinzEnElInventario = false;
+
+        FindObjectOfType<EstadoDelJuego>().
+            CajaDeSeguridadDeIdentificacionAbierta = true;
     }
 
 }
