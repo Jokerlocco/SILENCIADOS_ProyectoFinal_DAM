@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ObtencionObjetos : MonoBehaviour
 {
@@ -228,6 +224,17 @@ public class ObtencionObjetos : MonoBehaviour
             FindObjectOfType<Mensajero>().Mensaje =
                 "Ya no necesito esta tarjeta de identificación.";
             FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+        }
+
+        if (gameObject.CompareTag("TuboCurvoConValvula") && 
+            FindObjectOfType<EstadoDelJuego>().
+            CajaDeSeguridadDeIdentificacionAbierta)
+        {
+            objetoRecogido = true;
+            FindObjectOfType<InventarioJugador>().
+                TuboCurvoConValvulaEnElInventario = true;
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Tubo curvo con válvula recogido";
         }
 
         if (gameObject.CompareTag("Vinagre"))

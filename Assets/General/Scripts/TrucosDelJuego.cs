@@ -25,6 +25,7 @@ public class TrucosDelJuego : MonoBehaviour
     [SerializeField] bool tarjetaIdentificacionAlynSEnElInventarioDelJugador = false;
     [SerializeField] bool tarjetaIdentificacionMorganSEnElInventarioDelJugador = false;
     [SerializeField] bool tarjetaIdentificacionRKarlheinzEnElInventarioDelJugador = false;
+    [SerializeField] bool tuboCurvoConValvulaEnElInventarioDelJugador = false;
 
     // Separador para la interfaz de Unity:
 #pragma warning disable 0414
@@ -199,5 +200,12 @@ public class TrucosDelJuego : MonoBehaviour
         else
             FindObjectOfType<InventarioJugador>().
                 TarjetaDeIdentificacionRKarlheinzEnElInventario = false;
+
+        if (tuboCurvoConValvulaEnElInventarioDelJugador)
+            FindObjectOfType<InventarioJugador>().
+                TuboCurvoConValvulaEnElInventario = true;
+        else
+            FindObjectOfType<InventarioJugador>().
+                TuboCurvoConValvulaEnElInventario = false;
     }
 }

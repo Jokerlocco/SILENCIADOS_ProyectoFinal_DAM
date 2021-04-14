@@ -76,9 +76,10 @@ public class InspeccionDeElementos : MonoBehaviour
             FindObjectOfType<Mensajero>().Mensaje = "Hay un escape... " +
                 "Será mejor no acercarse más.";
 
-        else if (gameObject.CompareTag("GasEnSalaDeMaquinas"))
-            FindObjectOfType<Mensajero>().Mensaje = "Hay un escape de gas. " +
-                "Si tuviera la herramienta adecuada podría detenerlo.";
+        else if (gameObject.CompareTag("GasEnSalaDeMaquinas") &&
+            !FindObjectOfType<InventarioJugador>().TuboCurvoConValvulaEnElInventario)
+            FindObjectOfType<Mensajero>().Mensaje = 
+                "Hay un escape de gas y no me deja pasar.";
 
         else if (gameObject.CompareTag("CompartimientoDelExtintor") &&
             !FindObjectOfType<InventarioJugador>().GanzuaEnElInventario)

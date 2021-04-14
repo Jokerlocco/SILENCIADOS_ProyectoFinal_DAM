@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class InventarioJugador : MonoBehaviour
@@ -71,6 +69,9 @@ public class InventarioJugador : MonoBehaviour
 
     private string nombreTarjetaDeIdentificacionRKarlheinz = "Tjt.Id: Raphael Karlheinz";
     public bool TarjetaDeIdentificacionRKarlheinzEnElInventario { get; set; } = false;
+
+    private string nombreTuboCurvoConValvula = "Tubo curvo con válvula";
+    public bool TuboCurvoConValvulaEnElInventario { get; set; } = false;
 
     private string nombreVinagre = "Vinagre";
     public bool VinagreEnElInventario { get; set; } = false;
@@ -248,6 +249,10 @@ public class InventarioJugador : MonoBehaviour
         if (TarjetaDeIdentificacionRKarlheinzEnElInventario &&
             !contenidoInventario.text.Contains(nombreTarjetaDeIdentificacionRKarlheinz))
             contenidoInventario.text += nombreTarjetaDeIdentificacionRKarlheinz + "\n";
+
+        if (TuboCurvoConValvulaEnElInventario &&
+            !contenidoInventario.text.Contains(nombreTuboCurvoConValvula))
+            contenidoInventario.text += nombreTuboCurvoConValvula + "\n";
 
         if (VinagreEnElInventario &&
             !contenidoInventario.text.Contains(nombreVinagre))

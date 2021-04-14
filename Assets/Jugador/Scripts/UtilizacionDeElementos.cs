@@ -151,7 +151,16 @@ public class UtilizacionDeElementos : MonoBehaviour
                 FindObjectOfType<InventarioJugador>().
                     TarjetaDeIdentificacionMorganSEnElInventario = false;
             }
-            
+
+            if (gameObject.CompareTag("GasEnSalaDeMaquinas") &&
+                 FindObjectOfType<InventarioJugador>().
+                    TuboCurvoConValvulaEnElInventario &&
+                 FindObjectOfType<InventarioJugador>().
+                    LlaveInglesaEnElInventario)
+            {
+                StartCoroutine(ArreglarEscapeDeGas(2f));
+                elementoUtilizado = true;
+            }
 
 
             if (elementoUtilizado)
@@ -305,9 +314,6 @@ public class UtilizacionDeElementos : MonoBehaviour
         EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
         yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
 
-        FindObjectOfType<InventarioJugador>()
-            .LlaveInglesaEnElInventario = false;
-
         FindObjectOfType<EstadoDelJuego>().MotorHidraulicoArreglado = true;
 
         FindObjectOfType<Mensajero>().Mensaje =
@@ -374,6 +380,38 @@ public class UtilizacionDeElementos : MonoBehaviour
 
         FindObjectOfType<EstadoDelJuego>().
             CajaDeSeguridadDeIdentificacionAbierta = true;
+    }
+
+    private IEnumerator ArreglarEscapeDeGas(float segundosDeLaAnimacion)
+    {
+        EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
+        yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
+
+        // Mostramos el tubo 
+        GameObject tubo = GameObject.
+            FindGameObjectWithTag("TuboCurvoConValvulaEnSMaquinas").gameObject;
+        tubo.GetComponent<MeshRenderer>().enabled = true;
+        // Y la válvula
+        tubo.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+
+        // Ocultamos el gas:
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        // Desactivamos el sonido del gas:
+        gameObject.transform.GetChild(1).gameObject.
+            GetComponent<AudioSource>().Stop();
+        // Desactivamos el bloqueo de paso:
+        gameObject.transform.GetChild(2).gameObject.
+            GetComponent<MeshCollider>().enabled = false;
+
+        FindObjectOfType<InventarioJugador>()
+            .TuboCurvoConValvulaEnElInventario = false;
+        FindObjectOfType<InventarioJugador>()
+            .LlaveInglesaEnElInventario = false;
+
+        FindObjectOfType<Mensajero>().Mensaje =
+            "He arreglado el escape de gas usando la llave inglesa y" +
+            " el tubo con válvula.";
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
     }
 
 }
