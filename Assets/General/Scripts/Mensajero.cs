@@ -11,11 +11,15 @@ public class Mensajero : MonoBehaviour
 
     public void MostrarInterfazMensaje()
     {
+        if (InterfazMensajeActiva) // Si hay un mensaje anterior abierto, lo quitamos.
+        {
+            StopCoroutine("EsperarEnLaInterfazAntesDeCerrar");
+        }
+
         mensajeDeInteraccion.text = Mensaje;
         fondoOscuroTraslucidoMensajes.SetActive(true);
         InterfazMensajeActiva = true;
-
-        StartCoroutine(EsperarEnLaInterfazAntesDeCerrar());
+        StartCoroutine("EsperarEnLaInterfazAntesDeCerrar");
     }
 
     private IEnumerator EsperarEnLaInterfazAntesDeCerrar()
@@ -24,6 +28,7 @@ public class Mensajero : MonoBehaviour
         OcultarInterfazMensaje();
     }
 
+    // En la inspección de elementos y puertas, si el jugador sale del rango, quitamos el mensaje
     public void OcultarInterfazMensaje()
     {
         if (InterfazMensajeActiva)

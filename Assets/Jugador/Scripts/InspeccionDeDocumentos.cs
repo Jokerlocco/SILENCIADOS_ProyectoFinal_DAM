@@ -229,9 +229,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
         {
             paginasDelDocumento.Add("¡HE ENCONTRADO UNA LLAVE! ¡SÍ! ¡SÍ! " +
                 "¡SÍ! ¡SÍ! ¡Y SERÁ SÓLO MÍA! ¡MÍA! ¡MÍA! ¡MÍA! ¡SÍ!\n " +
-                "¡NADIE LA ENCONTRARÁ! ¡NI SI QUIERA LA ENFERMERA WILKES! \n" +
-                "(A no ser que alguien descubra mi documento guía en mi" +
-                " ducha favorita... sí, sí, la que no funciona... je, je...)");
+                "¡NADIE LA ENCONTRARÁ! ¡NI SI QUIERA LA ENFERMERA WILKES!");
         }
 
         else if (gameObject.CompareTag("D_PistaDeUnLoco2"))
@@ -243,8 +241,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "¡MORGAN Y SHARON SE HAN " +
                 "VUELTO LOCAS BUSCÁNDOLA!\nLa he escondido en otro de mis " +
                 "lugares secretos: Debajo de una baldosa de los dormitorios, " +
-                "cerca de las camas de Cristóbal y Tom. Es decir, al fondo " +
-                "de la sala...");
+                "cerca de las camas de Cristóbal y Tom.");
         }
 
         else if (gameObject.CompareTag("D_RecordatorioACristobal"))

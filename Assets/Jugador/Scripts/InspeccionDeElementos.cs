@@ -41,13 +41,13 @@ public class InspeccionDeElementos : MonoBehaviour
             colisionando && 
             !FindObjectOfType<Mensajero>().InterfazMensajeActiva)
         {
-            EstablcerMensajeOTerminar();
+            EstablecerMensajeOTerminar();
         }
     }
 
-    private void EstablcerMensajeOTerminar()
+    private void EstablecerMensajeOTerminar()
     {
-        bool mostrarMensaje = true;
+        bool mostrarMensaje = false;
 
         if (gameObject.CompareTag("InspeccionPuertaPrincipal"))
         {
@@ -55,92 +55,127 @@ public class InspeccionDeElementos : MonoBehaviour
                 "La puerta principal está bloqueada. " +
                 "Debo buscar otra forma de salir.";
             ReproducirSonidoElemento();
+            mostrarMensaje = true;
         }
 
-        else if (gameObject.CompareTag("InspeccionAscensor"))
+        if (gameObject.CompareTag("InspeccionAscensor"))
+        {
             FindObjectOfType<Mensajero>().Mensaje =
                 "El ascensor está destrozado. No se puede utilizar.";
+            mostrarMensaje = true;
+        }
 
-        else if (gameObject.CompareTag("InspeccionEstatua"))
+        if (gameObject.CompareTag("InspeccionEstatua"))
+        {
             FindObjectOfType<Mensajero>().Mensaje =
                 "La estatua tiene tres orificios vacíos. " +
                 "Es cómo si se tuviera que insertar algo.";
-
-        else if (gameObject.CompareTag("Proyector") && 
+            mostrarMensaje = true;
+        }
+        
+        if (gameObject.CompareTag("Proyector") && 
             !FindObjectOfType<InventarioJugador>().BombillaEnElInventario)
-            FindObjectOfType<Mensajero>().Mensaje = 
+        {
+            FindObjectOfType<Mensajero>().Mensaje =
                 "El proyector parece funcionar, pero le falta la bombilla.";
-
-        else if (gameObject.CompareTag("FuegoEnLaCocina") && 
+            mostrarMensaje = true;
+        }
+            
+        if (gameObject.CompareTag("FuegoEnLaCocina") && 
             !FindObjectOfType<InventarioJugador>().ExtintorEnElInventario)
-            FindObjectOfType<Mensajero>().Mensaje = "Hay un escape... " +
+        {
+            FindObjectOfType<Mensajero>().Mensaje = "Hay un escape... " + 
                 "Será mejor no acercarse más.";
-
-        else if (gameObject.CompareTag("GasEnSalaDeMaquinas") &&
+            mostrarMensaje = true;
+        }
+        
+        if (gameObject.CompareTag("GasEnSalaDeMaquinas") &&
             !FindObjectOfType<InventarioJugador>().TuboCurvoConValvulaEnElInventario)
-            FindObjectOfType<Mensajero>().Mensaje = 
+        {
+            FindObjectOfType<Mensajero>().Mensaje =
                 "Hay un escape de gas y no me deja pasar.";
+            mostrarMensaje = true;
+        }
 
-        else if (gameObject.CompareTag("CompartimientoDelExtintor") &&
+        if (gameObject.CompareTag("CompartimientoDelExtintor") &&
             !FindObjectOfType<InventarioJugador>().GanzuaEnElInventario)
-            FindObjectOfType<Mensajero>().Mensaje = 
-                "Es un extintor, pero el compartimiento está cerrado. " +
+        {
+            FindObjectOfType<Mensajero>().Mensaje =
+                "Es un extintor, pero el compartimiento está cerrado. " + 
                 "Si tuviera la herramienta adecuada creo que podría abrirlo.";
-
-        else if (gameObject.CompareTag("ContenedorBiologico") &&
+            mostrarMensaje = true;
+        }
+        
+        if (gameObject.CompareTag("ContenedorBiologico") &&
             (!FindObjectOfType<InventarioJugador>().AcetonaEnElInventario ||
             !FindObjectOfType<InventarioJugador>().EterEnElInventario ||
             !FindObjectOfType<InventarioJugador>().VinagreEnElInventario))
+        {
             FindObjectOfType<Mensajero>().Mensaje =
-                "Si tuviese los componentes necesarios podría " +
+                "Si tuviese los componentes necesarios podría " + 
                 "crear un potente disolvente.";
-
-        else if (gameObject.CompareTag("SiliconaLlaveAlfil") &&
+            mostrarMensaje = true;
+        }
+        
+        if (gameObject.CompareTag("SiliconaLlaveAlfil") &&
             !FindObjectOfType<InventarioJugador>().DisolventeDeSiliconaEnElInventario)
-            FindObjectOfType<Mensajero>().Mensaje =
-                "Es una llave en forma de alfil, pero no puedo cogerla porque " +
+        {
+            FindObjectOfType<Mensajero>().Mensaje = 
+                "Es una llave en forma de alfil, pero no puedo cogerla porque " + 
                 "está pegada con silicona...";
-
-        else if (gameObject.CompareTag("MotorHidraulico") &&
+            mostrarMensaje = true;
+        }
+        
+        if (gameObject.CompareTag("MotorHidraulico") &&
             !FindObjectOfType<InventarioJugador>().LlaveInglesaEnElInventario)
-            FindObjectOfType<Mensajero>().Mensaje =
-                "Es el motor hidraúlico del asilo. " +
-                "Creo que si lo arreglo, los grifos de los lavabos funcionarán, " +
+        {
+            FindObjectOfType<Mensajero>().Mensaje = 
+                "Es el motor hidraúlico del asilo. " + 
+                "Creo que si lo arreglo, los grifos de los lavabos funcionarán, " + 
                 "pero necesito una llave inglesa.";
-
-        else if (gameObject.CompareTag("GrifoDeLavabo") &&
+            mostrarMensaje = true;
+        }
+        
+        if (gameObject.CompareTag("GrifoDeLavabo") &&
             !FindObjectOfType<InventarioJugador>().JarronEnElInventario &&
             !FindObjectOfType<EstadoDelJuego>().MotorHidraulicoArreglado)
-            FindObjectOfType<Mensajero>().Mensaje =
-                "El grifo no da agua...";
-        else if (gameObject.CompareTag("GrifoDeLavabo") &&
+        {
+            FindObjectOfType<Mensajero>().Mensaje = "El grifo no da agua...";
+            mostrarMensaje = true;
+        }
+        if (gameObject.CompareTag("GrifoDeLavabo") &&
             FindObjectOfType<InventarioJugador>().JarronEnElInventario &&
             !FindObjectOfType<EstadoDelJuego>().MotorHidraulicoArreglado)
-            FindObjectOfType<Mensajero>().Mensaje =
-                "Podría llenar el jarrón con agua, pero el grifo no da. " +
+        {
+            FindObjectOfType<Mensajero>().Mensaje = 
+                "Podría llenar el jarrón con agua, pero el grifo no da. " + 
                 "Debo solucionarlo...";
-
-        else if (gameObject.CompareTag("CodigoSalaObservacionEnHRA") &&
+            mostrarMensaje = true;
+        }
+        
+        if (gameObject.CompareTag("CodigoSalaObservacionEnHRA") &&
             !FindObjectOfType<InventarioJugador>().JarronConAguaEnElInventario)
+        {
             FindObjectOfType<Mensajero>().Mensaje =
                 "Hay una mancha en la pared, parece que está ocultando algo. " +
                 "Su textura es muy extraña, pero creo que si arrojase agua," +
                 " podría eliminarla.";
-
-        else if (gameObject.CompareTag("CajaDeSeguridadIdentificacion"))
-            FindObjectOfType<Mensajero>().Mensaje =
+            mostrarMensaje = true;
+        }
+        
+        if (gameObject.CompareTag("CajaDeSeguridadIdentificacion"))
+        {
+            FindObjectOfType<Mensajero>().Mensaje = 
                 "Es una caja de seguridad que require una tarjeta de " +
                 "identificación específica.";
-
-
-        else // Si no ha entrado a ningún if, terminamos con el script.
-        {
-            mostrarMensaje = false;
-            DesactivarScript();
+            mostrarMensaje = true;
         }
+
 
         if (mostrarMensaje)
             MostrarMensaje();
+        else
+            DesactivarScript();
     }
 
     private void MostrarMensaje()
