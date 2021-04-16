@@ -229,6 +229,7 @@ public class UtilizacionDeElementos : MonoBehaviour
         GameObject llaveTorre =
             GameObject.FindGameObjectWithTag("LlaveTorre").gameObject;
         llaveTorre.GetComponent<Renderer>().enabled = true;
+        llaveTorre.GetComponent<BoxCollider>().enabled = true;
         llaveTorre.transform.GetChild(0).GetComponent<Renderer>().enabled = true;
 
         FindObjectOfType<Mensajero>().Mensaje =
