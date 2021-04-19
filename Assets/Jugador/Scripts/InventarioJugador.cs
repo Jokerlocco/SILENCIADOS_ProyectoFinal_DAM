@@ -1,8 +1,11 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InventarioJugador : MonoBehaviour
 {
+    public bool InventarioJugadorDisponible { get; set; } = false;
+
     // Animación inventario
     [SerializeField] GameObject interfazInventario; // Asignado en Unity
     [SerializeField] GameObject fondoOscuroTraslucidoInventario; // Asignado en Unity
@@ -103,9 +106,15 @@ public class InventarioJugador : MonoBehaviour
             FindObjectsOfType<InventarioJugador>().Length;
 
         if (numeroDeInventariosInstanciados > 1)
+        {
             Destroy(gameObject);
+            InventarioJugadorDisponible = false;
+        }
         else
+        {
             DontDestroyOnLoad(gameObject);
+            InventarioJugadorDisponible = true;
+        }
     }
 
     private void Awake()
@@ -115,19 +124,25 @@ public class InventarioJugador : MonoBehaviour
 
     private void Start()
     {
-        animacionDeLaInterfaz = interfazInventario.GetComponent<Animator>();
-        inventarioAbierto = false;
+        if (InventarioJugadorDisponible)
+        {
+            animacionDeLaInterfaz = interfazInventario.GetComponent<Animator>();
+            inventarioAbierto = false;
 
-        contenidoInventario.text = "";
+            contenidoInventario.text = "";
+        }
     }
 
     private void Update()
     {
-        if (FindObjectOfType<ControlDelJugador>().PuedeMoverse)
+        if (InventarioJugadorDisponible)
         {
-            AbrirOCerrarAnimacionDelInventario();
-            ComprobarObjetosEspecificos();
-            MostrarObjetosQueEstanEnElInventario();
+            if (FindObjectOfType<ControlDelJugador>().PuedeMoverse)
+            {
+                AbrirOCerrarAnimacionDelInventario();
+                ComprobarObjetosEspecificos();
+                MostrarObjetosQueEstanEnElInventario();
+            }
         }
     }
 

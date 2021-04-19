@@ -348,5 +348,68 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "- Inyectar tranquilizante tipo C cada 7 horas\n" +
                 "- Curar hematomas cada 5 horas\n");
         }
+
+        else if (gameObject.CompareTag("D_CorreccionConductaAnton"))
+        {
+            paginasDelDocumento.Add("Ánton es el paciente más problemático " +
+                "que tenemos actualmente. Su triste condición, sumada a " +
+                "su terrible actitud y educación, le hacen una persona " +
+                "terriblemente conflictiva.\n\n" +
+                "Es deleznable que manoseé a las enfermeras " +
+                "(sobre todo a Sasha) y les robe sus pertenencias para luego " +
+                "esconderlas. Y no solo coge los bienes de nuestras amadas " +
+                "enfermeras, sino también elementos indispensables del asilo, " +
+                "como podría ser una llave de alta seguridad...\n\n");
+
+            paginasDelDocumento.Add(
+                "Los tranquilizantes pueden calmarlo temporalmente, pero no" +
+                " son suficientes para modular su conducta. Así que, a modo de " +
+                "castigo correctivo, sugiero que el señor Oliveira pase " +
+                "un tiempo en la habitación de reclusión B. Mientras esté ahí," +
+                " sólo se le darán los cuidados básicos, y no se le " +
+                "permitirá bajo ningún concepto salir de la habitación " +
+                "hasta el tiempo estipulado por el que decida " +
+                "el doctor Karlheinz.\n\n" +
+                "Espero que esto ayude a corregir su conducta. " +
+                "Cualquier consulta, háganmela saber.\n\n" +
+                "Enfermera A.Wilkes");
+        }
+
+        else if (gameObject.CompareTag("D_ResultadosProyectoN45P"))
+        {
+            paginasDelDocumento.Add("RESULTADOS DE LA PRUEBA DEL " +
+                "PROYECTO N45P\n" +
+                "--------------------------");
+
+            paginasDelDocumento.Add(
+                "Hombres:\n\n" +
+                "C.García - Apto\n" +
+                "Á.Oliveira - Apto\n" +
+                "L. Hidalgo - Fallecido\n" +
+                "B. Robinson - Fallecido\n" +
+                "M. Coen - Fallecido\n" +
+                "M. Smith - Fallecido\n" +
+                "T. Winston - Mutado\n");
+
+            paginasDelDocumento.Add(
+                "Mujeres:\n\n" +
+                "A.Thompson - Fallecida\n" +
+                "C. Martin - Fallecida\n" +
+                "B. Clark - Fallecida\n" +
+                "N. White - Fallecida\n" +
+                "J. Allen - Fallecida\n" +
+                "S. López - Fallecida\n" +
+                "F. Ramírez - Fallecida\n");
+
+            paginasDelDocumento.Add(
+                "Resultados desastrosos. Ninguna mujer ha sido apta, " +
+                "solo dos hombres (los más jóvenes). Aunque hemos " +
+                "obtenido un resultado interesante: Un hombre ha mutado. " +
+                "Por lo que investigaremos sus alteraciones genéticas " +
+                "antes de eliminarlo.\n" +
+                "Solicito su permiso para ello.\n\n" +
+                "P.D: Debido a estos resultados, en las futuras " +
+                "pruebas deberíamos de usar un rango de edad menor...");
+        }
     }
 }

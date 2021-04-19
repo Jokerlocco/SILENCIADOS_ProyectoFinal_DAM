@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Boton : MonoBehaviour
@@ -40,6 +37,14 @@ public class Boton : MonoBehaviour
             {
                 if (accionDelBoton == "CargarEscenaAsilo")
                     CargadorDeEscenas.CargarEscena("Asilo");
+                else if (accionDelBoton == "SalirDelJuego")
+                    Application.Quit();
+            }
+
+            if (transform.parent.CompareTag("BotonesMenuOpciones"))
+            {
+                if (accionDelBoton == "CargarEscenaMenuPrincipal")
+                    CargadorDeEscenas.CargarEscena("MenuPrincipal");
                 else if (accionDelBoton == "SalirDelJuego")
                     Application.Quit();
             }
