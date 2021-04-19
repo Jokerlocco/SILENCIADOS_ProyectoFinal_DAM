@@ -3,6 +3,7 @@
 public class MenuOpciones : MonoBehaviour
 {
     [SerializeField] GameObject fondoOscuroDelMenu = null; // Asignado en Unity
+    [SerializeField] GameObject botonesManager = null; // Asignado en Unity
     [SerializeField] GameObject btnVolverAlMenuPrincipal = null; // Asignado en Unity
     [SerializeField] GameObject btnSalirDelJuego = null; // Asignado en Unity
 
@@ -32,6 +33,7 @@ public class MenuOpciones : MonoBehaviour
         FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
 
         fondoOscuroDelMenu.SetActive(true);
+        botonesManager.SetActive(true);
         btnVolverAlMenuPrincipal.SetActive(true);
         btnSalirDelJuego.SetActive(true);
 
@@ -43,6 +45,7 @@ public class MenuOpciones : MonoBehaviour
         FindObjectOfType<ControlDelJugador>().PuedeMoverse = true;
 
         fondoOscuroDelMenu.SetActive(false);
+        botonesManager.SetActive(false);
         btnVolverAlMenuPrincipal.SetActive(false);
         btnSalirDelJuego.SetActive(false);
 

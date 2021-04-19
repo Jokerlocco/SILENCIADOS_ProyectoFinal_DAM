@@ -65,7 +65,10 @@ public class InspeccionDeElementos : MonoBehaviour
             mostrarMensaje = true;
         }
 
-        if (gameObject.CompareTag("InspeccionEstatua"))
+        if (gameObject.CompareTag("InspeccionEstatua") && (
+            !FindObjectOfType<InventarioJugador>().GrifoMaderaEnElInventario ||
+            !FindObjectOfType<InventarioJugador>().GrifoMarmolEnElInventario ||
+            !FindObjectOfType<InventarioJugador>().GrifoBronceEnElInventario))
         {
             FindObjectOfType<Mensajero>().Mensaje =
                 "La estatua tiene tres orificios vacíos. " +

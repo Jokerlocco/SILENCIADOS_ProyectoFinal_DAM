@@ -21,7 +21,7 @@ public class CajaDeSeguridad : MonoBehaviour
     private string codigoCajaDeSeguridadSecretaria = "6427";
     private string codigoCajaDeSeguridadSObservacion = "0634";
     private string codigoCajaDeSeguridadDMJ = "1625";
-    private string codigoCajaDeSeguridadSMaquinas = "8642";
+    private string codigoCajaDeSeguridadSMaquinas = "1306";
 
     private void Start()
     {

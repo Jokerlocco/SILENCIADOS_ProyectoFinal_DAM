@@ -330,7 +330,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
         else if (gameObject.CompareTag("D_NecesidadesPAnton"))
         {
             paginasDelDocumento.Add("Necesidades del paciente:\n\n" +
-                "6523789J, Ánton Oliveira\n\n" +
+                "6523789J, Anton Oliveira\n\n" +
                 "- Inyectar Leemo cada 24 horas\n" +
                 "- Atención costante (para evitar peleas con los otros pacientes)\n" +
                 "- Precaución al tener contacto con él (sobre todo las mujeres)\n" +
@@ -351,7 +351,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
 
         else if (gameObject.CompareTag("D_CorreccionConductaAnton"))
         {
-            paginasDelDocumento.Add("Ánton es el paciente más problemático " +
+            paginasDelDocumento.Add("Anton es el paciente más problemático " +
                 "que tenemos actualmente. Su triste condición, sumada a " +
                 "su terrible actitud y educación, le hacen una persona " +
                 "terriblemente conflictiva.\n\n" +
@@ -384,7 +384,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
             paginasDelDocumento.Add(
                 "Hombres:\n\n" +
                 "C.García - Apto\n" +
-                "Á.Oliveira - Apto\n" +
+                "A.Oliveira - Apto\n" +
                 "L. Hidalgo - Fallecido\n" +
                 "B. Robinson - Fallecido\n" +
                 "M. Coen - Fallecido\n" +
@@ -410,6 +410,72 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "Solicito su permiso para ello.\n\n" +
                 "P.D: Debido a estos resultados, en las futuras " +
                 "pruebas deberíamos de usar un rango de edad menor...");
+        }
+
+        else if (gameObject.CompareTag("D_AvisoCodigoCajaDeSeguridadSMaquinas"))
+        {
+            paginasDelDocumento.Add("Hace unos días, el equipo del " +
+                "laboratorio trajo unas cuantas cajas de seguridad. " +
+                "Alfred se encargó de una, y la guardó en la sala de " +
+                "máquinas (que es su zona de trabajo).\n" +
+                "Como está desaparecido y es posible que la señora Wilkes " +
+                "quiera acceder a ella en algún momento espontáneo, " +
+                "Alfred nos dijo que la contraseña para abrirla era su " +
+                "día y mes de nacimiento (en formato: ddmm), " +
+                "cosa que ya deberíamos saber...\n\n" +
+                "Así que, si Wilkes os pregunta por dicha caja, " +
+                "ya sabéis como responder.\n\n" +
+                "Morgan Sanderson");
+        }
+
+        else if (gameObject.CompareTag("D_DiarioDeSharonParte1"))
+        {
+            paginasDelDocumento.Add("DIARIO DE SHARON (PARTE 1)\n" +
+                "--------------------------");
+
+            paginasDelDocumento.Add("13, Junio\n\n" +
+                "¡Hoy hemos dado una sorpresa a Alfred! " +
+                "¡Cumple 49 años! Es un gran trabajador y " +
+                "aún más importante, una excelente persona. " +
+                "Le hemos regalado entre todos un reloj dorado de Maren. " +
+                "Le ha encantado, es un fanático de esa marca.\n" +
+                "Por gente como él, sigo aquí. Alfred, Morgan, Sasha, " +
+                "y el resto, son buenos compañeros... El problema es " +
+                "la señorita Wilkes y el doctor Karlheinz... " +
+                "Cuando alguno de los dos aparece por aquí, el buen rollo " +
+                "se esfuma, y el ambiente se vuelve frío y negativo...\n");
+
+            paginasDelDocumento.Add("Los pacientes estaban perfectamente " +
+                "controlados aunque " +
+                "estuviésemos celebrando el cumpleaños de Alfred, " +
+                "sin embargo, ha llegado la señorita Wilkes y ha pensado " +
+                "lo contrario, echándolo todo a perder... Lo peor es que " +
+                "ha caído toda su ira contra el pobre Alfred, cuando el " +
+                "hombre ni si quiera sabía que le habíamos " +
+                "preparado nada...\n" + "Aunque tengo la sensación de que " +
+                "la señorita Wilkes a cargado contra él, no por el " +
+                "cumpleaños, sino por algo anterior. No sé que hizo " +
+                "Alfred, pero llevo notando " +
+                "que Wilkes le tiene cierto rencor desde hace un tiempo...");
+
+            paginasDelDocumento.Add("14, Junio\n\n" +
+                "Aparte de los jefazos sin emociones, es la propia empresa " +
+                "(Zesimov) la que me inquieta... No es bueno hablar mal de " +
+                "la empresa para la que trabajas, pero estoy segura de " +
+                "que Zesimov utiliza a los pacientes del asilo para " +
+                "cosas malas... muy malas... " +
+                "Me preocupa todo lo que estoy viendo...\n\n" +
+                "17, Junio\n\n" +
+                "Alfred ha desaparecido. Ha desaparecido y sé que Zesimov " +
+                "tiene algo que ver.\n\n");
+
+            paginasDelDocumento.Add("23, Junio\n\n" +
+                "He tomado la decisión de que voy a meterme dónde " +
+                "no debo para conseguir pruebas (con los problemas " +
+                "que eso pueda conllevar). Cuando las tenga, se las " +
+                "entregaré a mi hermana Rose, para que use su poder " +
+                "mediático, y revele la verdad sobre Zesimov.\n" +
+                "La cosa se va a poner fea...");
         }
     }
 }
