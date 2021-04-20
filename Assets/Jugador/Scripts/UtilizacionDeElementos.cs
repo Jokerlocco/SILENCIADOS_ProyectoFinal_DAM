@@ -162,6 +162,25 @@ public class UtilizacionDeElementos : MonoBehaviour
                 elementoUtilizado = true;
             }
 
+            if (gameObject.CompareTag("InspeccionEstatua") &&
+                 FindObjectOfType<InventarioJugador>().
+                    GrifoBronceEnElInventario &&
+                 FindObjectOfType<InventarioJugador>().
+                    GrifoMaderaEnElInventario &&
+                FindObjectOfType<InventarioJugador>().
+                    GrifoMarmolEnElInventario)
+            {
+                StartCoroutine(InsertarGrifosEnLaEstatua(9f));
+                elementoUtilizado = true;
+            }
+
+            if (gameObject.CompareTag("EscalerasAlLaboratorio") && 
+                FindObjectOfType<EstadoDelJuego>().EstatuaMovida)
+            {
+                StartCoroutine(BajarEscalerasAlLaboratorio(10f));
+                elementoUtilizado = true;
+            }
+
 
             if (elementoUtilizado)
                 EstablecerComoUtilizado();
@@ -362,7 +381,7 @@ public class UtilizacionDeElementos : MonoBehaviour
 
     private void UtilizarTarjetaCorrectaEnLaCajaDeSeguridadDeIdentificacion()
     {
-        Animator animacionTapaderaDeLaCaja = //gameObject.transform.GetChild(1).transform.GetChild(0).
+        Animator animacionTapaderaDeLaCaja =
             GetComponent<Animator>();
         animacionTapaderaDeLaCaja.SetBool(
             "seHaIntroducidoElCodigoCorrecto", true);
@@ -413,6 +432,68 @@ public class UtilizacionDeElementos : MonoBehaviour
             "He arreglado el escape de gas usando la llave inglesa y" +
             " el tubo con válvula.";
         FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+    }
+
+    private IEnumerator InsertarGrifosEnLaEstatua(float segundosDeLaAnimacion)
+    {
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
+
+        EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
+
+        // Sonidos de colocación de grifos
+        yield return new WaitForSecondsRealtime(1f);
+        gameObject.transform.GetChild(0).gameObject.
+            GetComponent<AudioSource>().Play();
+        yield return new WaitForSecondsRealtime(1f);
+        gameObject.transform.GetChild(0).gameObject.
+            GetComponent<AudioSource>().Play();
+        yield return new WaitForSecondsRealtime(1f);
+        gameObject.transform.GetChild(0).gameObject.
+            GetComponent<AudioSource>().Play();
+        yield return new WaitForSecondsRealtime(1f);
+
+        // Sonido de estatua moviendose
+        gameObject.transform.GetChild(1).gameObject.
+            GetComponent<AudioSource>().Play();
+
+        // Ocultamos la estatua
+        gameObject.transform.parent.
+            GetComponent<MeshRenderer>().enabled = false;
+        gameObject.transform.parent.
+            GetComponent<MeshCollider>().enabled = false;
+
+        // Mostramos la estatua movida
+        GameObject estatuaMovida = 
+            GameObject.FindGameObjectWithTag("EstatuaMovida").gameObject;
+        estatuaMovida.GetComponent<MeshRenderer>().enabled = true;
+        estatuaMovida.GetComponent<MeshCollider>().enabled = true;
+
+        FindObjectOfType<InventarioJugador>()
+            .GrifoBronceEnElInventario = false;
+        FindObjectOfType<InventarioJugador>()
+            .GrifoMaderaEnElInventario = false;
+        FindObjectOfType<InventarioJugador>()
+            .GrifoMarmolEnElInventario = false;
+
+        FindObjectOfType<EstadoDelJuego>().EstatuaMovida = true;
+
+        yield return new WaitForSecondsRealtime(4.5f);
+
+        FindObjectOfType<Mensajero>().Mensaje =
+            "He insertado los tres grifos, y la estatua se ha movido, " +
+            "revelando un agujero con unas escaleras secretas...";
+        FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
+
+        yield return new WaitForSecondsRealtime(6f);
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = true;
+    }
+
+    private IEnumerator BajarEscalerasAlLaboratorio(float segundosDeLaAnimacion)
+    {
+        EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
+        yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
+
+        CargadorDeEscenas.CargarEscena("Laboratorio");
     }
 
 }

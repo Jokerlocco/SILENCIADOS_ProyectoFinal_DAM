@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TrucosDelJuego : MonoBehaviour
 {
@@ -34,6 +32,7 @@ public class TrucosDelJuego : MonoBehaviour
     // Estado del juego
     [SerializeField] bool motorHidraulicoArreglado = false;
     [SerializeField] bool cajaDeSeguridadIdentificacionbierta = false;
+    [SerializeField] bool estatuaMovida = false;
 
 
     private void Update()
@@ -57,6 +56,13 @@ public class TrucosDelJuego : MonoBehaviour
         else
             FindObjectOfType<EstadoDelJuego>().
                 CajaDeSeguridadDeIdentificacionAbierta = false;
+
+        if (estatuaMovida)
+            FindObjectOfType<EstadoDelJuego>().
+                EstatuaMovida = true;
+        else
+            FindObjectOfType<EstadoDelJuego>().
+                EstatuaMovida = false;
     }
 
     private void ActivarODesactivarObjetos()

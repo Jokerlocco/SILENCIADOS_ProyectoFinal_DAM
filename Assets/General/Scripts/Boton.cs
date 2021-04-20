@@ -36,7 +36,11 @@ public class Boton : MonoBehaviour
             if (transform.parent.CompareTag("BotonesMenuPrincipal"))
             {
                 if (accionDelBoton == "CargarEscenaAsilo")
+                {
+                    FindObjectOfType<InventarioJugador>().
+                        InventarioJugadorDisponible = false;
                     CargadorDeEscenas.CargarEscena("Asilo");
+                }
                 else if (accionDelBoton == "SalirDelJuego")
                     Application.Quit();
             }
@@ -44,7 +48,11 @@ public class Boton : MonoBehaviour
             if (transform.parent.CompareTag("BotonesMenuOpciones"))
             {
                 if (accionDelBoton == "CargarEscenaMenuPrincipal")
+                {
+                    FindObjectOfType<InventarioJugador>().
+                        InventarioJugadorDisponible = false;
                     CargadorDeEscenas.CargarEscena("MenuPrincipal");
+                }
                 else if (accionDelBoton == "SalirDelJuego")
                     Application.Quit();
             }

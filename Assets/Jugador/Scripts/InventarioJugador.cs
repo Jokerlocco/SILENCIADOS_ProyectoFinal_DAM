@@ -7,12 +7,14 @@ public class InventarioJugador : MonoBehaviour
     public bool InventarioJugadorDisponible { get; set; } = false;
 
     // Animación inventario
-    [SerializeField] GameObject interfazInventario; // Asignado en Unity
-    [SerializeField] GameObject fondoOscuroTraslucidoInventario; // Asignado en Unity
+    //[SerializeField] GameObject interfazInventario; // Asignado en Unity
+    //[SerializeField] GameObject fondoOscuroTraslucidoInventario; // Asignado en Unity
+    private GameObject interfazInventario;
     private Animator animacionDeLaInterfaz;
     private bool inventarioAbierto;
 
-    [SerializeField] TMP_Text contenidoInventario; // Asignado en Unity
+    //[SerializeField] TMP_Text contenidoInventario; // Asignado en Unity
+    private TMP_Text contenidoInventario;
 
 
     // Objetos (ordenados alfabéticamente)
@@ -117,33 +119,47 @@ public class InventarioJugador : MonoBehaviour
         }
     }
 
+    private void InicializarComponentes()
+    {
+        if (GameObject.FindGameObjectWithTag("InterfazInventarioJugador"))
+        {
+            interfazInventario = GameObject.
+                FindGameObjectWithTag("InterfazInventarioJugador").gameObject;
+            contenidoInventario = GameObject.
+                FindGameObjectWithTag("ContenidoInventario").gameObject.
+                GetComponent<TMP_Text>();
+            contenidoInventario.text = "";
+
+            animacionDeLaInterfaz = interfazInventario.GetComponent<Animator>();
+
+            inventarioAbierto = false;
+        }
+    }
+
     private void Awake()
     {
         ImplementarPatronSingleton();
     }
 
-    private void Start()
-    {
-        if (InventarioJugadorDisponible)
-        {
-            animacionDeLaInterfaz = interfazInventario.GetComponent<Animator>();
-            inventarioAbierto = false;
-
-            contenidoInventario.text = "";
-        }
-    }
-
     private void Update()
     {
-        if (InventarioJugadorDisponible)
+        if (interfazInventario == null)
         {
-            if (FindObjectOfType<ControlDelJugador>().PuedeMoverse)
+            InicializarComponentes();
+        } 
+        else
+        {
+            if (InventarioJugadorDisponible &&
+                FindObjectOfType<ControlDelJugador>())
             {
-                AbrirOCerrarAnimacionDelInventario();
-                ComprobarObjetosEspecificos();
-                MostrarObjetosQueEstanEnElInventario();
+                if (FindObjectOfType<ControlDelJugador>().PuedeMoverse)
+                {
+                    AbrirOCerrarAnimacionDelInventario();
+                    ComprobarObjetosEspecificos();
+                    MostrarObjetosQueEstanEnElInventario();
+                }
             }
-        }
+        }  
     }
 
     private void AbrirOCerrarAnimacionDelInventario()
@@ -151,10 +167,13 @@ public class InventarioJugador : MonoBehaviour
         if (Input.GetButtonDown("BotonInventario"))
             inventarioAbierto = !inventarioAbierto;
 
-        if (inventarioAbierto)
-            animacionDeLaInterfaz.SetBool("abierto", true);
-        else
-            animacionDeLaInterfaz.SetBool("abierto", false);
+        if (animacionDeLaInterfaz != null)
+        {
+            if (inventarioAbierto)
+                animacionDeLaInterfaz.SetBool("abierto", true);
+            else
+                animacionDeLaInterfaz.SetBool("abierto", false);
+        }
     }
 
     private void ComprobarObjetosEspecificos()

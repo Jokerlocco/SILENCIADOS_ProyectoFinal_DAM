@@ -8,4 +8,5 @@ public class EstadoDelJuego : MonoBehaviour
     public bool CajaDeSeguridadDMJAbierta { get; set; } = false;
     public bool CajaDeSeguridadDeIdentificacionAbierta { get; set; } = false;
     public bool CajaDeSeguridadSMaquinasAbierta { get; set; } = false;
+    public bool EstatuaMovida { get; set; } = false;
 }
