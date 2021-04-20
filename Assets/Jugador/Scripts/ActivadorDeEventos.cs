@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ActivadorDeEventos : MonoBehaviour
 {
@@ -56,18 +58,12 @@ public class ActivadorDeEventos : MonoBehaviour
 
     private void EstablecerEventoOTerminar()
     {
-        bool eventoActivado = false;
-
         if (gameObject.CompareTag("ActivadorSustoHReclusionBB"))
-        {
             StartCoroutine(EstablecerAsustoHReclusionB(0.8f));
 
-            eventoActivado = true;
-        }
 
-
-        if (eventoActivado)
-            DesactivarScript();
+        if (gameObject.CompareTag("ActivadorFinalizar"))
+            StartCoroutine(FinalizarJuego(2f));
     }
 
     private IEnumerator EstablecerAsustoHReclusionB(float segundosDeLaAnimacion)
@@ -80,17 +76,37 @@ public class ActivadorDeEventos : MonoBehaviour
         FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
 
         yield return new WaitForSecondsRealtime(2.8f); // Esperamos los segundos concretos para cuadrar el golpetazo con la aparición de la pantalla negra
-        GameObject grietaEnLaPared = 
+        GameObject grietaEnLaPared =
             GameObject.FindGameObjectWithTag("GrietaHReclusionB").gameObject;
         grietaEnLaPared.GetComponent<MeshRenderer>().enabled = true;
 
         yield return new WaitForSecondsRealtime(1f);
-        FindObjectOfType<Mensajero>().Mensaje = 
+        FindObjectOfType<Mensajero>().Mensaje =
             "¡¿Qué demonios?! ¡Debo encontrar a Sharon cuanto antes! " +
             "Espero que no haya sido ella...";
         FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
 
         yield return new WaitForSecondsRealtime(2.5f);
         FindObjectOfType<ControlDelJugador>().PuedeMoverse = true;
+
+        DesactivarScript();
+    }
+
+    private IEnumerator FinalizarJuego(float segundosDeLaAnimacion)
+    {
+        EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
+        yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
+
+        GameObject continuara = 
+            GameObject.FindGameObjectWithTag("Continuara").gameObject;
+        continuara.transform.GetChild(0).gameObject.
+            GetComponent<Image>().enabled = true;
+        continuara.transform.GetChild(1).gameObject.
+            GetComponent<TMP_Text>().enabled = true;
+
+        yield return new WaitForSecondsRealtime(5f);
+        CargadorDeEscenas.CargarEscena("MenuPrincipal");
+
+        DesactivarScript();
     }
 }

@@ -477,5 +477,12 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "mediático, y revele la verdad sobre Zesimov.\n" +
                 "La cosa se va a poner fea...");
         }
+
+        else if (gameObject.CompareTag("D_LaMancha"))
+        {
+            paginasDelDocumento.Add("¡LA MANCHA DE LA PARED! " +
+                "¡AHÍ LO HE OCULTADO! ¡SÍ! ¡SÍ! ¡SÍ! " +
+                "¡ME ENCANTA ESCONDER COSAS!");
+        }
     }
 }

@@ -37,8 +37,6 @@ public class Boton : MonoBehaviour
             {
                 if (accionDelBoton == "CargarEscenaAsilo")
                 {
-                    FindObjectOfType<InventarioJugador>().
-                        InventarioJugadorDisponible = false;
                     CargadorDeEscenas.CargarEscena("Asilo");
                 }
                 else if (accionDelBoton == "SalirDelJuego")
