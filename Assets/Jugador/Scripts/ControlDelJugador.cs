@@ -23,7 +23,7 @@ public class ControlDelJugador : MonoBehaviour
         animacion = GetComponent<Animator>();
         velocidadCaminar = velocidadMovimiento;
         PuedeMoverse = true;
-        reproductorSonidoPies = 
+        reproductorSonidoPies =
             GetComponentInChildren<ReproductorSonidoPiesJugador>();
     }
 
@@ -45,7 +45,7 @@ public class ControlDelJugador : MonoBehaviour
             if (y >= 1) // y si también está avanzando (y no retrocediendo), puede correr
                 EstablecerAnimacionDeCorrer();
             else
-                EstablecerAnimacionDeCaminar(); 
+                EstablecerAnimacionDeCaminar();
         }
         else
             EstablecerAnimacionDeCaminar();
