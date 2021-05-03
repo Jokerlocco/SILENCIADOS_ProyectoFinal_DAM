@@ -453,7 +453,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "ha caído toda su ira contra el pobre Alfred, cuando el " +
                 "hombre ni si quiera sabía que le habíamos " +
                 "preparado nada...\n" + "Aunque tengo la sensación de que " +
-                "la señorita Wilkes a cargado contra él, no por el " +
+                "la señorita Wilkes ha cargado contra él, no por el " +
                 "cumpleaños, sino por algo anterior. No sé que hizo " +
                 "Alfred, pero llevo notando " +
                 "que Wilkes le tiene cierto rencor desde hace un tiempo...");
