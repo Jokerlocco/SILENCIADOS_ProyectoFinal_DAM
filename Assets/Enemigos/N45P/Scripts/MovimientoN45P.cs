@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class MovimientoN45P : MonoBehaviour
 {
-    [SerializeField] Transform objetivoAAlcanzar = null; // Asignado en Unity
+    private Transform objetivoAAlcanzar = null;
     private NavMeshAgent agenteDeMovimiento;
 
     private void Start()
@@ -18,6 +18,8 @@ public class MovimientoN45P : MonoBehaviour
 
     private void EstablecerDestinoDeMovimiento()
     {
+        objetivoAAlcanzar = GameObject.
+            FindGameObjectWithTag("Jugador").gameObject.transform;
         agenteDeMovimiento.SetDestination(objetivoAAlcanzar.position);
     }
 }

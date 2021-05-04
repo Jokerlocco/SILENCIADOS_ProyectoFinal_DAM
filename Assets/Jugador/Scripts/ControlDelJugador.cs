@@ -44,38 +44,22 @@ public class ControlDelJugador : MonoBehaviour
 
     void Update()
     {
-        if (tipoDeControl == "Normal")
+        if (PuedeMoverse)
         {
-            if (PuedeMoverse)
-            {
+            if (tipoDeControl == "Normal") // Si esta "Armado" ya da la sensación de que corre, y no es necesario esto
                 Correr();
-                MoverPersonaje();
-            }
-            else
-                EstablecerAnimacionDeEstarQuieto();
-                
+            MoverPersonaje();
         }
-        else if (tipoDeControl == "Armado")
-        {
-            if (PuedeMoverse)
-            {
-                MoverPersonaje(); // Ya da la sensación de que corre.
-            }
-            else
-                EstablecerAnimacionDeEstarQuieto();
-        }
+        else
+            EstablecerAnimacionDeEstarQuieto();
     }
 
     private void EstablecerTipoDeControl()
     {
         if (SceneManager.GetActiveScene().name != "ElOtroMundo")
-        {
             tipoDeControl = "Normal";
-        }
         else
-        {
             tipoDeControl = "Armado";
-        }
     }
 
     private void Correr()
@@ -103,13 +87,7 @@ public class ControlDelJugador : MonoBehaviour
         animacion.SetFloat("velocidadY", y);
 
         if (tipoDeControl == "Armado")
-        {
-            pistolaEstandoQuieto.transform.GetChild(0).
-                    GetComponent<SkinnedMeshRenderer>().enabled = false;
-
-            pistolaMoviendose.transform.GetChild(0).
-                GetComponent<SkinnedMeshRenderer>().enabled = true;
-        }
+            EstablecerArmaSegunQuietoOMoviendose();
     }
 
     private void EstablecerAnimacionDeCorrer()
@@ -129,13 +107,24 @@ public class ControlDelJugador : MonoBehaviour
         animacion.SetFloat("velocidadX", 0.0f);
         animacion.SetFloat("velocidadY", 0.0f);
         animacion.SetBool("correr", false);
+    }
 
-        if (tipoDeControl == "Armado")
+    private void EstablecerArmaSegunQuietoOMoviendose()
+    {
+        if ((x == 0 && y == 0) || (y == -1)) // Si esta quieto o va hacia atrás...
         {
             pistolaMoviendose.transform.GetChild(0).
                 GetComponent<SkinnedMeshRenderer>().enabled = false;
 
             pistolaEstandoQuieto.transform.GetChild(0).
+                GetComponent<SkinnedMeshRenderer>().enabled = true;
+        }
+        else
+        {
+            pistolaEstandoQuieto.transform.GetChild(0).
+                GetComponent<SkinnedMeshRenderer>().enabled = false;
+
+            pistolaMoviendose.transform.GetChild(0).
                 GetComponent<SkinnedMeshRenderer>().enabled = true;
         }
     }
