@@ -62,4 +62,13 @@ public class EstadoDelEnemigo : MonoBehaviour
             Destroy(gameObject, 2f);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Jugador"))
+        {
+            FindObjectOfType<EstadoDelJugador>().RecibirDaño();
+            Morir();
+        }
+    }
 }

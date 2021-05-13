@@ -2,10 +2,11 @@
 
 public class SpawnerEnemigos : MonoBehaviour
 {
-    private bool jugadorVivo = true;
     public GameObject enemigo;
     public float tiempoParaSpawnearUnEnemigo = 5f;
     public Transform[] spawnPoints;
+
+    
 
     private void Start()
     {
@@ -17,10 +18,12 @@ public class SpawnerEnemigos : MonoBehaviour
 
     private void SpawnearEnemigo()
     {
-        if (jugadorVivo)
+        if (FindObjectOfType<EstadoDelJugador>().JugadorVivo)
         {
             int spawnPointAleatorioParaSpawnear = 
                 Random.Range(0, spawnPoints.Length);
+
+            FindObjectOfType<OjoZesimov>().MostrarOjoZesimov();
 
             Instantiate(enemigo,
                 spawnPoints[spawnPointAleatorioParaSpawnear].position,
