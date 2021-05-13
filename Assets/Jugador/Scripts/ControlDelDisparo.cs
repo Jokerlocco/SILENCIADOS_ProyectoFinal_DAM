@@ -1,35 +1,95 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class ControlDelDisparo : MonoBehaviour
 {
-    [SerializeField] GameObject bala;
-    [SerializeField] Transform spawnPoint;
+    private GameObject pistola;
+    [SerializeField] GameObject bala = null; // Asignado en Unity
+    [SerializeField] Camera camara = null; // Asignado en Unity
+    [SerializeField] Transform spawnPointBala = null; // Asignado en Unity
 
-    [SerializeField] float fuerzaDelDisparo = 1500;
-    [SerializeField] float cooldownDelDisparo = 0.5f;
-    private float cooldownDelDisparoTiempo = 0;
+    private float fuerzaDelDisparo = 1500;
+    private float cooldownDelDisparo = 0.8f;
+    private float distanciaMaximaQueRecorreLaBala = 300f;
+
+    private AudioSource audioSource;
+    private Animator animacionDisparo;
+
+    private float cooldownDelDisparoActual = 0;
 
     private void Start()
     {
-        
+        pistola = 
+            GameObject.FindGameObjectWithTag("Pistola").transform.gameObject;
+        animacionDisparo =
+            pistola.transform.GetChild(0).GetComponent<Animator>();
+        audioSource = pistola.GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Interactuar"))
+        Disparar();
+    }
+
+    private void Disparar()
+    {
+        if (Input.GetButtonDown("Fire1"))
         {
-            if (Time.time > cooldownDelDisparoTiempo)
+            if (Time.time > cooldownDelDisparoActual) // Para controlar el tiempo entre cada disparo
             {
-                GameObject nuevaBala;
-                nuevaBala = Instantiate(
-                    bala, spawnPoint.position, spawnPoint.rotation);
-                nuevaBala.GetComponent<Rigidbody>()
-                    .AddForce(spawnPoint.forward * fuerzaDelDisparo);
+                LanzarBala();
+                Impactar();
 
-                cooldownDelDisparoTiempo = Time.time + cooldownDelDisparo;
-
-                //Destroy(nuevaBala, 2);
+                cooldownDelDisparoActual = Time.time + cooldownDelDisparo;
             }
         }
+    }
+
+    private void Impactar()
+    {
+        RaycastHit impacto;
+        bool impactado = Physics.Raycast(
+            camara.transform.position,
+            camara.transform.forward,
+            out impacto,
+            distanciaMaximaQueRecorreLaBala);
+
+        if (impactado)
+        {
+            if (impacto.collider.CompareTag("EnemigoPeon") || 
+                impacto.collider.CompareTag("N45P"))
+            {
+                EstadoDelEnemigo estadoDelEnemigoImpactado = impacto.collider
+                    .gameObject.GetComponent<EstadoDelEnemigo>();
+
+                estadoDelEnemigoImpactado.NumeroDeBalasRecibidas += 1;
+                estadoDelEnemigoImpactado.ReproducirSonidoDeDaño();
+            }
+        }
+    }
+
+    private void LanzarBala()
+    {
+        GameObject nuevaBala;
+        nuevaBala = Instantiate(
+            bala, spawnPointBala.position, spawnPointBala.rotation);
+        nuevaBala.GetComponent<Rigidbody>()
+            .AddForce(spawnPointBala.forward * fuerzaDelDisparo);
+
+        Destroy(nuevaBala, 2);
+
+        ReproducirSonido();
+        EstablecerAnimacionDeDisparo();
+    }
+
+    private void EstablecerAnimacionDeDisparo()
+    {
+        animacionDisparo.SetTrigger("Fire");
+    }
+
+    private void ReproducirSonido()
+    {
+        if (audioSource != null)
+            audioSource.Play();
     }
 }

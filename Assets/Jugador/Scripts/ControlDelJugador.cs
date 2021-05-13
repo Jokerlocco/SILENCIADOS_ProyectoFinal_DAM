@@ -19,8 +19,6 @@ public class ControlDelJugador : MonoBehaviour
 
     public bool PuedeMoverse { get; set; }
 
-    private string tipoDeControl;
-
     private GameObject pistolaEstandoQuieto;
     private GameObject pistolaMoviendose;
 
@@ -31,35 +29,17 @@ public class ControlDelJugador : MonoBehaviour
         PuedeMoverse = true;
         reproductorSonidoPies =
             GetComponentInChildren<ReproductorSonidoPiesJugador>();
-
-        EstablecerTipoDeControl();
-        if (tipoDeControl == "Armado")
-        {
-            pistolaEstandoQuieto = GameObject.FindGameObjectWithTag(
-                "PistolaEstandoQuieto").gameObject;
-            pistolaMoviendose = GameObject.FindGameObjectWithTag(
-                "PistolaMoviendose").gameObject;
-        }
     }
 
     void Update()
     {
         if (PuedeMoverse)
         {
-            if (tipoDeControl == "Normal") // Si esta "Armado" ya da la sensación de que corre, y no es necesario esto
-                Correr();
+            Correr();
             MoverPersonaje();
         }
         else
             EstablecerAnimacionDeEstarQuieto();
-    }
-
-    private void EstablecerTipoDeControl()
-    {
-        if (SceneManager.GetActiveScene().name != "ElOtroMundo")
-            tipoDeControl = "Normal";
-        else
-            tipoDeControl = "Armado";
     }
 
     private void Correr()
@@ -85,9 +65,6 @@ public class ControlDelJugador : MonoBehaviour
 
         animacion.SetFloat("velocidadX", x);
         animacion.SetFloat("velocidadY", y);
-
-        if (tipoDeControl == "Armado")
-            EstablecerArmaSegunQuietoOMoviendose();
     }
 
     private void EstablecerAnimacionDeCorrer()
