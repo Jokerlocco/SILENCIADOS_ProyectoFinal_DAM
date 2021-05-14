@@ -61,9 +61,7 @@ public class ControlDelDisparo : MonoBehaviour
             {
                 EstadoDelEnemigo estadoDelEnemigoImpactado = impacto.collider
                     .gameObject.GetComponent<EstadoDelEnemigo>();
-
-                estadoDelEnemigoImpactado.NumeroDeBalasRecibidas += 1;
-                estadoDelEnemigoImpactado.ReproducirSonidoDeDaño();
+                estadoDelEnemigoImpactado.RecibirDaño();
             }
         }
     }

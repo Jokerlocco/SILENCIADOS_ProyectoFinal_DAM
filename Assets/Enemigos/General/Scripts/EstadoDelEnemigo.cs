@@ -1,16 +1,24 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EstadoDelEnemigo : MonoBehaviour
 {
-    private bool enemigoVivo = true;
+    /* Peones: 3 balas - 300f
+     * N45P: 30 balas - 3000f
+     */
 
-    [SerializeField] int numeroDeBalasNecesariasParaMorir = 3; // Asignado en Unity
-    public int NumeroDeBalasRecibidas { get; set; } = 0;
+    private float dañoPorBala = 100f;
+
+    private bool enemigoVivo = true;
+    [SerializeField] float vidaMaxima = 300f; // Asignado en Unity
+    [SerializeField] float vidaActual = 300f; // Asignado en Unity
+
+    [SerializeField] Image barraDeVidaDeN45P = null; // Asignado en Unity
 
     private AudioSource audioSource;
     [SerializeField] AudioClip sonidoDaño = null; // Asignado en Unity
-    [SerializeField] AudioClip sonidoMuerte = null; // Asignado en Unity
+    [SerializeField] AudioClip sonidoMuerte = null; // Asignado en Unity 
 
     private void Start()
     {
@@ -28,25 +36,30 @@ public class EstadoDelEnemigo : MonoBehaviour
 
     private void Update()
     {
-        if (NumeroDeBalasRecibidas == numeroDeBalasNecesariasParaMorir 
-            && enemigoVivo)
+        ActualizarBarraDeVidaDeN45P();
+
+        if (vidaActual <= 0f && enemigoVivo)
+        {
             Morir();
+        }
     }
 
-    public void ReproducirSonidoDeDaño()
+    private void ReproducirSonidoDeDaño()
     {
         if (audioSource != null)
-        {
-            audioSource.PlayOneShot(sonidoDaño);
-        }     
+            audioSource.PlayOneShot(sonidoDaño); 
     }
 
     private void ReproducirSonidoDeMuerte()
     {
         if (audioSource != null)
-        {
             audioSource.PlayOneShot(sonidoMuerte);
-        }
+    }
+
+    public void RecibirDaño()
+    {
+        vidaActual -= dañoPorBala;
+        ReproducirSonidoDeDaño();
     }
 
     private void Morir()
@@ -59,8 +72,16 @@ public class EstadoDelEnemigo : MonoBehaviour
         if (!enemigoVivo)
         {
             ReproducirSonidoDeMuerte();
+            FindObjectOfType<SpawnerEnemigos>().NumEnemigosExistentes -= 1;
             Destroy(gameObject, 2f);
         }
+    }
+
+    private void ActualizarBarraDeVidaDeN45P()
+    {
+        if (gameObject.CompareTag("N45P"))
+            barraDeVidaDeN45P.fillAmount =
+                vidaActual / vidaMaxima;
     }
 
     private void OnTriggerEnter(Collider other)

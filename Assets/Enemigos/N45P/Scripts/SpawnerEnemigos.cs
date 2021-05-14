@@ -6,19 +6,21 @@ public class SpawnerEnemigos : MonoBehaviour
     public float tiempoParaSpawnearUnEnemigo = 5f;
     public Transform[] spawnPoints;
 
-    
+    private int numEnemigosMax = 25;
+    public int NumEnemigosExistentes { get; set; } = 0;
 
     private void Start()
     {
         // Repite la función "SpawnearEnemigo"
         InvokeRepeating("SpawnearEnemigo",
-            1.5f, // Se llamará cuando pase este tiempo
+            0.5f, // Se llamará cuando pase este tiempo
             tiempoParaSpawnearUnEnemigo); // Se vuelve a llamar pasado este tiempo
     }
 
     private void SpawnearEnemigo()
     {
-        if (FindObjectOfType<EstadoDelJugador>().JugadorVivo)
+        if (FindObjectOfType<EstadoDelJugador>().JugadorVivo &&
+            NumEnemigosExistentes <= numEnemigosMax)
         {
             int spawnPointAleatorioParaSpawnear = 
                 Random.Range(0, spawnPoints.Length);
@@ -28,6 +30,8 @@ public class SpawnerEnemigos : MonoBehaviour
             Instantiate(enemigo,
                 spawnPoints[spawnPointAleatorioParaSpawnear].position,
                 spawnPoints[spawnPointAleatorioParaSpawnear].rotation);
+
+            NumEnemigosExistentes++;
         }
     }
 }
