@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
@@ -19,6 +20,14 @@ public class EstadoDelEnemigo : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] AudioClip sonidoDaño = null; // Asignado en Unity
     [SerializeField] AudioClip sonidoMuerte = null; // Asignado en Unity 
+
+    private GameObject particulasDeDañoRecibidoN45P;
+    private GameObject particulasDeDañoRecibido;
+
+    private void Awake()
+    {
+        InicializarParticulas();
+    }
 
     private void Start()
     {
@@ -60,6 +69,19 @@ public class EstadoDelEnemigo : MonoBehaviour
     {
         vidaActual -= dañoPorBala;
         ReproducirSonidoDeDaño();
+        if (gameObject.CompareTag("N45P"))
+            StartCoroutine(MostrarParticulasDeDañoRecibidoDeN45P(0.6f));
+        else
+            StartCoroutine(MostrarParticulasDeDañoRecibido(0.6f));
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Jugador"))
+        {
+            FindObjectOfType<EstadoDelJugador>().RecibirDaño();
+            Morir();
+        }
     }
 
     private void Morir()
@@ -84,12 +106,58 @@ public class EstadoDelEnemigo : MonoBehaviour
                 vidaActual / vidaMaxima;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private IEnumerator MostrarParticulasDeDañoRecibidoDeN45P(float segundosAEsperar)
     {
-        if (other.gameObject.CompareTag("Jugador"))
+        particulasDeDañoRecibidoN45P.transform.GetChild(0)
+            .GetComponent<ParticleSystem>().Play();
+        particulasDeDañoRecibidoN45P.transform.GetChild(1)
+            .GetComponent<ParticleSystem>().Play();
+        particulasDeDañoRecibidoN45P.transform.GetChild(2)
+            .GetComponent<ParticleSystem>().Play();
+
+        yield return new WaitForSecondsRealtime(segundosAEsperar);
+
+        particulasDeDañoRecibidoN45P.transform.GetChild(0)
+            .GetComponent<ParticleSystem>().Stop();
+        particulasDeDañoRecibidoN45P.transform.GetChild(1)
+            .GetComponent<ParticleSystem>().Stop();
+        particulasDeDañoRecibidoN45P.transform.GetChild(2)
+            .GetComponent<ParticleSystem>().Stop();
+    }
+
+    private IEnumerator MostrarParticulasDeDañoRecibido(float segundosAEsperar)
+    {
+        particulasDeDañoRecibido.GetComponent<ParticleSystem>().Play();
+        particulasDeDañoRecibido.transform.GetChild(2)
+            .GetComponent<ParticleSystem>().Play();
+
+        yield return new WaitForSecondsRealtime(segundosAEsperar);
+
+        particulasDeDañoRecibido.GetComponent<ParticleSystem>().Stop();
+        particulasDeDañoRecibido.transform.GetChild(2)
+            .GetComponent<ParticleSystem>().Stop();
+    }
+
+    private void InicializarParticulas()
+    {
+        if (gameObject.CompareTag("N45P"))
         {
-            FindObjectOfType<EstadoDelJugador>().RecibirDaño();
-            Morir();
+            particulasDeDañoRecibidoN45P =
+                gameObject.transform.GetChild(3).gameObject;
+            particulasDeDañoRecibidoN45P.transform.GetChild(0)
+                .GetComponent<ParticleSystem>().Stop();
+            particulasDeDañoRecibidoN45P.transform.GetChild(1)
+                .GetComponent<ParticleSystem>().Stop();
+            particulasDeDañoRecibidoN45P.transform.GetChild(2)
+                .GetComponent<ParticleSystem>().Stop();
+        }
+        else
+        {
+            particulasDeDañoRecibido = gameObject.transform.GetChild(1)
+                .gameObject.transform.GetChild(0).gameObject;
+            particulasDeDañoRecibido.GetComponent<ParticleSystem>().Stop();
+            particulasDeDañoRecibido.transform.GetChild(2)
+                .GetComponent<ParticleSystem>().Stop();
         }
     }
 }
