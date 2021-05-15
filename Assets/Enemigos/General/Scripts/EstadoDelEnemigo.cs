@@ -5,15 +5,18 @@ using UnityEngine.UI;
 
 public class EstadoDelEnemigo : MonoBehaviour
 {
-    /* Peones: 3 balas - 300f
+    /* Peones: 2 balas - 200f
+     * Alfiles: 3 balas - 300f
+     * Caballos: 4 balas - 400f
+     * Torres: 5 balas - 500f
      * N45P: 30 balas - 3000f
      */
 
     private float dañoPorBala = 100f;
 
     private bool enemigoVivo = true;
-    [SerializeField] float vidaMaxima = 300f; // Asignado en Unity
-    [SerializeField] float vidaActual = 300f; // Asignado en Unity
+    [SerializeField] float vidaMaxima = 0f; // Asignado en Unity
+    [SerializeField] float vidaActual = 0f; // Asignado en Unity
 
     [SerializeField] Image barraDeVidaDeN45P = null; // Asignado en Unity
 
@@ -94,7 +97,8 @@ public class EstadoDelEnemigo : MonoBehaviour
         if (!enemigoVivo)
         {
             ReproducirSonidoDeMuerte();
-            FindObjectOfType<SpawnerEnemigos>().NumEnemigosExistentes -= 1;
+            FindObjectOfType<SpawnerEnemigos>()
+                .ApuntarEnemigoDespawneado(gameObject.tag);
             Destroy(gameObject, 2f);
         }
     }

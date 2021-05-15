@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class EstadoDelJugador : MonoBehaviour
 {
     public bool JugadorVivo { get; set; } = true;
 
-    private int numeroDeGolpesNecesariasParaMorir = 3;
-    private int numeroDeGolpesRecibidos = 0;
+    private float dañoPorGolpeRecibido = 100f;
+
+    private float vidaMaxima = 500f; // Asignado en Unity
+    private float vidaActual = 500f; // Asignado en Unity
+
+    [SerializeField] Image barraDeVida = null; // Asignado en Unity
 
     private AudioSource audioSource;
     [SerializeField] AudioClip sonidoDaño = null; // Asignado en Unity
@@ -19,14 +24,15 @@ public class EstadoDelJugador : MonoBehaviour
 
     private void Update()
     {
-        if (numeroDeGolpesRecibidos == numeroDeGolpesNecesariasParaMorir
-            && JugadorVivo)
+        ActualizarBarraDeVida();
+
+        if (vidaActual <= 0f && JugadorVivo)
             Morir();
     }
 
     public void RecibirDaño()
     {
-        numeroDeGolpesRecibidos++;
+        vidaActual -= dañoPorGolpeRecibido;
         ReproducirSonidoDeDaño();
         FindObjectOfType<SangreEnPantalla>().MostrarSangreEnPantalla();
     }
@@ -34,6 +40,11 @@ public class EstadoDelJugador : MonoBehaviour
     private void Morir()
     {
         Debug.Log("MUERTE");
+    }
+
+    private void ActualizarBarraDeVida()
+    {
+        barraDeVida.fillAmount = vidaActual / vidaMaxima;
     }
 
     public void ReproducirSonidoDeDaño()

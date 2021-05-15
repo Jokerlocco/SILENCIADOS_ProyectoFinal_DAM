@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class MenuOpciones : MonoBehaviour
 {
@@ -9,8 +10,20 @@ public class MenuOpciones : MonoBehaviour
 
     private bool menuOpcionesAbierto = false;
 
+    // Para control alternativo
+    private float walkSpeedInicial = 0f;
+    private float runSpeedInicial = 0f;
+
     private void Start()
     {
+        if (!FindObjectOfType<ControlDelJugador>())
+        {
+            walkSpeedInicial = 
+                FindObjectOfType<FirstPersonController>().GetWalkSpeed();
+            runSpeedInicial =
+                FindObjectOfType<FirstPersonController>().GetRunSpeed();
+        }
+        
         if (menuOpcionesAbierto)
             CerrarMenuOpciones();
     }
@@ -30,7 +43,15 @@ public class MenuOpciones : MonoBehaviour
 
     private void MostrarMenuOpciones()
     {
-        FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
+        if (FindObjectOfType<ControlDelJugador>())
+        {
+            FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
+        }
+        else
+        {
+            FindObjectOfType<FirstPersonController>().SetWalkSpeed(0f);
+            FindObjectOfType<FirstPersonController>().SetRunSpeed(0f);
+        }
 
         fondoOscuroDelMenu.SetActive(true);
         botonesManager.SetActive(true);
@@ -38,11 +59,23 @@ public class MenuOpciones : MonoBehaviour
         btnSalirDelJuego.SetActive(true);
 
         menuOpcionesAbierto = true;
+
+        PausarJuego();
     }
 
     private void CerrarMenuOpciones()
     {
-        FindObjectOfType<ControlDelJugador>().PuedeMoverse = true;
+        if (FindObjectOfType<ControlDelJugador>())
+        {
+            FindObjectOfType<ControlDelJugador>().PuedeMoverse = true;
+        }
+        else
+        {
+            FindObjectOfType<FirstPersonController>()
+                .SetWalkSpeed(walkSpeedInicial);
+            FindObjectOfType<FirstPersonController>()
+                .SetRunSpeed(runSpeedInicial);
+        }
 
         fondoOscuroDelMenu.SetActive(false);
         botonesManager.SetActive(false);
@@ -50,5 +83,17 @@ public class MenuOpciones : MonoBehaviour
         btnSalirDelJuego.SetActive(false);
 
         menuOpcionesAbierto = false;
+
+        ReanudarJuego();
+    }
+
+    void PausarJuego()
+    {
+        Time.timeScale = 0;
+    }
+
+    void ReanudarJuego()
+    {
+        Time.timeScale = 1;
     }
 }

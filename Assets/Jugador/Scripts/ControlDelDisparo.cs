@@ -33,7 +33,7 @@ public class ControlDelDisparo : MonoBehaviour
 
     private void Disparar()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1"))
         {
             if (Time.time > cooldownDelDisparoActual) // Para controlar el tiempo entre cada disparo
             {
@@ -56,7 +56,10 @@ public class ControlDelDisparo : MonoBehaviour
 
         if (impactado)
         {
-            if (impacto.collider.CompareTag("EnemigoPeon") || 
+            if (impacto.collider.CompareTag("EnemigoPeon") ||
+                impacto.collider.CompareTag("EnemigoTorre") ||
+                impacto.collider.CompareTag("EnemigoAlfil") ||
+                impacto.collider.CompareTag("EnemigoCaballo") ||
                 impacto.collider.CompareTag("N45P"))
             {
                 EstadoDelEnemigo estadoDelEnemigoImpactado = impacto.collider
