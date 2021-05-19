@@ -37,7 +37,7 @@ public class Boton : MonoBehaviour
             {
                 if (accionDelBoton == "CargarEscenaAsilo")
                 {
-                    CargadorDeEscenas.CargarEscena("Asilo");
+                    CargadorDeEscenas.CargarEscena("CinematicaInicial");
                 }
                 else if (accionDelBoton == "SalirDelJuego")
                     Application.Quit();
