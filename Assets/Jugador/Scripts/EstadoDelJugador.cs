@@ -39,7 +39,7 @@ public class EstadoDelJugador : MonoBehaviour
 
     private void Morir()
     {
-        Debug.Log("MUERTE");
+        CargadorDeEscenas.CargarEscenaDirectamente("PantallaDeMuerte");
     }
 
     private void ActualizarBarraDeVida()

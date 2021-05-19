@@ -11,4 +11,9 @@ public static class CargadorDeEscenas
         // Iremos a la pantalla de carga y ella terminará el proceso de carga de la escena que se requiere.
         SceneManager.LoadScene("PantallaDeCarga");
     }
+
+    public static void CargarEscenaDirectamente(string nombreEscenaACargar)
+    {
+        SceneManager.LoadScene(nombreEscenaACargar);
+    }
 }
