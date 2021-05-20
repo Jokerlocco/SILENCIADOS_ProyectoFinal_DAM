@@ -10,7 +10,7 @@ public class GestorCinematicaInicial : MonoBehaviour
 
     private IEnumerator IrAlJuego()
     {
-        yield return new WaitForSecondsRealtime(115f);
+        yield return new WaitForSecondsRealtime(110f);
         CargadorDeEscenas.CargarEscena("Asilo");
     }
 }
