@@ -14,7 +14,6 @@ public class EstadoDelJugador : MonoBehaviour
 
     private AudioSource audioSource;
     [SerializeField] AudioClip sonidoDaño = null; // Asignado en Unity
-    [SerializeField] AudioClip sonidoMuerte = null; // Asignado en Unity
 
     private void Start()
     {
@@ -40,6 +39,7 @@ public class EstadoDelJugador : MonoBehaviour
     private void Morir()
     {
         CargadorDeEscenas.CargarEscenaDirectamente("PantallaDeMuerte");
+        JugadorVivo = true; // Para asegurar que no la cargue más veces
     }
 
     private void ActualizarBarraDeVida()
@@ -52,14 +52,6 @@ public class EstadoDelJugador : MonoBehaviour
         if (audioSource != null)
         {
             audioSource.PlayOneShot(sonidoDaño);
-        }
-    }
-
-    private void ReproducirSonidoDeMuerte()
-    {
-        if (audioSource != null)
-        {
-            audioSource.PlayOneShot(sonidoMuerte);
         }
     }
 }

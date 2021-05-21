@@ -3,7 +3,7 @@
 public class SpawnerEnemigos : MonoBehaviour
 {
     [SerializeField] GameObject[] enemigos;
-    [SerializeField] float tiempoParaSpawnearUnEnemigo = 5f;
+    [SerializeField] float tiempoParaSpawnearUnEnemigo = 0f;
     [SerializeField] Transform[] spawnPoints;
     private GameObject enemigoAleatorioASpawnear;
 
@@ -11,6 +11,8 @@ public class SpawnerEnemigos : MonoBehaviour
     private int numEnemigosExistentes = 0;
 
     // Limitamos las apariciones de los caballos y torres:
+    private int numAlfilesMax = 3;
+    private int numAlfilesExistentes = 0;
     private int numCaballosMax = 2;
     private int numCaballosExistentes = 0;
     private int numTorresMax = 2;
@@ -29,8 +31,8 @@ public class SpawnerEnemigos : MonoBehaviour
         if (FindObjectOfType<EstadoDelJugador>().JugadorVivo &&
             numEnemigosExistentes <= numEnemigosMax)
         {
-            int spawnPointAleatorioParaSpawnear = 
-                Random.Range(0, spawnPoints.Length);
+            int spawnPointAleatorioParaSpawnear =
+                UnityEngine.Random.Range(0, spawnPoints.Length);
             DeterminarEnemigoASpawnear();
 
             FindObjectOfType<OjoZesimov>().MostrarOjoZesimov();
@@ -44,18 +46,44 @@ public class SpawnerEnemigos : MonoBehaviour
     private void DeterminarEnemigoASpawnear()
     {
         enemigoAleatorioASpawnear = 
-            enemigos[Random.Range(0, enemigos.Length)];
+            enemigos[UnityEngine.Random.Range(0, enemigos.Length)];
         numEnemigosExistentes++;
+
+        if (enemigoAleatorioASpawnear.CompareTag("EnemigoAlfil"))
+        {
+            if (numAlfilesExistentes >= numAlfilesMax)
+            {
+                GameObject enemigoAleatorioASpawnearAux = 
+                    enemigoAleatorioASpawnear;
+
+                while (enemigoAleatorioASpawnearAux.CompareTag("EnemigoAlfil"))
+                {
+                    enemigoAleatorioASpawnearAux =
+                        enemigos[UnityEngine.Random.Range(0, enemigos.Length)];
+                }
+
+                enemigoAleatorioASpawnear = enemigoAleatorioASpawnearAux;
+            }
+            else
+            {
+                numAlfilesExistentes++;
+            }
+        }
 
         if (enemigoAleatorioASpawnear.CompareTag("EnemigoCaballo"))
         {
             if (numCaballosExistentes >= numCaballosMax)
             {
-                while (enemigoAleatorioASpawnear.CompareTag("EnemigoCaballo"))
+                GameObject enemigoAleatorioASpawnearAux =
+                    enemigoAleatorioASpawnear;
+
+                while (enemigoAleatorioASpawnearAux.CompareTag("EnemigoCaballo"))
                 {
-                    enemigoAleatorioASpawnear =
-                        enemigos[Random.Range(0, enemigos.Length)];
+                    enemigoAleatorioASpawnearAux =
+                        enemigos[UnityEngine.Random.Range(0, enemigos.Length)];
                 }
+
+                enemigoAleatorioASpawnear = enemigoAleatorioASpawnearAux;
             }
             else
             {
@@ -67,11 +95,16 @@ public class SpawnerEnemigos : MonoBehaviour
         {
             if (numTorresExistentes >= numTorresMax)
             {
-                while (enemigoAleatorioASpawnear.CompareTag("EnemigoTorre"))
+                GameObject enemigoAleatorioASpawnearAux =
+                    enemigoAleatorioASpawnear;
+
+                while (enemigoAleatorioASpawnearAux.CompareTag("EnemigoTorre"))
                 {
-                    enemigoAleatorioASpawnear = 
-                        enemigos[Random.Range(0, enemigos.Length)];
+                    enemigoAleatorioASpawnearAux = 
+                        enemigos[UnityEngine.Random.Range(0, enemigos.Length)];
                 }
+
+                enemigoAleatorioASpawnear = enemigoAleatorioASpawnearAux;
             }
             else
             {
@@ -83,6 +116,11 @@ public class SpawnerEnemigos : MonoBehaviour
     public void ApuntarEnemigoDespawneado(string tagDelEnemigoDespawneado)
     {
         numEnemigosExistentes--;
+
+        if (tagDelEnemigoDespawneado == "EnemigoAlfil")
+        {
+            numAlfilesExistentes--;
+        }
 
         if (tagDelEnemigoDespawneado == "EnemigoCaballo")
         {

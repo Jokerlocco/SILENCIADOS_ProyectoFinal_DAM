@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class ActivadorDeEventos : MonoBehaviour
 {
     private bool colisionando = false;
-
     private AudioSource audioSource;
+    private bool eventoEnProceso = false;
+
+    [SerializeField] AudioClip musicaACambiar = null; // Asignado en unity
 
     void Start()
     {
@@ -58,12 +60,87 @@ public class ActivadorDeEventos : MonoBehaviour
 
     private void EstablecerEventoOTerminar()
     {
+        // Primer escenario
+        if (!eventoEnProceso)
+        {
+            if (gameObject.CompareTag("ActivadorAlguienCaminando"))
+                StartCoroutine(EstablecerAlguienCaminando(3f));
+
+            if (gameObject.CompareTag("ActivadorApagarLucesYChirrido"))
+                StartCoroutine(EstablecerApagarLucesYChirrido(2f));
+        }
+
+        // Asilo
         if (gameObject.CompareTag("ActivadorSustoHReclusionBB"))
             StartCoroutine(EstablecerAsustoHReclusionB(0.8f));
 
-
+        // Laboratorio
         if (gameObject.CompareTag("ActivadorFinalizar"))
             StartCoroutine(FinalizarJuego(2f));
+    }
+
+    private IEnumerator EstablecerAlguienCaminando(float segundosAEsperar)
+    {
+        eventoEnProceso = true;
+
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
+
+        AudioSource sonidoAlguienCaminando = 
+            GameObject.FindGameObjectWithTag("AlguienCaminando")
+            .GetComponent<AudioSource>();
+        sonidoAlguienCaminando.Play();
+
+        yield return new WaitForSecondsRealtime(segundosAEsperar);
+
+        sonidoAlguienCaminando.Stop();
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = true;
+
+        eventoEnProceso = false;
+        DesactivarScript();
+    }
+
+    private IEnumerator EstablecerApagarLucesYChirrido(float segundosAEsperar)
+    {
+        eventoEnProceso = true;
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = false;
+
+        // sonido chirrido
+        gameObject.transform.GetChild(1).gameObject
+            .GetComponent<AudioSource>().Play();
+
+        // sonido luz
+        gameObject.transform.GetChild(0).gameObject
+            .GetComponent<AudioSource>().Play();
+
+        GameObject[] lucesAApagar = 
+            GameObject.FindGameObjectsWithTag("LuzAApagar");
+        foreach (GameObject luz in lucesAApagar)
+        {
+            luz.GetComponent<Light>().enabled = false;
+        }
+
+        // Cambiar la música de fondo:
+        AudioSource reproductorDeMusica =
+            GameObject.FindGameObjectWithTag("ReproductorDeMusica").gameObject
+            .GetComponent<AudioSource>();
+        reproductorDeMusica.clip = musicaACambiar;
+        reproductorDeMusica.Play();
+
+        yield return new WaitForSecondsRealtime(2f);
+
+        // Linterna del jugador
+        GameObject linternaJugador = 
+            GameObject.FindGameObjectWithTag("Jugador")
+            .transform.GetChild(8).gameObject;
+        linternaJugador.GetComponent<Light>().enabled = true;
+        linternaJugador.GetComponent<AudioSource>().Play();
+
+        yield return new WaitForSecondsRealtime(1f);
+
+        FindObjectOfType<ControlDelJugador>().PuedeMoverse = true;
+
+        eventoEnProceso = false;
+        DesactivarScript();
     }
 
     private IEnumerator EstablecerAsustoHReclusionB(float segundosDeLaAnimacion)

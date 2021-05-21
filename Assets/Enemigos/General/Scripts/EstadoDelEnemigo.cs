@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class EstadoDelEnemigo : MonoBehaviour
 {
-    /* Peones: 2 balas - 200f
-     * Alfiles: 3 balas - 300f
-     * Caballos: 4 balas - 400f
-     * Torres: 5 balas - 500f
-     * N45P: 30 balas - 3000f
+    /* Peones: 2 balas - 100f
+     * Alfiles: 3 balas - 200f
+     * Caballos: 4 balas - 300f
+     * Torres: 5 balas - 400f
+     * N45P: 30 balas - 5000f
      */
 
     private float dañoPorBala = 100f;
@@ -99,7 +99,15 @@ public class EstadoDelEnemigo : MonoBehaviour
             ReproducirSonidoDeMuerte();
             FindObjectOfType<SpawnerEnemigos>()
                 .ApuntarEnemigoDespawneado(gameObject.tag);
-            Destroy(gameObject, 2f);
+            if (!gameObject.CompareTag("N45P"))
+            {
+                Destroy(gameObject, 2f);
+            }
+            else
+            {
+                CargadorDeEscenas.CargarEscenaDirectamente("MenuPrincipal");
+            }
+
         }
     }
 
