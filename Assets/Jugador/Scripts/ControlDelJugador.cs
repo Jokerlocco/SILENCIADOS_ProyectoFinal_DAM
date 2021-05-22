@@ -18,6 +18,7 @@ public class ControlDelJugador : MonoBehaviour
     private ReproductorSonidoPiesJugador reproductorSonidoPies;
 
     public bool PuedeMoverse { get; set; }
+    public bool PuedeCorrer { get; set; }
 
     private GameObject pistolaEstandoQuieto;
     private GameObject pistolaMoviendose;
@@ -27,6 +28,7 @@ public class ControlDelJugador : MonoBehaviour
         animacion = GetComponent<Animator>();
         velocidadCaminar = velocidadMovimiento;
         PuedeMoverse = true;
+        PuedeCorrer = true;
         reproductorSonidoPies =
             GetComponentInChildren<ReproductorSonidoPiesJugador>();
     }
@@ -35,7 +37,8 @@ public class ControlDelJugador : MonoBehaviour
     {
         if (PuedeMoverse)
         {
-            Correr();
+            if (PuedeCorrer)
+                Correr();
             MoverPersonaje();
         }
         else

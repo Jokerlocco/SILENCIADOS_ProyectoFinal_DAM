@@ -25,10 +25,12 @@ public class Mensajero : MonoBehaviour
     private IEnumerator EsperarEnLaInterfazAntesDeCerrar()
     {
         yield return new WaitForSecondsRealtime(4);
-        OcultarInterfazMensaje();
+
+        if (InterfazMensajeActiva)
+            OcultarInterfazMensaje();
     }
 
-    // En la inspección de elementos y puertas, si el jugador sale del rango, quitamos el mensaje
+    // En la inspección de elementos y puertas, si el jugador sale del rango, también quitamos el mensaje
     public void OcultarInterfazMensaje()
     {
         if (InterfazMensajeActiva)

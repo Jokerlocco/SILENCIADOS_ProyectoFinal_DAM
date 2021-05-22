@@ -47,8 +47,12 @@ public class Boton : MonoBehaviour
             {
                 if (accionDelBoton == "CargarEscenaMenuPrincipal")
                 {
-                    FindObjectOfType<InventarioJugador>().
-                        InventarioJugadorDisponible = false;
+                    if (FindObjectOfType<InventarioJugador>())
+                    {
+                        FindObjectOfType<InventarioJugador>()
+                            .InventarioJugadorDisponible = false;
+                    }
+
                     CargadorDeEscenas.CargarEscena("MenuPrincipal");
                 }
                 else if (accionDelBoton == "SalirDelJuego")

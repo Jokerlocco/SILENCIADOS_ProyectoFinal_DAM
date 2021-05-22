@@ -135,6 +135,7 @@ public class InteraccionPuertas : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+
         if (other.gameObject.CompareTag("Jugador"))
         {
             interactuandoConLaPuerta = false;
