@@ -8,26 +8,35 @@ public class Mensajero : MonoBehaviour
     [SerializeField] GameObject fondoOscuroTraslucidoMensajes; // Asignado en Unity
     public bool InterfazMensajeActiva { get; set; } = false;
     public string Mensaje { get; set; }
+    private float segundosAEsperarAntesDeCerrarInterfaz = 4;
+    private bool mostrandoInterfaz = false;
 
     public void MostrarInterfazMensaje()
     {
-        if (InterfazMensajeActiva) // Si hay un mensaje anterior abierto, lo quitamos.
+        if (mostrandoInterfaz)
         {
-            StopCoroutine("EsperarEnLaInterfazAntesDeCerrar");
+            StopCoroutine("MostrarMensajeYCerrar");
+            mostrandoInterfaz = false;
         }
+            
+        StartCoroutine("MostrarMensajeYCerrar");
+    }
+
+    private IEnumerator MostrarMensajeYCerrar()
+    {
+        mostrandoInterfaz = true;
 
         mensajeDeInteraccion.text = Mensaje;
         fondoOscuroTraslucidoMensajes.SetActive(true);
         InterfazMensajeActiva = true;
-        StartCoroutine("EsperarEnLaInterfazAntesDeCerrar");
-    }
 
-    private IEnumerator EsperarEnLaInterfazAntesDeCerrar()
-    {
-        yield return new WaitForSecondsRealtime(4);
+        yield return new WaitForSecondsRealtime(
+            segundosAEsperarAntesDeCerrarInterfaz);
 
         if (InterfazMensajeActiva)
             OcultarInterfazMensaje();
+
+        mostrandoInterfaz = false;
     }
 
     // En la inspección de elementos y puertas, si el jugador sale del rango, también quitamos el mensaje
