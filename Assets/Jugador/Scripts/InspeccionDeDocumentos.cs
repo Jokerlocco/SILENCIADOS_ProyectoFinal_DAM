@@ -267,11 +267,13 @@ public class InspeccionDeDocumentos : MonoBehaviour
 
         else if (gameObject.CompareTag("D_PistaDeLaPizarra"))
         {
-            paginasDelDocumento.Add("Resuelve la operación de la pizarra" +
+            paginasDelDocumento.Add("Resuelve la operación sencilla " +
+                "de la pizarra" +
                 " para obtener el código de la caja de seguridad LMC, " +
-                "número: '6352'.\n" +
+                "número: '6352'. Supongo que sabrás hacer una multiplicación " +
+                "para obtener 4 dígitos, ¿verdad?\n" +
                 "Debe de ser transportada de mi despacho " +
-                "al laboratorio en cuanto leas esto.\n\n" +
+                "al laboratorio, en cuanto leas esto.\n\n" +
                 "Dr. Karlheinz");
         }
 
@@ -490,7 +492,7 @@ public class InspeccionDeDocumentos : MonoBehaviour
             paginasDelDocumento.Add("¡ME HE ENFRENTADO A LA LUZ! " +
                 "¡SÍ, SÍ, SÍ, SÍ!\n" +
                 "¡HE SOBREVIVIDO, Y EL RESTO NO!\n" +
-                "¡YO EL GRAN ANTON HE DERROTADO A LA LUZ QUE NOS ACECHABA!\n" +
+                "¡YO, EL GRAN ANTON HE DERROTADO A LA LUZ QUE NOS ACECHABA!\n" +
                 "¡ERA REAL!\n\n" +
                 "HE APARECIDO EN SU MUNDO DE AJEDREZ CON UNA PIPA.\n" +
                 "LAS FICHAS DE AJEDREZ ME ATACARON, PERO PUDE CON ELLAS " +

@@ -147,6 +147,14 @@ public class InspeccionDeElementos : MonoBehaviour
             mostrarMensaje = true;
         }
         if (gameObject.CompareTag("GrifoDeLavabo") &&
+            !FindObjectOfType<InventarioJugador>().JarronEnElInventario &&
+            FindObjectOfType<EstadoDelJuego>().MotorHidraulicoArreglado)
+        {
+            FindObjectOfType<Mensajero>().Mensaje = "El grifo ya funciona. " +
+                "Si tuviera algún recipiente, podría recoger agua.";
+            mostrarMensaje = true;
+        }
+        if (gameObject.CompareTag("GrifoDeLavabo") &&
             FindObjectOfType<InventarioJugador>().JarronEnElInventario &&
             !FindObjectOfType<EstadoDelJuego>().MotorHidraulicoArreglado)
         {

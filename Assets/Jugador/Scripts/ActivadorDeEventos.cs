@@ -95,6 +95,9 @@ public class ActivadorDeEventos : MonoBehaviour
             if (gameObject.CompareTag("ActivadorMusicaJukeBox"))
                 CambiarMusicaDeFondo();
 
+            if (gameObject.CompareTag("ActivadorSustoHReclusionB"))
+                StartCoroutine(EstablecerSustoHReclusionB(0.8f));
+
             // Laboratorio
             if (gameObject.CompareTag("ActivadorFinalizar"))
                 StartCoroutine(FinalizarJuego(2f));
