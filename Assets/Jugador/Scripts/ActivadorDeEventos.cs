@@ -89,8 +89,11 @@ public class ActivadorDeEventos : MonoBehaviour
             if (gameObject.CompareTag("ActivadorPensamientoSobreElPabellon"))
                 StartCoroutine(MostrarPensamientoSobreElPabellon());
 
-            if (gameObject.CompareTag("ActivadorSustoHReclusionBB"))
-                StartCoroutine(EstablecerSustoHReclusionB(0.8f));
+            if (gameObject.CompareTag("ActivadorMusicaAsilo"))
+                CambiarMusicaDeFondo();
+
+            if (gameObject.CompareTag("ActivadorMusicaJukeBox"))
+                CambiarMusicaDeFondo();
 
             // Laboratorio
             if (gameObject.CompareTag("ActivadorFinalizar"))

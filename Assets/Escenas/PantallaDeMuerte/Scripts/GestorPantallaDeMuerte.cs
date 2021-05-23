@@ -10,7 +10,7 @@ public class GestorPantallaDeMuerte : MonoBehaviour
 
     private IEnumerator VolverAlOtroMundo()
     {
-        yield return new WaitForSecondsRealtime(20);
+        yield return new WaitForSecondsRealtime(18.8f);
         CargadorDeEscenas.CargarEscena("ElOtroMundo");
     }
 }

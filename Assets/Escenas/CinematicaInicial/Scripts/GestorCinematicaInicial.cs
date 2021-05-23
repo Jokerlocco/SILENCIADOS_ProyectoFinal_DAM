@@ -11,6 +11,14 @@ public class GestorCinematicaInicial : MonoBehaviour
     private IEnumerator IrAlJuego()
     {
         yield return new WaitForSecondsRealtime(110f);
-        CargadorDeEscenas.CargarEscena("Asilo");
+        CargadorDeEscenas.CargarEscena("PrimerEscenario");
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Cerrar"))
+        {
+            CargadorDeEscenas.CargarEscena("PrimerEscenario");
+        }
     }
 }

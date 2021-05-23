@@ -177,7 +177,7 @@ public class UtilizacionDeElementos : MonoBehaviour
             if (gameObject.CompareTag("EscalerasAlLaboratorio") && 
                 FindObjectOfType<EstadoDelJuego>().EstatuaMovida)
             {
-                StartCoroutine(BajarEscalerasAlLaboratorio(10f));
+                StartCoroutine(BajarEscalerasAlLaboratorio(8f));
                 elementoUtilizado = true;
             }
 
@@ -493,7 +493,7 @@ public class UtilizacionDeElementos : MonoBehaviour
         EstablecerAnimacionPantallaNegra(segundosDeLaAnimacion);
         yield return new WaitForSecondsRealtime(segundosDeLaAnimacion);
 
-        CargadorDeEscenas.CargarEscena("Laboratorio");
+        CargadorDeEscenas.CargarEscenaDirectamente("TransicionAlOtroMundo");
     }
 
 }

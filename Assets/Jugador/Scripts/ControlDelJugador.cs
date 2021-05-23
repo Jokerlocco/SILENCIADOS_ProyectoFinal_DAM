@@ -89,26 +89,6 @@ public class ControlDelJugador : MonoBehaviour
         animacion.SetBool("correr", false);
     }
 
-    private void EstablecerArmaSegunQuietoOMoviendose()
-    {
-        if ((x == 0 && y == 0) || (y == -1)) // Si esta quieto o va hacia atrás...
-        {
-            pistolaMoviendose.transform.GetChild(0).
-                GetComponent<SkinnedMeshRenderer>().enabled = false;
-
-            pistolaEstandoQuieto.transform.GetChild(0).
-                GetComponent<SkinnedMeshRenderer>().enabled = true;
-        }
-        else
-        {
-            pistolaEstandoQuieto.transform.GetChild(0).
-                GetComponent<SkinnedMeshRenderer>().enabled = false;
-
-            pistolaMoviendose.transform.GetChild(0).
-                GetComponent<SkinnedMeshRenderer>().enabled = true;
-        }
-    }
-
     private void ReproducirSonidoPaso1() // Utilizado en las animaciones
     {
         reproductorSonidoPies.ReproducirSonidoPaso1();

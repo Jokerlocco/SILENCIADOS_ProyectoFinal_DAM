@@ -484,5 +484,55 @@ public class InspeccionDeDocumentos : MonoBehaviour
                 "¡AHÍ LO HE OCULTADO! ¡SÍ! ¡SÍ! ¡SÍ! " +
                 "¡ME ENCANTA ESCONDER COSAS!");
         }
+
+        else if (gameObject.CompareTag("D_NotaVictoriaAnton"))
+        {
+            paginasDelDocumento.Add("¡ME HE ENFRENTADO A LA LUZ! " +
+                "¡SÍ, SÍ, SÍ, SÍ!\n" +
+                "¡HE SOBREVIVIDO, Y EL RESTO NO!\n" +
+                "¡YO EL GRAN ANTON HE DERROTADO A LA LUZ QUE NOS ACECHABA!\n" +
+                "¡ERA REAL!\n\n" +
+                "HE APARECIDO EN SU MUNDO DE AJEDREZ CON UNA PIPA.\n" +
+                "LAS FICHAS DE AJEDREZ ME ATACARON, PERO PUDE CON ELLAS " +
+                "USANDO LA PIPA, Y TAMBIÉN PUDE CON LA LUZ.\n\n" +
+                "¡YO EL GRAN ANTON, PUDE CON LA LUZ! " +
+                "¡Y EL RESTO NO!\n" +
+                "¡JAJAJAJA!");
+        }
+
+        else if (gameObject.CompareTag("D_NotaDelDoctorKarlheinz"))
+        {
+            paginasDelDocumento.Add("Apolo: Dios de la muerte súbita, " +
+                "de las plagas, y de las enfermedades... pero también, " +
+                "el dios de la curación, y de la protección contra las " +
+                "fuerzas malignas.\n" +
+                "Patrón de la salud, la belleza, " +
+                "la música, y las Bellas Artes.\n" +
+                "Presidía las leyes de " +
+                "la religión, y las constituciones de las ciudades.\n\n" +
+                "Hacía a las personas conscientes de sus pecados, y " +
+                "era el agente de su purificación...\n\n" +
+                "Era temido por " +
+                "los otros dioses... Su padre era el único que podía " +
+                "contenerlo.\n\n" +
+                "Apolo siempre iba cabalgando con sus grifos " +
+                "por los cielos.\n" +
+                "Y cada día, visitaba a una de sus hermosas musas.\n" +
+                "Su favorita: Urania, musa de la Astronomía y la Astrología.");
+
+            paginasDelDocumento.Add("Apolo y sus alrededores son mi inspiración" +
+                " como creador de la nueva vida y purificación de los " +
+                "pecados de la Tierra, y además, no se aleja de los " +
+                "intereses de Zesimov.\n\n" +
+                "La estatua de Urania y los grifos, " +
+                "fueron costosos, pero hermosos. Útiles para la entrada al " +
+                "nuevo mundo.\n\n" +
+                "El ajedrez también es importante en la " +
+                "construcción del nuevo génesis. Amo su estrategia, " +
+                "y su jerarquía de poder.\n\n" +
+                "Pronto empezaremos a crear el nuevo mundo. Zesimov espera " +
+                "mucho de mí, y no decepcionaré. Nunca lo hago.\n\n" +
+                "Dr. Raphael Karlheinz");
+        }
     }
 }

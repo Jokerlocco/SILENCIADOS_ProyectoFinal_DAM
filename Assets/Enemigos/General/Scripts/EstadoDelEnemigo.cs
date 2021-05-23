@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class EstadoDelEnemigo : MonoBehaviour
 {
-    /* Peones: 2 balas - 100f
-     * Alfiles: 3 balas - 200f
-     * Caballos: 4 balas - 300f
-     * Torres: 5 balas - 400f
-     * N45P: 30 balas - 5000f
+    /* Peones: 1 balas - 100f
+     * Alfiles: 2 balas - 200f
+     * Caballos: 3 balas - 300f
+     * Torres: 4 balas - 400f
+     * N45P: 50 balas - 5000f
      */
 
     private float dañoPorBala = 100f;
@@ -64,7 +64,7 @@ public class EstadoDelEnemigo : MonoBehaviour
 
     private void ReproducirSonidoDeMuerte()
     {
-        if (audioSource != null)
+        if (audioSource != null && sonidoMuerte != null)
             audioSource.PlayOneShot(sonidoMuerte);
     }
 
@@ -105,9 +105,8 @@ public class EstadoDelEnemigo : MonoBehaviour
             }
             else
             {
-                CargadorDeEscenas.CargarEscenaDirectamente("MenuPrincipal");
+                CargadorDeEscenas.CargarEscenaDirectamente("DerrotaDeN45P");
             }
-
         }
     }
 
