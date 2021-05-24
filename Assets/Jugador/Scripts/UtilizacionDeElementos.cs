@@ -336,6 +336,13 @@ public class UtilizacionDeElementos : MonoBehaviour
 
         FindObjectOfType<EstadoDelJuego>().MotorHidraulicoArreglado = true;
 
+        if (FindObjectOfType<EstadoDelJuego>().EscapeDeGasArreglado &&
+            FindObjectOfType<EstadoDelJuego>().MotorHidraulicoArreglado)
+        {
+            FindObjectOfType<InventarioJugador>()
+                .LlaveInglesaEnElInventario = false;
+        }
+
         FindObjectOfType<Mensajero>().Mensaje =
             "He arreglado el motor hidraúlico con la llave inglesa. " +
             "Ahora los grifos de los lavabos deberían funcionar.";
@@ -423,10 +430,17 @@ public class UtilizacionDeElementos : MonoBehaviour
         gameObject.transform.GetChild(2).gameObject.
             GetComponent<MeshCollider>().enabled = false;
 
+        FindObjectOfType<EstadoDelJuego>().EscapeDeGasArreglado = true;
+
         FindObjectOfType<InventarioJugador>()
             .TuboCurvoConValvulaEnElInventario = false;
-        FindObjectOfType<InventarioJugador>()
-            .LlaveInglesaEnElInventario = false;
+
+        if (FindObjectOfType<EstadoDelJuego>().EscapeDeGasArreglado && 
+            FindObjectOfType<EstadoDelJuego>().MotorHidraulicoArreglado)
+        {
+            FindObjectOfType<InventarioJugador>()
+                .LlaveInglesaEnElInventario = false;
+        }
 
         FindObjectOfType<Mensajero>().Mensaje =
             "He arreglado el escape de gas usando la llave inglesa y" +

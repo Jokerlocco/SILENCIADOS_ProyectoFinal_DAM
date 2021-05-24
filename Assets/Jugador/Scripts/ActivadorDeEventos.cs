@@ -249,7 +249,7 @@ public class ActivadorDeEventos : MonoBehaviour
 
         FindObjectOfType<Mensajero>().Mensaje =
             "Debo de estar en uno de los pabellones del asilo... " +
-            "¿Pero como he acabado aquí?";
+            "¿Pero cómo he acabado aquí?";
         FindObjectOfType<Mensajero>().MostrarInterfazMensaje();
 
         yield return new WaitForSecondsRealtime(2f);

@@ -75,7 +75,7 @@ public class InspeccionDeElementos : MonoBehaviour
                 "Es cómo si se tuviera que insertar algo.";
             mostrarMensaje = true;
         }
-        
+
         if (gameObject.CompareTag("Proyector") && 
             !FindObjectOfType<InventarioJugador>().BombillaEnElInventario)
         {

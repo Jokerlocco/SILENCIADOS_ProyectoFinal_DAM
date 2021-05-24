@@ -31,6 +31,7 @@ public class TrucosDelJuego : MonoBehaviour
 
     // Estado del juego
     [SerializeField] bool motorHidraulicoArreglado = false;
+    [SerializeField] bool escapeDeGasArreglado = false;
     [SerializeField] bool cajaDeSeguridadIdentificacionbierta = false;
     [SerializeField] bool estatuaMovida = false;
 
@@ -49,6 +50,13 @@ public class TrucosDelJuego : MonoBehaviour
         else
             FindObjectOfType<EstadoDelJuego>().
                 MotorHidraulicoArreglado = false;
+
+        if (escapeDeGasArreglado)
+            FindObjectOfType<EstadoDelJuego>().
+                EscapeDeGasArreglado = true;
+        else
+            FindObjectOfType<EstadoDelJuego>().
+                EscapeDeGasArreglado = false;
 
         if (cajaDeSeguridadIdentificacionbierta)
             FindObjectOfType<EstadoDelJuego>().
