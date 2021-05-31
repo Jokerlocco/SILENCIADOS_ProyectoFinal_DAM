@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -62,35 +61,46 @@ public class CajaDeSeguridad : MonoBehaviour
     {
         if (botonPulsado == "btnOk")
         {
+            bool codigoCorrecto = false;
+
             if (gameObject.CompareTag("CajaDeSeguridadSecretaria") && 
                 textoCodigoPanel.text == codigoCajaDeSeguridadSecretaria)
             {
                 AbrirCajaDeSeguridadPorCodigoCorrecto();
                 FindObjectOfType<EstadoDelJuego>().
                     CajaDeSeguridadSecretariaAbierta = true;
+                codigoCorrecto = true;
             }
-            else if (gameObject.CompareTag("CajaDeSeguridadSObservacion") &&
+            
+            if (gameObject.CompareTag("CajaDeSeguridadSObservacion") &&
                 textoCodigoPanel.text == codigoCajaDeSeguridadSObservacion)
             {
                 AbrirCajaDeSeguridadPorCodigoCorrecto();
                 FindObjectOfType<EstadoDelJuego>().
                     CajaDeSeguridadSObservacionAbierta = true;
+                codigoCorrecto = true;
             }
-            else if (gameObject.CompareTag("CajaDeSeguridadDMJ") &&
+            
+            if (gameObject.CompareTag("CajaDeSeguridadDMJ") &&
                 textoCodigoPanel.text == codigoCajaDeSeguridadDMJ)
             {
                 AbrirCajaDeSeguridadPorCodigoCorrecto();
                 FindObjectOfType<EstadoDelJuego>().
                     CajaDeSeguridadDMJAbierta = true;
+                codigoCorrecto = true;
             }
-            else if (gameObject.CompareTag("CajaDeSeguridadSMaquinas") &&
+            
+            if (gameObject.CompareTag("CajaDeSeguridadSMaquinas") &&
                 textoCodigoPanel.text == codigoCajaDeSeguridadSMaquinas)
             {
                 AbrirCajaDeSeguridadPorCodigoCorrecto();
                 FindObjectOfType<EstadoDelJuego>().
                     CajaDeSeguridadSMaquinasAbierta = true;
+                codigoCorrecto = true;
             }
-            else
+
+
+            if (!codigoCorrecto)
             {
                 ReproducirSonidoCodigoCajaDeSeguridadIncorrecto();
                 EstablecerAnimacionCodigoIncorrecto();
